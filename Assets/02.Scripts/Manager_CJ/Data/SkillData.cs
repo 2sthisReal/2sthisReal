@@ -1,20 +1,19 @@
 using UnityEngine;
 using System;
+using TMPro;
 
-[Serializable]
+[System.Serializable]
 public class SkillData
 {
     public string skillID;
     public string skillName;
+    public string description;
     public float damage;
     public float cooldown;
-    public GameObject skillPrefabPath;
-    public Sprite iconPath;
+    public string skillPrefabPath;
+    public string skillIconPath;
+    public int bonusProjectileCount;
     public SkillType skillType;
-}
-
-public enum SkillType
-{
-    Active,
-    Passive
+    public ElementType element;
+    public float elementBonusDamage;
 }

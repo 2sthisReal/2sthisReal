@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 
     public List<SkillData> SelectedSkills {  get; private set; } = new List<SkillData>();
     public Dictionary<EquipmentType, EquipmentData> EquippedItems { get; private set; } = new();
+    public List<PetData> SelectedPets { get; private set; } = new();
 
     private int remainingEnemies;
 
@@ -81,6 +82,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //public void ApplySelectedSkillsToPlayer(PlayerController player, List<PetController> pets)
+    //{
+    //    foreach(var skill in SelectedSkills)
+    //    {
+    //        if(skill.bonusProjectileCount > 0)
+    //        {
+    //            player.AddBonusProjectiles(skill.bonusProjectileCount);
+    //        }
+
+    //        if(skill.element != ElementType.None && skill.elementBonusDamage > 0)
+    //        {
+    //            player.SetElementalDamage(skill.element, skill.elementBonusDamage);
+    //        }
+
+    //        if(skill.skillID == "wingman")
+    //        {
+    //            foreach(var pet in pets)
+    //            {
+    //                pet.EnableProjectileBlocking();
+    //            }
+    //        }
+    //    }
+    //    Debug.Log("[GameManager] Selected skill effects applied.");
+    //}
+
     public void ClearSelectedSkills()
     {
         SelectedSkills.Clear();
@@ -96,6 +122,14 @@ public class GameManager : MonoBehaviour
     public EquipmentData GetEquipment(EquipmentType type)
     {
         return EquippedItems.TryGetValue(type, out var equipment) ? equipment : null;
+    }
+
+    public void AddSelectedPet(PetData pet)
+    {
+        if(SelectedPets.Count < 2)
+        {
+            SelectedPets.Add(pet);
+        }
     }
 
     public void ResetPlayerSession()

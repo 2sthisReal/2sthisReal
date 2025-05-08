@@ -1,0 +1,10 @@
+[
+    {
+        "equipmentID": "sword_basic",
+        "equipmentName": "Basic Sword",
+        "equipmentType": 0,
+        "bonusAttack": 10,
+        "bonusHealth": 0,
+        "iconPath": "Sprites/Icons/Sword"
+    }
+]

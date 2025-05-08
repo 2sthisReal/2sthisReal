@@ -1,0 +1,20 @@
+[
+    {
+        "skillID": "wingman",
+        "skillName": "Wingman",
+        "description": "Pets can block projectiles.",
+        "skillType": 1,
+        "skillIconPath": "Sprites/Icons/WingmanIcon"
+    },
+    {
+        "skillID": "multishot",
+        "skillName": "Multishot",
+        "description": "Fires 2 extra projectiles per attack.",
+        "damage": 0,
+        "cooldown": 0,
+        "skillPrefabPath": "",
+        "skillIconPath": "Sprites/Icons/MultishotIcon",
+        "skillType": 1,
+        "bonusProjectileCount": 2
+    }
+]
