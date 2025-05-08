@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public GameState CurrentState { get; private set; }
     public event Action<GameState> OnGameStateChanged;
 
-    public SkillData SelectedSkill {  get; private set; }
+    public List<SkillData> SelectedSkills {  get; private set; } = new List<SkillData>();
     public EquipmentData SelectedEquipment { get; private set; }
 
     private int remainingEnemies;
@@ -67,10 +67,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void SetSelectedSkill(SkillData skill)
+    public void AddSelectedSkill(SkillData skill)
     {
-        SelectedSkill = skill;
-        Debug.Log($"[GameManager] Skill selected: {skill.skillName}");
+        if (!SelectedSkills.Contains(skill))
+        {
+            SelectedSkills.Add(skill);
+            Debug.Log($"[GameManager] Skill selected: {skill.skillName}");
+        }
+    }
+
+    public void ClearSelectedSkills()
+    {
+        SelectedSkills.Clear();
+        Debug.Log("[GameManager] All selected skills cleared.");
     }
 
     public void SetSelectedEquipment(EquipmentData equipment)
