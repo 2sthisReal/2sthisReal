@@ -1,56 +1,67 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 
-public class StageManager : MonoBehaviour
+namespace Jang
 {
-    [SerializeField] StagePreset currentPreset;
-
-    [SerializeField] GameObject monsterPrefab;
-    [SerializeField] GameObject obstaclePrefab;
-    [SerializeField] GameObject itemPrefab;
-
-
-    [ContextMenu("TestInitStage")]
-    public void TestInitStage()
+    public class StageManager : MonoBehaviour
     {
-        InitStage(currentPreset);
-    }
+        [SerializeField] StagePreset currentPreset; // 현재 스테이지 프리셋
+        private StagePresetManager stagePresetManager; // 프리셋 랜덤으로 가져오기 위한 Manager
 
-    public void InitStage(StagePreset preset)
-    {
-        if(preset.monsterPoints != null)
+        [Header("Object Prefabs")]
+        [SerializeField] GameObject monsterPrefab;
+        [SerializeField] GameObject obstaclePrefab;
+        [SerializeField] GameObject itemPrefab;
+
+
+        public void Init()
         {
-            foreach(var point in preset.monsterPoints)
-            {
-                // 몬스터 소환
-                GameObject obj = Instantiate(monsterPrefab);
-                obj.transform.position = point;
-                obj.transform.rotation = Quaternion.identity;
-            }
+            if (stagePresetManager == null)
+                stagePresetManager = GetComponentInChildren<StagePresetManager>();
+
+            currentPreset = stagePresetManager.GetRandomPreset();
+            InitStage(currentPreset);
         }
 
-        if(preset.obstaclePoints != null)
+        [ContextMenu("TestInitStage")]
+        public void TestInitStage()
         {
-            foreach(var point in preset.obstaclePoints)
-            {
-                // 장애물 소환
-                GameObject obj = Instantiate(obstaclePrefab);
-                obj.transform.position = point;
-                obj.transform.rotation = Quaternion.identity;
-            }
+            InitStage(currentPreset);
         }
 
-        if(preset.itemPoints != null)
+        // 스테이지 설정
+        void InitStage(StagePreset preset)
         {
-            foreach(var point in preset.itemPoints)
+            if (preset.monsterPoints != null)
             {
-                // 아이템 소환
-                GameObject obj = Instantiate(itemPrefab);
-                obj.transform.position = point;
-                obj.transform.rotation = Quaternion.identity;
+                foreach (var point in preset.monsterPoints)
+                {
+                    // 몬스터 소환
+                    GameObject obj = Instantiate(monsterPrefab);
+                    obj.transform.position = point;
+                    obj.transform.rotation = Quaternion.identity;
+                }
+            }
+
+            if (preset.obstaclePoints != null)
+            {
+                foreach (var point in preset.obstaclePoints)
+                {
+                    // 장애물 소환
+                    GameObject obj = Instantiate(obstaclePrefab);
+                    obj.transform.position = point;
+                    obj.transform.rotation = Quaternion.identity;
+                }
+            }
+
+            if (preset.itemPoints != null)
+            {
+                foreach (var point in preset.itemPoints)
+                {
+                    // 아이템 소환
+                    GameObject obj = Instantiate(itemPrefab);
+                    obj.transform.position = point;
+                    obj.transform.rotation = Quaternion.identity;
+                }
             }
         }
     }
