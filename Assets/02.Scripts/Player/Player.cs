@@ -9,8 +9,6 @@ public class Player : MonoBehaviour
     Animator weaponAnimator;
 
     public bool inRanged;
-    int enemyCount = 0; //적의 수를 세기 위한 변수
-
     //추상클래스에서 스탯 따옴
     [SerializeField]float tempspeed = 3;   //플레이어의 속도
 
@@ -34,37 +32,29 @@ public class Player : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.CompareTag("enemy"))
+        if (collision.CompareTag("Enemy"))
         {
-            enemyCount++;
-            if(enemyCount >= 1) //적이 1명 이상일 때
-            {
-                inRanged = true;
-            }
-            else
-            {
-                inRanged = false;
-            }
+            inRanged = true;
             weaponAnimator.SetBool("IsRanged", inRanged);
         }
+        else
+            inRanged = false;
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+
+    
+
+    void OnDrawGizmos()
     {
-        if (collision.CompareTag("enemy"))
+        Gizmos.color = Color.red;
+
+        CircleCollider2D circle = GetComponent<CircleCollider2D>();
+        if (circle != null)
         {
-            enemyCount--;
-            if(enemyCount <= 0) //적이 0명 이하일 때
-            {
-                inRanged = false;
-            }
-            else
-            {
-                inRanged = true;
-            }
-            weaponAnimator.SetBool("IsRanged", inRanged);
+            Vector3 position = transform.position + (Vector3)circle.offset;
+            Gizmos.DrawWireSphere(position, circle.radius);
         }
     }
 }
