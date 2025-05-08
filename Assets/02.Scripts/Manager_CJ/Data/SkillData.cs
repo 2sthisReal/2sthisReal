@@ -1,13 +1,15 @@
 using UnityEngine;
+using System;
 
-[CreateAssetMenu(fileName = "NewSkill", menuName = "Game Data/Skill")]
-public class SkillData : ScriptableObject
+[Serializable]
+public class SkillData
 {
+    public string skillID;
     public string skillName;
     public float damage;
     public float cooldown;
-    public GameObject skillPrefab;
-    public Sprite icon;
+    public GameObject skillPrefabPath;
+    public Sprite iconPath;
     public SkillType skillType;
 }
 

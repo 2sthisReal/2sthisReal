@@ -1,12 +1,14 @@
 using UnityEngine;
+using System;
 
-[CreateAssetMenu(fileName = "NewItem", menuName = "Game Data/Item")]
-public class EquipmentData : ScriptableObject
+[Serializable]
+public class EquipmentData
 {
+    public string equipmentID;
     public string equipmentName;
     public float bonusAttack;
     public float bonusHealth;
-    public Sprite icon;
+    public Sprite iconPath;
     public EquipmentType equipmentType;
 }
 

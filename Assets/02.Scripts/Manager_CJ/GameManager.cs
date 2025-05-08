@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public event Action<GameState> OnGameStateChanged;
 
     public List<SkillData> SelectedSkills {  get; private set; } = new List<SkillData>();
-    public EquipmentData SelectedEquipment { get; private set; }
+    public Dictionary<EquipmentType, EquipmentData> EquippedItems { get; private set; } = new();
 
     private int remainingEnemies;
 
@@ -43,6 +43,11 @@ public class GameManager : MonoBehaviour
     {
         CurrentState = newState;
         OnGameStateChanged?.Invoke(newState);
+
+        if(newState == GameState.GameOver || newState == GameState.Victory)
+        {
+            ResetPlayerSession();
+        }
     }
 
     // 스테이지 시작 시 적 수 등록해주면 됩니다. (Stage쪽)
@@ -82,9 +87,20 @@ public class GameManager : MonoBehaviour
         Debug.Log("[GameManager] All selected skills cleared.");
     }
 
-    public void SetSelectedEquipment(EquipmentData equipment)
+    public void SetEquipment(EquipmentType type, EquipmentData equipment)
     {
-        SelectedEquipment = equipment;
-        Debug.Log($"[GameManager] Equipment selected: {equipment.equipmentName}");
+        EquippedItems[type] = equipment;
+        Debug.Log($"[GameManager] Equipped {type} : {equipment.equipmentName}");
+    }
+
+    public EquipmentData GetEquipment(EquipmentType type)
+    {
+        return EquippedItems.TryGetValue(type, out var equipment) ? equipment : null;
+    }
+
+    public void ResetPlayerSession()
+    {
+        ClearSelectedSkills();
+        Debug.Log("[GameManager] Player session data has been reset");
     }
 }
