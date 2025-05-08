@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
     public GameState CurrentState { get; private set; }
     public event Action<GameState> OnGameStateChanged;
 
+    public SkillData SelectedSkill {  get; private set; }
+    public EquipmentData SelectedEquipment { get; private set; }
+
     private int remainingEnemies;
 
     private void Awake()
@@ -62,5 +65,17 @@ public class GameManager : MonoBehaviour
             Debug.Log("[GameManager] All enemies defeated. Stage Clear.");
             ChangeState(GameState.StageClear);
         }
+    }
+
+    public void SetSelectedSkill(SkillData skill)
+    {
+        SelectedSkill = skill;
+        Debug.Log($"[GameManager] Skill selected: {skill.skillName}");
+    }
+
+    public void SetSelectedEquipment(EquipmentData equipment)
+    {
+        SelectedEquipment = equipment;
+        Debug.Log($"[GameManager] Equipment selected: {equipment.equipmentName}");
     }
 }
