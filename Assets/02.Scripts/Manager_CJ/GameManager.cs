@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
         SetState(newState);
     }
 
-    private void SetState(GameState newState)
+    public void SetState(GameState newState)
     {
         CurrentState = newState;
         OnGameStateChanged?.Invoke(newState);
