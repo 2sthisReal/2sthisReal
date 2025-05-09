@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class Player : MonoBehaviour
 {
@@ -13,8 +11,8 @@ public class Player : MonoBehaviour
 
     public bool inRanged;
 
-    //Ãß»óÅ¬·¡½º¿¡¼­ ½ºÅÈ µû¿È
-    [SerializeField]float tempspeed = 3;   //ÇÃ·¹ÀÌ¾îÀÇ ¼Óµµ
+    //ï¿½ß»ï¿½Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    [SerializeField]float tempspeed = 3;   //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½Óµï¿½
     List<Transform> monsterCounter = new List<Transform>();
     
 
@@ -38,9 +36,9 @@ public class Player : MonoBehaviour
         if(closest == null)
             return;
         if (closest.position.x - playerTransform.position.x > 0)
-            spriteRenderer.flipX = false;    //ÇÃ·¹ÀÌ¾î°¡ ¿À¸¥ÂÊÀ» ¹Ù¶óº¸°Ô ÇÔ
+            spriteRenderer.flipX = false;    //ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¶óº¸°ï¿½ ï¿½ï¿½
         else if (closest.position.x - playerTransform.position.x < 0)
-            spriteRenderer.flipX = true;   //ÇÃ·¹ÀÌ¾î°¡ ¿ÞÂÊÀ» ¹Ù¶óº¸°Ô ÇÔ
+            spriteRenderer.flipX = true;   //ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¶óº¸°ï¿½ ï¿½ï¿½
 
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -52,7 +50,7 @@ public class Player : MonoBehaviour
     {
         Vector2 targetPos = collision.transform.position;
 
-        //attack ¹æÇâº¤ÅÍ ¼³Á¤
+        //attack ï¿½ï¿½ï¿½âº¤ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
     private void OnTriggerExit2D(Collider2D collision)

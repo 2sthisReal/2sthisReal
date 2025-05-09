@@ -3204,7 +3204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5dce8649b393f54c8aea14ccd911090, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPreset: {fileID: 11400000, guid: 9a44907f701a4d241918e46edea408c1, type: 2}
+  currentPreset: {fileID: 11400000, guid: 2405ca23f8b20cc488e6c957e0acd55a, type: 2}
   monsterPrefab: {fileID: 1561492691561167235, guid: 7645e384de152f24d8ef44316fb7c035, type: 3}
   obstaclePrefab: {fileID: 243393950758671493, guid: 9c939e066b4bf0c4a9e26ec886993485, type: 3}
   itemPrefab: {fileID: 0}

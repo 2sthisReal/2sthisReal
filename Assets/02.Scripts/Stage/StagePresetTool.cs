@@ -23,16 +23,27 @@ namespace Jang
             obstaclePoints = obstaclePoint.GetComponentsInChildren<Transform>().Where(t => t != obstaclePoint).ToList();
             itemPoints = itemPoint.GetComponentsInChildren<Transform>().Where(t => t != itemPoint).ToList();
 
+            // 몬스터 위치 표시
             Gizmos.color = Color.red;
-            foreach (var point in monsterPoints)
-                if (point != null) Gizmos.DrawCube(point.position, Vector3.one);
+            DrawPoints(monsterPoints);
 
+            // 장애물 위치 표시
             Gizmos.color = Color.blue;
-            foreach (var point in obstaclePoints)
-                if (point != null) Gizmos.DrawCube(point.position, Vector3.one);
+            DrawPoints(obstaclePoints);
+
+            // 아이템 위치 표시
             Gizmos.color = Color.green;
-            foreach (var point in itemPoints)
-                if (point != null) Gizmos.DrawCube(point.position, Vector3.one);
+            DrawPoints(itemPoints);
+        }
+
+        void DrawPoints(List<Transform> points)
+        {
+            if (points == null) return;
+
+            foreach(var point in points)
+            {
+                Gizmos.DrawCube(point.position, Vector3.one);    
+            }
         }
     }
 }
