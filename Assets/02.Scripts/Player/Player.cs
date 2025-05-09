@@ -1,10 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : BaseCharacter
 {
-    Rigidbody2D rb;
-    Animator spriteAnimator;
     Animator weaponAnimator;
     SpriteRenderer spriteRenderer;
     Transform playerTransform;
@@ -22,10 +20,10 @@ public class Player : MonoBehaviour
     List<Transform> monsterCounter = new List<Transform>();
     
 
-    private void Awake()
+    protected override void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        spriteAnimator = transform.Find("Sprite").GetComponent<Animator>();
+        animator = transform.Find("Sprite").GetComponent<Animator>();
         spriteRenderer = transform.Find("Sprite").GetComponent<SpriteRenderer>();
         playerTransform = GetComponent<Transform>();
         weapon = GetComponentInChildren<Weapon>();
@@ -99,7 +97,7 @@ public class Player : MonoBehaviour
         float moveVertical = Input.GetAxisRaw("Vertical");
         Vector2 movement = (new Vector2(moveHorizontal, moveVertical).normalized) * tempspeed;
         rb.velocity = movement;
-        spriteAnimator.SetBool("IsMoving", movement.magnitude > 0.5f);
+        animator.SetBool("IsMoving", movement.magnitude > 0.5f);
     }
 
     Transform TargetSet()
@@ -119,7 +117,6 @@ public class Player : MonoBehaviour
 
         return closest;
     }
-
     public void EquipWeapon(int weaponIndex)
     {
         if (currentWeapon != null)
@@ -131,5 +128,10 @@ public class Player : MonoBehaviour
         currentWeapon = Instantiate(weaponPrefabs[weaponIndex], weapons.position, Quaternion.identity);
         currentWeapon.transform.SetParent(weapons);
         weapon = currentWeapon;
+    }
+
+    public override void Attack()
+    {
+        
     }
 }
