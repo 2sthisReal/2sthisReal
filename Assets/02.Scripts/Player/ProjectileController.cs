@@ -8,11 +8,11 @@ public class ProjectileController : MonoBehaviour
     Transform pivot;
     Vector2 direction;
     float shotSpeed;
-    Rigidbody2D rigidbody;
+    Rigidbody2D rb;
     private void Awake()
     {
         pivot = GetComponent<Transform>();
-        rigidbody = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
     }
     void Start()
     {
@@ -34,6 +34,19 @@ public class ProjectileController : MonoBehaviour
             pivot.localRotation = Quaternion.Euler(180, 0, 0); 
         else
             pivot.localRotation = Quaternion.Euler(0, 0, 0); 
-        rigidbody.velocity = direction * shotSpeed;
+        rb.velocity = direction * shotSpeed;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        //¸ó½ºÅÍ¿Í ºÎµúÈú¶§, º®°ú ºÎµúÈú‹š
+        if (collision.collider.CompareTag("Enemy"))
+        {
+            //Dealt Damage
+
+
+            Destroy(this.gameObject);
+        }
+
     }
 }

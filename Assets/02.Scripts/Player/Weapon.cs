@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    Transform weapontransform;
-    Animator animator;
-    public GameObject arrowPrefabs; 
+    private Coroutine attackCoroutine;
 
-    private Vector2 directionVector;
+    protected Transform weapontransform;
+    protected Animator animator;
+
+    protected Vector2 directionVector;
     
 
     [Header("¹«±â½ºÅÝ")]
@@ -43,7 +44,7 @@ public class Weapon : MonoBehaviour
     public virtual void AttackMotion()
     {
         animator.SetBool("IsShoot", true);
-        Instantiate(arrowPrefabs, weapontransform);
+        
     }
 
     public void WeaponReady()
@@ -54,6 +55,28 @@ public class Weapon : MonoBehaviour
     public void WeaponWait()
     {
         animator.SetBool("IsRanged", false);
+    }
+
+    public void StartAttack()
+    {
+        if (attackCoroutine == null)
+            attackCoroutine = StartCoroutine(AttackRoutine(rate));
+    }
+
+    public void StopAttack()
+    {
+        if (attackCoroutine != null)
+        {
+            StopCoroutine(attackCoroutine);
+            attackCoroutine = null;
+        }
+    }
+
+
+    IEnumerator AttackRoutine(float attackRate)
+    {
+        AttackMotion();
+        yield return new WaitForSeconds(1f / attackRate);
     }
 
 }
