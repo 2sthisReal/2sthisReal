@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    Transform weapontransform;
-    Animator animator;
-    public GameObject arrowPrefabs; 
 
-    private Vector2 directionVector;
-    
+    protected Transform weapontransform;
+    protected Animator animator;
+
+    protected Vector2 directionVector;
+
 
     [Header("¹«±â½ºÅÝ")]
     public float attack;
@@ -17,6 +17,7 @@ public class Weapon : MonoBehaviour
     public float shotSpeed;
     public int numberOfShot;
 
+    protected float attackCooldown = 0f;
     private void Awake()
     {
         weapontransform = GetComponent<Transform>();
@@ -38,22 +39,26 @@ public class Weapon : MonoBehaviour
         float rotZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         weapontransform.localRotation = Quaternion.Euler(0f, 0f, rotZ);
         if (rotZ < 0f) rotZ += 360f;
-        
+
     }
     public virtual void AttackMotion()
     {
         animator.SetBool("IsShoot", true);
-        Instantiate(arrowPrefabs, weapontransform);
+
     }
 
     public void WeaponReady()
     {
-        animator.SetBool("IsRanged" , true);
+        animator.SetBool("IsRanged", true);
     }
 
     public void WeaponWait()
     {
         animator.SetBool("IsRanged", false);
     }
+    public virtual void AttackTarget(Vector2 vector)
+    {
 
+    }
 }
+

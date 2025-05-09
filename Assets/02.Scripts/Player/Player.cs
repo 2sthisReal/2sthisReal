@@ -3,26 +3,39 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    Rigidbody2D rigidbody;
+    Rigidbody2D rb;
     Animator spriteAnimator;
     Animator weaponAnimator;
     SpriteRenderer spriteRenderer;
     Transform playerTransform;
+    Weapon weapon;
+
+
+    public Weapon[] weaponPrefabs;
+    private Weapon currentWeapon;
+    private Transform weapons;
 
     public bool inRanged;
+    Vector2 directionVector;
 
-    //ï¿½ß»ï¿½Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-    [SerializeField]float tempspeed = 3;   //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½Óµï¿½
+    [SerializeField]float tempspeed = 3;   
     List<Transform> monsterCounter = new List<Transform>();
     
 
     private void Awake()
     {
-        rigidbody = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         spriteAnimator = transform.Find("Sprite").GetComponent<Animator>();
-        weaponAnimator = transform.Find("Weapon_bow").GetComponent<Animator>();
         spriteRenderer = transform.Find("Sprite").GetComponent<SpriteRenderer>();
         playerTransform = GetComponent<Transform>();
+        weapon = GetComponentInChildren<Weapon>();
+    }
+    private void Start()
+    {
+        weapons = transform.Find("Weapons");
+        EquipWeapon(0);
+        weaponAnimator = transform.Find("Weapons").GetComponent<Animator>();
+
     }
     private void FixedUpdate()
     {
@@ -33,24 +46,33 @@ public class Player : MonoBehaviour
     {
         monsterCounter.RemoveAll(monster => monster == null);
         Transform closest = TargetSet();
-        if(closest == null)
+        if (closest == null)
+        {
+            weapon.WeaponWait();
             return;
+        }
+        weapon.WeaponReady();
+        directionVector = (closest.position - playerTransform.position).normalized;
+        weapon.GetVector(directionVector);
+        
         if (closest.position.x - playerTransform.position.x > 0)
-            spriteRenderer.flipX = false;    //ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¶óº¸°ï¿½ ï¿½ï¿½
+            spriteRenderer.flipX = false;  
         else if (closest.position.x - playerTransform.position.x < 0)
-            spriteRenderer.flipX = true;   //ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¶óº¸°ï¿½ ï¿½ï¿½
+            spriteRenderer.flipX = true;   
 
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        monsterCounter.Add(collision.transform);
+        if (collision.CompareTag("Enemy"))
+            monsterCounter.Add(collision.transform);
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        Vector2 targetPos = collision.transform.position;
-
-        //attack ï¿½ï¿½ï¿½âº¤ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        if (collision.CompareTag("Enemy"))
+        {
+            weapon.AttackTarget(directionVector);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -76,7 +98,7 @@ public class Player : MonoBehaviour
         float moveHorizontal = Input.GetAxisRaw("Horizontal");
         float moveVertical = Input.GetAxisRaw("Vertical");
         Vector2 movement = (new Vector2(moveHorizontal, moveVertical).normalized) * tempspeed;
-        rigidbody.velocity = movement;
+        rb.velocity = movement;
         spriteAnimator.SetBool("IsMoving", movement.magnitude > 0.5f);
     }
 
@@ -96,5 +118,18 @@ public class Player : MonoBehaviour
         }
 
         return closest;
+    }
+
+    public void EquipWeapon(int weaponIndex)
+    {
+        if (currentWeapon != null)
+        {
+            Destroy(currentWeapon.gameObject);  // ÇöÀç ÀåÂøµÈ ¹«±â Á¦°Å
+        }
+
+        // »õ·Î¿î ¹«±â ÀÎ½ºÅÏ½º¸¦ ÀåÂø
+        currentWeapon = Instantiate(weaponPrefabs[weaponIndex], weapons.position, Quaternion.identity);
+        currentWeapon.transform.SetParent(weapons);
+        weapon = currentWeapon;
     }
 }

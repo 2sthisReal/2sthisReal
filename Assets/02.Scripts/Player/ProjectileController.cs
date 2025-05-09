@@ -8,32 +8,33 @@ public class ProjectileController : MonoBehaviour
     Transform pivot;
     Vector2 direction;
     float shotSpeed;
-    Rigidbody2D rigidbody;
+    Rigidbody2D rb;
     private void Awake()
     {
-        pivot = GetComponent<Transform>();
-        rigidbody = GetComponent<Rigidbody2D>();
+        pivot = transform.GetChild(0);
+        rb = GetComponent<Rigidbody2D>();
     }
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void Init(Vector2 direction, float shotspeed)
     {
         this.direction = direction;
         this.shotSpeed = shotspeed;
-        pivot.right = this.direction;
-        if (direction.x < 0)
-            pivot.localRotation = Quaternion.Euler(180, 0, 0); 
-        else
-            pivot.localRotation = Quaternion.Euler(0, 0, 0); 
-        rigidbody.velocity = direction * shotSpeed;
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
+
+
+        rb.velocity = this.direction * shotSpeed;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("Ãæµ¹");
+        if (collision.CompareTag("Enemy"))
+        {
+            //Dealt Damage
+
+
+            Destroy(this.gameObject);
+        }
     }
 }
