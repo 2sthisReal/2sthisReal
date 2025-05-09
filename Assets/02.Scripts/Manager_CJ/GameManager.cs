@@ -37,12 +37,7 @@ public class GameManager : MonoBehaviour
     public void ChangeState(GameState newState)
     {
         if (CurrentState == newState) return;
-
-        if(newState == GameState.MainMenu || newState == GameState.InGame)
-        {
-            SceneLoader.Instance.LoadSceneForState(newState);
-            return;
-        }
+        SceneLoader.Instance.LoadSceneForState(newState);
 
         SetState(newState);
     }
