@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -21,6 +22,11 @@ namespace Jang
             if (GUILayout.Button("Overwrite StagePreset"))
             {
                 OverwritePreset(tool);
+            }
+
+            if(GUILayout.Button("Preview Preset"))
+            {
+                PreviewPreset(tool);
             }
         }
 
@@ -80,6 +86,7 @@ namespace Jang
             Debug.Log($"StagePreset(ID: {tool.stageID})is Overwrited");
         }
 
+        // 데이터 프리셋에 적용
         private void SaveDataToPreset(StagePresetTool tool, StagePreset preset)
         {
             // 프리셋 ID 설정
@@ -95,6 +102,21 @@ namespace Jang
 
             foreach (var point in tool.itemPoints)
                 if (point != null) preset.itemPoints.Add(point.position);
+        }
+
+        // 프리셋 미리보기
+        private void PreviewPreset(StagePresetTool tool)
+        {
+            StagePreset[] presets = Resources.LoadAll<StagePreset>("StagePresets");
+            StagePreset preset = presets.SingleOrDefault(p => p.stageID == tool.stageID);
+
+            if(preset == null)
+            {
+                Debug.LogWarning($"Doesn't Exist Preset (ID: {tool.stageID})");
+                return;
+            }
+
+            tool.stageManager.PreviewStage(preset);
         }
     }
 }

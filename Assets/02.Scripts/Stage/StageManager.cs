@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace Jang
@@ -23,11 +24,9 @@ namespace Jang
             InitStage(currentPreset);
         }
 
-        
-        [ContextMenu("TestInitStage")]
-        public void TestInitStage()
+        public void PreviewStage(StagePreset preset)
         {
-            InitStage(currentPreset);
+            InitStage(preset);
         }
         
         // 스테이지 설정
