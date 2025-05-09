@@ -28,7 +28,6 @@ public class ProjectileController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Ãæµ¹");
         if (collision.CompareTag("Enemy"))
         {
             //Dealt Damage
