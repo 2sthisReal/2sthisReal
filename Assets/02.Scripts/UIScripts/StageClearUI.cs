@@ -7,6 +7,9 @@ namespace SWScene
 {
     public class StageClearUI : BaseUI
     {
+        [SerializeField] private Button nextButton;
+        [SerializeField] private Button mainMenuButton;
+
         protected override GameState GetUIState()
         {
             return GameState.StageClear;
@@ -15,6 +18,16 @@ namespace SWScene
         public override void Init(UIManager uiManager)
         {
             base.Init(uiManager);
+            nextButton.onClick.AddListener(
+                () =>
+                {
+                    GameManager.Instance.ChangeState(GameState.InGame);
+                });
+            mainMenuButton.onClick.AddListener(
+                () =>
+                {
+                    GameManager.Instance.ChangeState(GameState.MainMenu);
+                });
         }
     }
 }

@@ -5,10 +5,25 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/01.Scenes/MainMenuScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/01.Scenes/Develop/SWScene.unity
-    guid: f435149a00107ae409bf0a30c475a188
+    path: Assets/01.Scenes/GameOverScene.unity
+    guid: ee5f58d02d2f79a4b86587533474be54
+  - enabled: 1
+    path: Assets/01.Scenes/InGameScene.unity
+    guid: 44ccd7411134ad042836809a72d00ad6
+  - enabled: 1
+    path: Assets/01.Scenes/PauseScene.unity
+    guid: 4694294fc39e2154a8336a496fe90910
+  - enabled: 1
+    path: Assets/01.Scenes/PreparingScene.unity
+    guid: 4311d34f3bf839e479ee5b957574a30a
+  - enabled: 1
+    path: Assets/01.Scenes/StageClearScene.unity
+    guid: 03ee780865a8a654bbc5e4e8e7507801
+  - enabled: 1
+    path: Assets/01.Scenes/VictoryScene.unity
+    guid: 15a4db5a4a43e944aa33f417a82fbebd
   m_configObjects: {}

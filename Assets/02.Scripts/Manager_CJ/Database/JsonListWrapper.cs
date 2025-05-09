@@ -14,4 +14,9 @@ public static class JsonListWrapper<T>
     {
         return JsonUtility.FromJson<Wrapper>($"{{\"items\":{json}}}")?.items ?? new List<T>();
     }
+
+    public static string ToJson(List<T> list)
+    {
+        return JsonUtility.ToJson(new Wrapper { items = list }, true);
+    }
 }

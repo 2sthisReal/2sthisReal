@@ -16,7 +16,7 @@ namespace Jang
 
         void Awake()
         {
-            GameManager.Instance.stageManager = this;
+            //GameManager.Instance.stageManager = this;
         }
 
         // 스테이지 설정 세팅 및 스테이지 생성

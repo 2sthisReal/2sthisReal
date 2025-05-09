@@ -32,16 +32,15 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadSceneForState(GameState state)
     {
-        if (!sceneByState.ContainsKey(state))
+        if (!sceneByState.TryGetValue(state, out string sceneName))
         {
             Debug.LogWarning($"No scene mapped for state: {state}");
             return;
         }
 
-        string sceneName = sceneByState[state];
         StartCoroutine(LoadSceneAsync(sceneName, () =>
         {
-            GameManager.Instance.ChangeState(state);
+            GameManager.Instance.SetState(state);
         }));
     }
 

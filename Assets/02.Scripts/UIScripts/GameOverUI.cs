@@ -17,24 +17,21 @@ namespace SWScene
         public override void Init(UIManager uiManager)
         {
             base.Init(uiManager);
-            restartButton.onClick.AddListener(OnClickRestartButton);
-            homeButton.onClick.AddListener(OnClickHomeButton);
-            exitButton.onClick.AddListener(OnClickExitButton);
-        }
-
-        public void OnClickRestartButton()
-        {
-            GameManager.Instance.ChangeState(GameState.InGame);
-        }
-
-        public void OnClickHomeButton()
-        {
-            GameManager.Instance.ChangeState(GameState.MainMenu);
-        }
-
-        public void OnClickExitButton()
-        {
-            Application.Quit();
+            restartButton.onClick.AddListener(
+                () =>
+                {
+                    GameManager.Instance.ChangeState(GameState.InGame);
+                });
+            homeButton.onClick.AddListener(
+                () =>
+                {
+                    GameManager.Instance.ChangeState(GameState.MainMenu);
+                });
+            exitButton.onClick.AddListener(
+                () =>
+                {
+                    Application.Quit();
+                });
         }
     }
 }

@@ -5,14 +5,23 @@ using UnityEngine;
 public class Weapon_Bow : Weapon
 {
 
-    GameObject arrowPrefabs;
-    // Start is called before the first frame update
-    public override void AttackMotion()
-    {
-        base.AttackMotion();
-        GameObject arrow = Instantiate(arrowPrefabs, weapontransform.position , Quaternion.Euler(0,0,0) ,weapontransform.parent);
-        arrow.GetComponent<ProjectileController>().Init(directionVector,shotSpeed);
-    }
+    public GameObject arrowPrefabs;
 
-    
+
+    private void Update()
+    {
+        attackCooldown -= Time.deltaTime;
+    }
+    public override void AttackTarget(Vector2 vector)
+    {
+        if (attackCooldown <= 0f)
+        {
+            directionVector = vector;
+
+            attackCooldown = 1f / rate;
+
+            GameObject arrow = Instantiate(arrowPrefabs, weapontransform.position, Quaternion.identity);
+            arrow.GetComponent<ProjectileController>().Init(directionVector, shotSpeed);
+        }
+    }
 }

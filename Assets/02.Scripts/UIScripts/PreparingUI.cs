@@ -7,6 +7,8 @@ namespace SWScene
 {
     public class PreparingUI : BaseUI
     {
+        [SerializeField] private Button startButton;
+        [SerializeField] private Button mainMenuButton;
         protected override GameState GetUIState()
         {
             return GameState.Preparing;
@@ -15,6 +17,16 @@ namespace SWScene
         public override void Init(UIManager uiManager)
         {
             base.Init(uiManager);
+            startButton.onClick.AddListener(
+                () =>
+                {
+                    GameManager.Instance.ChangeState(GameState.InGame);
+                });
+            mainMenuButton.onClick.AddListener(
+                () =>
+                {
+                    GameManager.Instance.ChangeState(GameState.MainMenu);
+                });
         }
     }
 }

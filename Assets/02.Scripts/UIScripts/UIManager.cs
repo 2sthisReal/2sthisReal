@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace SWScene
 {
@@ -9,63 +10,63 @@ namespace SWScene
     public class UIManager : MonoBehaviour
     {
         public static UIManager instance { get; private set; }
-        MainMenuUI homeUI;
-        InGameUI gameUI;
-        GameOverUI gameOverUI;
-        PauseUI pauseUI;
+        List<BaseUI> uiList = new List<BaseUI>();
         private GameState currentState;
+        public Dictionary<string, GameState> sceneStateBinding { get; private set; } = new Dictionary<string, GameState>()
+        {
+            { "MainMenuScene", GameState.MainMenu },
+            { "InGameScene", GameState.InGame },
+            { "VictoryScene", GameState.Victory },
+            { "PreparingScene", GameState.Preparing },
+            { "StageClearScene", GameState.StageClear },
+            { "PauseScene", GameState.Pause},
+            { "GameOverScene", GameState.GameOver }
+        };
 
 
         private void Awake()
         {
             if (instance != null)
             {
-                Destroy(this);
+                Destroy(gameObject);
                 return;
             }
-            homeUI = GetComponentInChildren<MainMenuUI>(true);
-            homeUI.Init(this);
-            gameUI = GetComponentInChildren<InGameUI>(true);
-            gameUI.Init(this);
-            gameOverUI = GetComponentInChildren<GameOverUI>(true);
-            gameOverUI.Init(this);
-            pauseUI = GetComponentInChildren<PauseUI>(true);
-            pauseUI.Init(this);
+            RegisterUI(GetComponentInChildren<MainMenuUI>(true));
+            RegisterUI(GetComponentInChildren<InGameUI>(true));
+            RegisterUI(GetComponentInChildren<VictoryUI>(true));
+            RegisterUI(GetComponentInChildren<PreparingUI>(true));
+            RegisterUI(GetComponentInChildren<StageClearUI>(true));
+            RegisterUI(GetComponentInChildren<PauseUI>(true));
+            RegisterUI(GetComponentInChildren<GameOverUI>(true));
             DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded;
             instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+
+        private void RegisterUI(BaseUI UI)
+        {
+            uiList.Add(UI);
+            UI.Init(this);
         }
 
         private void Start()
         {
-            SetHome();
-        }
-
-        public void SetPlayGame()
-        {
-            GameManager.Instance.ChangeState(GameState.InGame);
-        }
-
-        public void SetGameOver()
-        {
-            GameManager.Instance.ChangeState(GameState.GameOver);
-        }
-        public void SetHome()
-        {
             GameManager.Instance.ChangeState(GameState.MainMenu);
         }
 
-        public void SetPause()
+        void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            GameManager.Instance.ChangeState(GameState.Pause);
+            ChangeState(sceneStateBinding[scene.name]);
         }
 
         public void ChangeState(GameState state)
         {
             currentState = state;
-            homeUI.SetActive(currentState);
-            gameUI.SetActive(currentState);
-            gameOverUI.SetActive(currentState);
-            pauseUI.SetActive(currentState);
+            foreach(BaseUI ui in uiList)
+            {
+                ui.SetActive(currentState);
+            }
         }
     }
 }

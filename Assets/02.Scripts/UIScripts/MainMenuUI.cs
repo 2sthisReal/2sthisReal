@@ -9,29 +9,32 @@ namespace SWScene
     public class MainMenuUI : BaseUI
     {
         [SerializeField] private Button startButton;
+        [SerializeField] private Button preparingButton;
         [SerializeField] private Button exitButton;
+        protected override GameState GetUIState()
+        {
+            return GameState.MainMenu;
+        }
 
         public override void Init(UIManager uiManager)
         {
             base.Init(uiManager);
-            startButton.onClick.AddListener(OnClickStartButton);
-            exitButton.onClick.AddListener(OnClickExitButton);
-        }
-
-        public void OnClickStartButton()
-        {
-            GameManager.Instance.ChangeState(GameState.InGame);
-            UIManager.instance.ChangeState(GameState.InGame);
-        }
-
-        public void OnClickExitButton()
-        {
-            Application.Quit();
-        }
-
-        protected override GameState GetUIState()
-        {
-            return GameState.MainMenu;
+            startButton.onClick.AddListener(
+                () => 
+                { 
+                    GameManager.Instance.ChangeState(GameState.InGame); 
+                });
+            preparingButton.onClick.AddListener(
+                () =>
+                {
+                    Application.Quit();
+                    GameManager.Instance.ChangeState(GameState.Preparing);
+                });
+            exitButton.onClick.AddListener(
+                () => 
+                {
+                    Application.Quit();
+                });
         }
     }
 }

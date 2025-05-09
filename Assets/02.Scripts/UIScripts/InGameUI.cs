@@ -9,27 +9,36 @@ namespace SWScene
     {
         [SerializeField] private Button pauseButton;
         [SerializeField] private Button tempGameOverButton;
+        [SerializeField] private Button tempVictoryButton;
+        [SerializeField] private Button tempStageClearButton;
+
         protected override GameState GetUIState()
         {
             return GameState.InGame;
         }
-
         public override void Init(UIManager uiManager)
         {
             base.Init(uiManager);
-            pauseButton.onClick.AddListener(OnClickPauseButton);
-            tempGameOverButton.onClick.AddListener(OnClickGameOverButton);
-        }
-
-        public void OnClickPauseButton()
-        {
-            GameManager.Instance.ChangeState(GameState.Pause);
-            UIManager.instance.ChangeState(GameState.Pause);
-        }
-        public void OnClickGameOverButton()
-        {
-            GameManager.Instance.ChangeState(GameState.GameOver);
-            UIManager.instance.ChangeState(GameState.GameOver);
+            pauseButton.onClick.AddListener(
+                () => 
+                { 
+                    GameManager.Instance.ChangeState(GameState.Pause); 
+                });
+            tempGameOverButton.onClick.AddListener(
+                () => 
+                { 
+                    GameManager.Instance.ChangeState(GameState.GameOver); 
+                });
+            tempVictoryButton.onClick.AddListener(
+                () => 
+                { 
+                    GameManager.Instance.ChangeState(GameState.Victory); 
+                });
+            tempStageClearButton.onClick.AddListener(
+                () => 
+                { 
+                    GameManager.Instance.ChangeState(GameState.StageClear); 
+                });
         }
     }
 }
