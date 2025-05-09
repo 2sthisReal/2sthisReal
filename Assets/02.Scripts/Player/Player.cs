@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    Rigidbody2D rigidbody;
+    Rigidbody2D rb;
     Animator spriteAnimator;
     Animator weaponAnimator;
     SpriteRenderer spriteRenderer;
@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        rigidbody = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         spriteAnimator = transform.Find("Sprite").GetComponent<Animator>();
         weaponAnimator = transform.Find("Weapon_bow").GetComponent<Animator>();
         spriteRenderer = transform.Find("Sprite").GetComponent<SpriteRenderer>();
@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
         Transform closest = TargetSet();
         if(closest == null)
             return;
+
         if (closest.position.x - playerTransform.position.x > 0)
             spriteRenderer.flipX = false;    //�÷��̾ �������� �ٶ󺸰� ��
         else if (closest.position.x - playerTransform.position.x < 0)
@@ -50,7 +51,8 @@ public class Player : MonoBehaviour
     {
         Vector2 targetPos = collision.transform.position;
 
-        //attack ���⺤�� ����
+        //attack
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -76,7 +78,7 @@ public class Player : MonoBehaviour
         float moveHorizontal = Input.GetAxisRaw("Horizontal");
         float moveVertical = Input.GetAxisRaw("Vertical");
         Vector2 movement = (new Vector2(moveHorizontal, moveVertical).normalized) * tempspeed;
-        rigidbody.velocity = movement;
+        rb.velocity = movement;
         spriteAnimator.SetBool("IsMoving", movement.magnitude > 0.5f);
     }
 
