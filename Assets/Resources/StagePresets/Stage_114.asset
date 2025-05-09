@@ -10,13 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5907b9cc3dcdddb44ad35e4b83485089, type: 3}
-  m_Name: Stage_102
+  m_Name: Stage_114
   m_EditorClassIdentifier: 
-  stageID: 102
-  baseTileMap: {fileID: 6057081931880883335, guid: fd236089f44ff33459ea748603618e34, type: 3}
+  stageID: 114
+  baseTileMap: {fileID: 1831806253681734473, guid: 925b6b87fe06d884690510435e2676c5, type: 3}
   monsterPoints:
-  - {x: -6.5, y: -2.5}
-  - {x: 6.5, y: -2.5}
-  - {x: 0, y: 3}
-  obstaclePoints: []
+  - {x: -7, y: -3}
+  - {x: 7, y: -3}
+  - {x: 7, y: 3}
+  - {x: -7, y: 3}
+  obstaclePoints:
+  - {x: -1, y: 0}
+  - {x: 1, y: 0}
   itemPoints: []

@@ -13,6 +13,12 @@ namespace Jang
         [SerializeField] GameObject[] obstaclePrefab;
         [SerializeField] GameObject[] itemPrefab;
 
+        void Awake()
+        {
+            GameManager.Instance.stageManager = this;
+        }
+
+        // 스테이지 설정 세팅 및 스테이지 생성
         public void Init()
         {
             if (stagePresetManager == null)
@@ -22,6 +28,7 @@ namespace Jang
             InitStage(currentPreset);
         }
 
+        // 스테이지 미리보기
         public void PreviewStage(StagePreset preset)
         {
             InitStage(preset);
@@ -30,6 +37,10 @@ namespace Jang
         // 스테이지 설정
         void InitStage(StagePreset preset)
         {
+            // 기본 타일맵 생성
+            Instantiate(preset.baseTileMap, Vector3.zero, Quaternion.identity);
+
+            // 오브젝트들 생성
             SpawnObjects(preset.monsterPoints, monsterPrefab);
             SpawnObjects(preset.obstaclePoints, obstaclePrefab);
             SpawnObjects(preset.itemPoints, itemPrefab);
