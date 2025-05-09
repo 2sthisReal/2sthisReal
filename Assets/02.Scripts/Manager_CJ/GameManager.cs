@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    #region Game State & Player Session
     public static GameManager Instance { get; private set; }
     public GameState CurrentState { get; private set; }
     public event Action<GameState> OnGameStateChanged;
@@ -12,8 +13,11 @@ public class GameManager : MonoBehaviour
     public List<SkillData> SelectedSkills {  get; private set; } = new List<SkillData>();
     public Dictionary<EquipmentType, EquipmentData> EquippedEquipments { get; private set; } = new();
     public List<PetData> SelectedPets { get; private set; } = new();
+    #endregion
 
+    #region Stage Progress
     private int remainingEnemies;
+    #endregion
 
     private void Awake()
     {
@@ -53,6 +57,7 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    #region 몬스터
     // 스테이지 시작 시 적 수 등록해주면 됩니다. (Stage쪽)
     public void RegisterEnemies(int count)
     {
@@ -74,6 +79,7 @@ public class GameManager : MonoBehaviour
             ChangeState(GameState.StageClear);
         }
     }
+    #endregion
 
     #region 스킬
     public void AddSelectedSkill(SkillData skill)
