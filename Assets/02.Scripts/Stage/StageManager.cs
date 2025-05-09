@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,17 +26,17 @@ namespace Jang
                 stagePresetManager = GetComponentInChildren<StagePresetManager>();
 
             currentPreset = stagePresetManager.GetRandomPreset();
-            InitStage(currentPreset);
+            InitStage(currentPreset, () => {});
         }
 
         // 스테이지 미리보기
         public void PreviewStage(StagePreset preset)
         {
-            InitStage(preset);
+            InitStage(preset, () => {});
         }
 
         // 스테이지 설정
-        void InitStage(StagePreset preset)
+        void InitStage(StagePreset preset, Action onCompleted)
         {
             // 기본 타일맵 생성
             Instantiate(preset.baseTileMap, Vector3.zero, Quaternion.identity);
@@ -44,6 +45,8 @@ namespace Jang
             SpawnObjects(preset.monsterPoints, monsterPrefab);
             SpawnObjects(preset.obstaclePoints, obstaclePrefab);
             SpawnObjects(preset.itemPoints, itemPrefab);
+
+            onCompleted?.Invoke();
         }
 
         // 오브젝트 생성
@@ -51,11 +54,9 @@ namespace Jang
         {
             if (points == null || prefabs == null) return;
 
-
-
             foreach (var point in points)
             {
-                int random = Random.Range(0, prefabs.Length);
+                int random = UnityEngine.Random.Range(0, prefabs.Length);
                 Instantiate(prefabs[random], point, Quaternion.identity);
             }
         }

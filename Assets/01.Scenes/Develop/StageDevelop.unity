@@ -552,7 +552,7 @@ MonoBehaviour:
   monsterPoint: {fileID: 120823741}
   obstaclePoint: {fileID: 910275518}
   itemPoint: {fileID: 1737751324}
-  drawGizmos: 1
+  drawGizmos: 0
 --- !u!4 &1408494789
 Transform:
   m_ObjectHideFlags: 0
@@ -602,7 +602,8 @@ MonoBehaviour:
   - {fileID: 1561492691561167235, guid: 7645e384de152f24d8ef44316fb7c035, type: 3}
   obstaclePrefab:
   - {fileID: 243393950758671493, guid: 9c939e066b4bf0c4a9e26ec886993485, type: 3}
-  itemPrefab: []
+  itemPrefab:
+  - {fileID: 383019405079115151, guid: 58b14a3f9c9ef814d9740d4832f4b0d3, type: 3}
 --- !u!4 &1562591363
 Transform:
   m_ObjectHideFlags: 0

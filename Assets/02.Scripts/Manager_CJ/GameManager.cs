@@ -83,6 +83,12 @@ public class GameManager : MonoBehaviour
             ChangeState(GameState.StageClear);
         }
     }
+
+    public void StartStage()
+    {
+        stageManager.Init();
+    }
+    
     #endregion
 
     #region ��ų
