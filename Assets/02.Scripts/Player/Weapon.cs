@@ -18,7 +18,6 @@ public class Weapon : MonoBehaviour
     public int numberOfShot;
 
     protected float attackCooldown = 0f;
-    private bool isAttack = false;
     private void Awake()
     {
         weapontransform = GetComponent<Transform>();
@@ -57,17 +56,5 @@ public class Weapon : MonoBehaviour
     {
         animator.SetBool("IsRanged", false);
     }
-
-    public void StartAttack()
-    {
-        isAttack = true;
-    }
-
-    public void StopAttack()
-    {
-        isAttack=false;
-    }
-    public bool IsAttack()
-    { return isAttack; }
 }
 

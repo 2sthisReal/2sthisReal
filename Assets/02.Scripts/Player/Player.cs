@@ -38,7 +38,6 @@ public class Player : MonoBehaviour
         if (closest == null)
         {
             weaponbow.WeaponWait();
-            weaponbow.StopAttack();
             return;
         }
         weaponbow.WeaponReady();
@@ -53,7 +52,7 @@ public class Player : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy")) ;
+        if (collision.CompareTag("Enemy"))
             monsterCounter.Add(collision.transform);
     }
 
