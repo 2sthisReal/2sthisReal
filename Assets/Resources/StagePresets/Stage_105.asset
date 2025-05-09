@@ -20,4 +20,5 @@ MonoBehaviour:
   - {x: 6.5, y: 2.5}
   - {x: -6.5, y: 2.5}
   obstaclePoints: []
-  itemPoints: []
+  itemPoints:
+  - {x: 0, y: 0}

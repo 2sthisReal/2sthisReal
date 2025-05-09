@@ -8,5 +8,6 @@ public class HealItem : ItemBase
     protected override void UseItem(BaseCharacter player)
     {
         player.currentHealth += value;
+        Destroy(gameObject);
     }
 }

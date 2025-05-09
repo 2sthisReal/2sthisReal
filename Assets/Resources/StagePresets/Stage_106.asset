@@ -15,7 +15,12 @@ MonoBehaviour:
   stageID: 106
   baseTileMap: {fileID: 482579346934903235, guid: d1ac46ebd099f3d42a25f5623af89154, type: 3}
   monsterPoints:
-  - {x: -6, y: 0}
-  - {x: 6, y: 0}
-  obstaclePoints: []
-  itemPoints: []
+  - {x: -5.5, y: -1.5}
+  - {x: 4, y: -3}
+  - {x: 7, y: 2}
+  - {x: -2, y: 3}
+  obstaclePoints:
+  - {x: -1, y: 0}
+  - {x: 1, y: 0}
+  itemPoints:
+  - {x: -7, y: 1}
