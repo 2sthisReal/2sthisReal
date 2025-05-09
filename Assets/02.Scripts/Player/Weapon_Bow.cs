@@ -12,7 +12,7 @@ public class Weapon_Bow : Weapon
     {
         attackCooldown -= Time.deltaTime;
     }
-    public void AttackTarget(Vector2 vector)
+    public override void AttackTarget(Vector2 vector)
     {
         if (attackCooldown <= 0f)
         {

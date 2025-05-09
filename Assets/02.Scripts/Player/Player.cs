@@ -8,7 +8,12 @@ public class Player : MonoBehaviour
     Animator weaponAnimator;
     SpriteRenderer spriteRenderer;
     Transform playerTransform;
-    Weapon_Bow weaponbow;
+    Weapon weapon;
+
+
+    public Weapon[] weaponPrefabs;
+    private Weapon currentWeapon;
+    private Transform weapons;
 
     public bool inRanged;
     Vector2 directionVector;
@@ -21,10 +26,16 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         spriteAnimator = transform.Find("Sprite").GetComponent<Animator>();
-        weaponAnimator = transform.Find("Weapon_bow").GetComponent<Animator>();
         spriteRenderer = transform.Find("Sprite").GetComponent<SpriteRenderer>();
         playerTransform = GetComponent<Transform>();
-        weaponbow = GetComponentInChildren<Weapon_Bow>();
+        weapon = GetComponentInChildren<Weapon>();
+    }
+    private void Start()
+    {
+        weapons = transform.Find("Weapons");
+        EquipWeapon(0);
+        weaponAnimator = transform.Find("Weapons").GetComponent<Animator>();
+
     }
     private void FixedUpdate()
     {
@@ -37,12 +48,12 @@ public class Player : MonoBehaviour
         Transform closest = TargetSet();
         if (closest == null)
         {
-            weaponbow.WeaponWait();
+            weapon.WeaponWait();
             return;
         }
-        weaponbow.WeaponReady();
+        weapon.WeaponReady();
         directionVector = (closest.position - playerTransform.position).normalized;
-        weaponbow.GetVector(directionVector);
+        weapon.GetVector(directionVector);
         
         if (closest.position.x - playerTransform.position.x > 0)
             spriteRenderer.flipX = false;  
@@ -60,7 +71,7 @@ public class Player : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            weaponbow.AttackTarget(directionVector);
+            weapon.AttackTarget(directionVector);
         }
     }
 
@@ -107,5 +118,18 @@ public class Player : MonoBehaviour
         }
 
         return closest;
+    }
+
+    public void EquipWeapon(int weaponIndex)
+    {
+        if (currentWeapon != null)
+        {
+            Destroy(currentWeapon.gameObject);  // 현재 장착된 무기 제거
+        }
+
+        // 새로운 무기 인스턴스를 장착
+        currentWeapon = Instantiate(weaponPrefabs[weaponIndex], weapons.position, Quaternion.identity);
+        currentWeapon.transform.SetParent(weapons);
+        weapon = currentWeapon;
     }
 }
