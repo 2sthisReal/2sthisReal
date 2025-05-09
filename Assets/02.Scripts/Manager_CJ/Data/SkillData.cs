@@ -1,18 +1,19 @@
 using UnityEngine;
+using System;
+using TMPro;
 
-[CreateAssetMenu(fileName = "NewSkill", menuName = "Game Data/Skill")]
-public class SkillData : ScriptableObject
+[System.Serializable]
+public class SkillData
 {
+    public string skillID;
     public string skillName;
+    public string description;
     public float damage;
     public float cooldown;
-    public GameObject skillPrefab;
-    public Sprite icon;
+    public string skillPrefabPath;
+    public string skillIconPath;
+    public int bonusProjectileCount;
     public SkillType skillType;
-}
-
-public enum SkillType
-{
-    Active,
-    Passive
+    public ElementType element;
+    public float elementBonusDamage;
 }

@@ -1,0 +1,12 @@
+[
+    {
+        "petID": "dummy_pet",
+        "petName": "Dummy Pet",
+        "projectilePath": "Prefabs/Projectiles/TestProjectiles",
+        "attackInterval": 2.0,
+        "orbitRadius": 1.5,
+        "orbitSpeed": 90,
+        "iconPath": "Sprites/Pets/DummyPetIcon",
+        "canBlockProjectiles": false
+    }
+]
