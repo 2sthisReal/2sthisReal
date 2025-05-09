@@ -6,6 +6,7 @@ public class Weapon : MonoBehaviour
 {
     Transform weapontransform;
     Animator animator;
+    public GameObject arrowPrefabs; 
 
     private Vector2 directionVector;
     
@@ -39,9 +40,10 @@ public class Weapon : MonoBehaviour
         if (rotZ < 0f) rotZ += 360f;
         
     }
-    public void AttackMotion()
+    public virtual void AttackMotion()
     {
         animator.SetBool("IsShoot", true);
+        Instantiate(arrowPrefabs, weapontransform);
     }
 
     public void WeaponReady()
