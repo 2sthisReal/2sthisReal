@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Stage_104
   m_EditorClassIdentifier: 
   stageID: 104
+  baseTileMap: {fileID: 6057081931880883335, guid: fd236089f44ff33459ea748603618e34, type: 3}
   monsterPoints:
   - {x: -6.5, y: -2.5}
   - {x: 6.5, y: -2.5}

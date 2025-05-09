@@ -8,7 +8,7 @@ namespace Jang
     {
         [SerializeField] public StageManager stageManager;
         public int stageID = 101;
-
+        public GameObject baseTileMap;
         [SerializeField] Transform monsterPoint;
         [SerializeField] Transform obstaclePoint;
         [SerializeField] Transform itemPoint;

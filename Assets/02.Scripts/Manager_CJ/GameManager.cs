@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Jang;
 using SWScene;
 using UnityEngine;
 
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Stage Progress
+    public StageManager stageManager; 
     private int remainingEnemies;
     #endregion
 
@@ -33,7 +35,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    #region »óÅÂ º¯È¯
+    #region ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
     public void ChangeState(GameState newState)
     {
         if (CurrentState == newState) return;
@@ -54,15 +56,15 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    #region ¸ó½ºÅÍ
-    // ½ºÅ×ÀÌÁö ½ÃÀÛ ½Ã Àû ¼ö µî·ÏÇØÁÖ¸é µË´Ï´Ù. (StageÂÊ)
+    #region ï¿½ï¿½ï¿½ï¿½
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ ï¿½Ë´Ï´ï¿½. (Stageï¿½ï¿½)
     public void RegisterEnemies(int count)
     {
         remainingEnemies = count;
         Debug.Log($"[GameManager] Registered {count} enemies");
     }
 
-    // NotifyEnemyKilled()¸¦ Die()¿¡¼­ È£ÃâÇØÁÖ¸é µË´Ï´Ù. (MonsterÂÊ)
+    // NotifyEnemyKilled()ï¿½ï¿½ Die()ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ ï¿½Ë´Ï´ï¿½. (Monsterï¿½ï¿½)
     public void NotifyEnemyKilled()
     {
         if (CurrentState != GameState.InGame) return;
@@ -76,9 +78,15 @@ public class GameManager : MonoBehaviour
             ChangeState(GameState.StageClear);
         }
     }
+
+    public void StartStage()
+    {
+        stageManager.Init();
+    }
+    
     #endregion
 
-    #region ½ºÅ³
+    #region ï¿½ï¿½Å³
     public void AddSelectedSkill(SkillData skill)
     {
         if (!SelectedSkills.Contains(skill))
@@ -113,7 +121,7 @@ public class GameManager : MonoBehaviour
     //    Debug.Log("[GameManager] Selected skill effects applied.");
     //}
 
-    // ½ºÅ³ Á¤º¸ ¹ÝÈ¯
+    // ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
     public List<SkillData> GetSelectedSkills()
     {
         return new List<SkillData>(SelectedSkills);
@@ -132,14 +140,14 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    #region Æê°ú Àåºñ
+    #region ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
     public void SetEquipment(EquipmentSlot slot, EquipmentData equipment)
     {
         EquippedSlots[slot] = equipment;
         Debug.Log($"[GameManager] Equipped {slot} : {equipment.equipmentName}");
     }
 
-    // Æ¯Á¤ Àåºñ ¹ÝÈ¯
+    // Æ¯ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
     public EquipmentData GetEquipment(EquipmentSlot slot)
     {
         return EquippedSlots.TryGetValue(slot, out var equipment) ? equipment : null;
