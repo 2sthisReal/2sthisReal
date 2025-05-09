@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public event Action<GameState> OnGameStateChanged;
 
     public List<SkillData> SelectedSkills {  get; private set; } = new List<SkillData>();
-    public Dictionary<EquipmentType, EquipmentData> EquippedEquipments { get; private set; } = new();
+    public Dictionary<EquipmentSlot, EquipmentData> EquippedSlots { get; private set; } = new();
     public List<PetData> SelectedPets { get; private set; } = new();
     #endregion
 
@@ -127,40 +127,55 @@ public class GameManager : MonoBehaviour
         SelectedSkills.Clear();
         Debug.Log("[GameManager] All selected skills cleared.");
     }
+    
+    public bool HasSkill(string skillID)
+    {
+        return SelectedSkills.Exists(skill => skill.skillID == skillID);
+    }
+
     #endregion
 
-    #region 장비
-    public void SetEquipment(EquipmentType type, EquipmentData equipment)
+    #region 펫과 장비
+    public void SetEquipment(EquipmentSlot slot, EquipmentData equipment)
     {
-        EquippedEquipments[type] = equipment;
-        Debug.Log($"[GameManager] Equipped {type} : {equipment.equipmentName}");
+        EquippedSlots[slot] = equipment;
+        Debug.Log($"[GameManager] Equipped {slot} : {equipment.equipmentName}");
     }
 
     // 특정 장비 반환
-    public EquipmentData GetEquipment(EquipmentType type)
+    public EquipmentData GetEquipment(EquipmentSlot slot)
     {
-        return EquippedEquipments.TryGetValue(type, out var equipment) ? equipment : null;
+        return EquippedSlots.TryGetValue(slot, out var equipment) ? equipment : null;
     }
 
-    public Dictionary<EquipmentType, EquipmentData> GetEquippedItems()
+    public Dictionary<EquipmentSlot, EquipmentData> GetEquippedItems()
     {
-        return new Dictionary<EquipmentType, EquipmentData>(EquippedEquipments);
+        return new Dictionary<EquipmentSlot, EquipmentData>(EquippedSlots);
     }
-    #endregion
 
-    #region 펫
-    public void AddSelectedPet(PetData pet)
+    public void AutoAssignEquipment(EquipmentData equipment)
     {
-        if(SelectedPets.Count < 2)
+        switch (equipment.equipmentType)
         {
-            SelectedPets.Add(pet);
+            case EquipmentType.Weapon:
+                SetEquipment(EquipmentSlot.Weapon, equipment);
+                break;
+            case EquipmentType.Armor:
+                SetEquipment(EquipmentSlot.Armor, equipment);
+                break;
+            case EquipmentType.Accessory:
+                if (!EquippedSlots.ContainsKey(EquipmentSlot.Accessory1))
+                    SetEquipment(EquipmentSlot.Accessory1, equipment);
+                else
+                    SetEquipment(EquipmentSlot.Accessory2, equipment);
+                break;
+            case EquipmentType.Pet:
+                if(!EquippedSlots.ContainsKey(EquipmentSlot.Pet1))
+                    SetEquipment(EquipmentSlot.Pet1, equipment);
+                else
+                    SetEquipment(EquipmentSlot.Pet2, equipment);
+                break;
         }
-    }
-
-    // 복사본 반환
-    public List<PetData> GetSelectedPets()
-    {
-        return new List<PetData>(SelectedPets);
     }
     #endregion
 
