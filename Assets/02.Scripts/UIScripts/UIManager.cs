@@ -9,8 +9,8 @@ namespace SWScene
     public class UIManager : MonoBehaviour
     {
         public static UIManager instance { get; private set; }
-        HomeUI homeUI;
-        GameUI gameUI;
+        MainMenuUI homeUI;
+        InGameUI gameUI;
         GameOverUI gameOverUI;
         PauseUI pauseUI;
         private GameState currentState;
@@ -23,9 +23,9 @@ namespace SWScene
                 Destroy(this);
                 return;
             }
-            homeUI = GetComponentInChildren<HomeUI>(true);
+            homeUI = GetComponentInChildren<MainMenuUI>(true);
             homeUI.Init(this);
-            gameUI = GetComponentInChildren<GameUI>(true);
+            gameUI = GetComponentInChildren<InGameUI>(true);
             gameUI.Init(this);
             gameOverUI = GetComponentInChildren<GameOverUI>(true);
             gameOverUI.Init(this);
