@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Character : MonoBehaviour
+public abstract class BaseCharacter : MonoBehaviour
 {
     [Header("기본 스탯")]  // Inspector 창에서 그룹화하여 표시
     public string characterName;   // 캐릭터의 이름
