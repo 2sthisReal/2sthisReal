@@ -56,7 +56,7 @@ public class Weapon : MonoBehaviour
     {
         animator.SetBool("IsRanged", false);
     }
-    public virtual void AttackTarget(Vector2 vector)
+    public virtual void AttackTarget(Vector2 vector, float ShotSpeed, float Rate)
     {
 
     }

@@ -13,6 +13,9 @@ public class Player : BaseCharacter
     private Weapon currentWeapon;
     private Transform weapons;
 
+    [SerializeField]public float shotSpeed;
+    [SerializeField]public float fireRate;
+
     public bool inRanged;
     Vector2 directionVector;
 
@@ -69,7 +72,7 @@ public class Player : BaseCharacter
     {
         if (collision.CompareTag("Enemy"))
         {
-            weapon.AttackTarget(directionVector);
+            weapon.AttackTarget(directionVector, shotSpeed, fireRate);
         }
     }
 

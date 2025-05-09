@@ -425,8 +425,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5428f8c381d0b74408a57ef2e51d4a2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterName: 
+  level: 1
+  maxHealth: 0
+  currentHealth: 0
+  moveSpeed: 0
+  attackDamage: 0
+  attackSpeed: 0
+  attackRange: 0
+  isAlive: 1
+  isAttacking: 0
+  isMoving: 0
   weaponPrefabs:
   - {fileID: 1320653475934402969, guid: fb5990426a1e4c3458bc038db10676fd, type: 3}
+  shotSpeed: 1
+  fireRate: 2
   inRanged: 0
   tempspeed: 3
 --- !u!61 &1802544746
