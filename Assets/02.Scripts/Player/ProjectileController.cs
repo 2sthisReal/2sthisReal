@@ -19,25 +19,22 @@ public class ProjectileController : MonoBehaviour
         this.direction = direction;
         this.shotSpeed = shotspeed;
 
-        pivot.right = this.direction;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
 
-        if (direction.x < 0)
-            transform.localRotation = Quaternion.Euler(180, 0, 0); 
-        else
-            transform.localRotation = Quaternion.Euler(0, 0, 0); 
 
-        rb.velocity = direction * shotSpeed;
+        rb.velocity = this.direction * shotSpeed;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.collider.CompareTag("Enemy"))
+        Debug.Log("Ãæµ¹");
+        if (collision.CompareTag("Enemy"))
         {
             //Dealt Damage
 
 
             Destroy(this.gameObject);
         }
-
     }
 }

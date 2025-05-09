@@ -58,7 +58,10 @@ public class Player : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-      // weaponbow.TargetVector(directionVector);
+        if (collision.CompareTag("Enemy"))
+        {
+            weaponbow.AttackTarget(directionVector);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
