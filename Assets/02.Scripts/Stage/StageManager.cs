@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Jang
@@ -8,10 +9,9 @@ namespace Jang
         private StagePresetManager stagePresetManager; // 프리셋 랜덤으로 가져오기 위한 Manager
 
         [Header("Object Prefabs")]
-        [SerializeField] GameObject monsterPrefab;
-        [SerializeField] GameObject obstaclePrefab;
-        [SerializeField] GameObject itemPrefab;
-
+        [SerializeField] GameObject[] monsterPrefab;
+        [SerializeField] GameObject[] obstaclePrefab;
+        [SerializeField] GameObject[] itemPrefab;
 
         public void Init()
         {
@@ -22,46 +22,30 @@ namespace Jang
             InitStage(currentPreset);
         }
 
-        [ContextMenu("TestInitStage")]
-        public void TestInitStage()
+        public void PreviewStage(StagePreset preset)
         {
-            InitStage(currentPreset);
+            InitStage(preset);
         }
 
         // 스테이지 설정
         void InitStage(StagePreset preset)
         {
-            if (preset.monsterPoints != null)
-            {
-                foreach (var point in preset.monsterPoints)
-                {
-                    // 몬스터 소환
-                    GameObject obj = Instantiate(monsterPrefab);
-                    obj.transform.position = point;
-                    obj.transform.rotation = Quaternion.identity;
-                }
-            }
+            SpawnObjects(preset.monsterPoints, monsterPrefab);
+            SpawnObjects(preset.obstaclePoints, obstaclePrefab);
+            SpawnObjects(preset.itemPoints, itemPrefab);
+        }
 
-            if (preset.obstaclePoints != null)
-            {
-                foreach (var point in preset.obstaclePoints)
-                {
-                    // 장애물 소환
-                    GameObject obj = Instantiate(obstaclePrefab);
-                    obj.transform.position = point;
-                    obj.transform.rotation = Quaternion.identity;
-                }
-            }
+        // 오브젝트 생성
+        void SpawnObjects(List<Vector2> points, GameObject[] prefabs)
+        {
+            if (points == null || prefabs == null) return;
 
-            if (preset.itemPoints != null)
+
+
+            foreach (var point in points)
             {
-                foreach (var point in preset.itemPoints)
-                {
-                    // 아이템 소환
-                    GameObject obj = Instantiate(itemPrefab);
-                    obj.transform.position = point;
-                    obj.transform.rotation = Quaternion.identity;
-                }
+                int random = Random.Range(0, prefabs.Length);
+                Instantiate(prefabs[random], point, Quaternion.identity);
             }
         }
     }

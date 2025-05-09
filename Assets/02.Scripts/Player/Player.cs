@@ -1,59 +1,46 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
-public class Player : BaseCharacter
+public class Player : MonoBehaviour
 {
+    Rigidbody2D rigidbody;
+    Animator spriteAnimator;
     Animator weaponAnimator;
     SpriteRenderer spriteRenderer;
     Transform playerTransform;
-    public Weapon weaponbow;
-    Transform closest;
 
     public bool inRanged;
 
-
-    //Ãß»óÅ¬·¡½º¿¡¼­ ½ºÅÈ µû¿È
-    [SerializeField] float tempspeed = 3;   //ÇÃ·¹ÀÌ¾îÀÇ ¼Óµµ
+    //ï¿½ß»ï¿½Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    [SerializeField]float tempspeed = 3;   //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½Óµï¿½
     List<Transform> monsterCounter = new List<Transform>();
+    
 
-
-    protected override void Awake()
+    private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        animator = transform.Find("Sprite").GetComponent<Animator>();
+        rigidbody = GetComponent<Rigidbody2D>();
+        spriteAnimator = transform.Find("Sprite").GetComponent<Animator>();
         weaponAnimator = transform.Find("Weapon_bow").GetComponent<Animator>();
         spriteRenderer = transform.Find("Sprite").GetComponent<SpriteRenderer>();
         playerTransform = GetComponent<Transform>();
     }
-
-
     private void FixedUpdate()
     {
-        Move(Vector2.zero);
+        PlayerMove();
     }
-
 
     void Update()
     {
         monsterCounter.RemoveAll(monster => monster == null);
-        closest = TargetSet();
-
-        if (closest == null)
-        {
-            weaponbow.WeaponWait();
+        Transform closest = TargetSet();
+        if(closest == null)
             return;
-        }
-        weaponbow.WeaponReady();
-        weaponbow.GetVector((closest.position-playerTransform.position).normalized);
         if (closest.position.x - playerTransform.position.x > 0)
-            spriteRenderer.flipX = false;    //ÇÃ·¹ÀÌ¾î°¡ ¿À¸¥ÂÊÀ» ¹Ù¶óº¸°Ô ÇÔ
+            spriteRenderer.flipX = false;    //ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¶óº¸°ï¿½ ï¿½ï¿½
         else if (closest.position.x - playerTransform.position.x < 0)
-            spriteRenderer.flipX = true;   //ÇÃ·¹ÀÌ¾î°¡ ¿ÞÂÊÀ» ¹Ù¶óº¸°Ô ÇÔ
+            spriteRenderer.flipX = true;   //ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¶óº¸°ï¿½ ï¿½ï¿½
+
     }
-
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         monsterCounter.Add(collision.transform);
@@ -63,7 +50,7 @@ public class Player : BaseCharacter
     {
         Vector2 targetPos = collision.transform.position;
 
-        //attack ¹æÇâº¤ÅÍ ¼³Á¤
+        //attack ï¿½ï¿½ï¿½âº¤ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -71,14 +58,26 @@ public class Player : BaseCharacter
         monsterCounter.Remove(collision.transform);
     }
 
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
 
-    public override void Move(Vector2 vector)
+        CircleCollider2D circle = GetComponent<CircleCollider2D>();
+        if (circle != null)
+        {
+            Vector3 position = transform.position + (Vector3)circle.offset;
+            Gizmos.DrawWireSphere(position, circle.radius);
+        }
+    }
+
+
+    void PlayerMove()
     {
         float moveHorizontal = Input.GetAxisRaw("Horizontal");
         float moveVertical = Input.GetAxisRaw("Vertical");
         Vector2 movement = (new Vector2(moveHorizontal, moveVertical).normalized) * tempspeed;
-        rb.velocity = movement;
-        animator.SetBool("IsMoving", movement.magnitude > 0.5f);
+        rigidbody.velocity = movement;
+        spriteAnimator.SetBool("IsMoving", movement.magnitude > 0.5f);
     }
 
     Transform TargetSet()
@@ -98,23 +97,4 @@ public class Player : BaseCharacter
 
         return closest;
     }
-    public override void Attack()
-    {
-        //
-        Debug.Log("attack");
-    }
-
-
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-
-        CircleCollider2D circle = GetComponent<CircleCollider2D>();
-        if (circle != null)
-        {
-            Vector3 position = transform.position + (Vector3)circle.offset;
-            Gizmos.DrawWireSphere(position, circle.radius);
-        }
-    }
-
 }

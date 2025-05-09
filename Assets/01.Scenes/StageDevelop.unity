@@ -377,7 +377,7 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1 &635826229
+--- !u!1 &448754880
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -385,44 +385,43 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 635826231}
-  - component: {fileID: 635826230}
+  - component: {fileID: 448754881}
+  - component: {fileID: 448754882}
   m_Layer: 0
-  m_Name: MyComponent
+  m_Name: StagePresetManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &635826230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 635826229}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d768a48a33a3e1d419861042490b0c71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 100
-  speed: 5
---- !u!4 &635826231
+--- !u!4 &448754881
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 635826229}
+  m_GameObject: {fileID: 448754880}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1562591363}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &448754882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 448754880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0b4ac0365b9731449d8b39915e37527, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  presets: []
 --- !u!1 &640461772
 GameObject:
   m_ObjectHideFlags: 0
@@ -2399,7 +2398,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1408494788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2412,10 +2411,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b242458e65d11bb45bf273f1c9c4ff58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageManager: {fileID: 1562591362}
   stageID: 104
   monsterPoint: {fileID: 120823741}
   obstaclePoint: {fileID: 910275518}
   itemPoint: {fileID: 1737751324}
+  drawGizmos: 0
 --- !u!4 &1408494789
 Transform:
   m_ObjectHideFlags: 0
@@ -3205,10 +3206,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5dce8649b393f54c8aea14ccd911090, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPreset: {fileID: 11400000, guid: 9a44907f701a4d241918e46edea408c1, type: 2}
-  monsterPrefab: {fileID: 1561492691561167235, guid: 7645e384de152f24d8ef44316fb7c035, type: 3}
-  obstaclePrefab: {fileID: 243393950758671493, guid: 9c939e066b4bf0c4a9e26ec886993485, type: 3}
-  itemPrefab: {fileID: 0}
+  currentPreset: {fileID: 11400000, guid: 2405ca23f8b20cc488e6c957e0acd55a, type: 2}
+  monsterPrefab:
+  - {fileID: 1561492691561167235, guid: 7645e384de152f24d8ef44316fb7c035, type: 3}
+  obstaclePrefab:
+  - {fileID: 651583276110420401, guid: fd01a08d8f1a3bf449cb56f3613aa838, type: 3}
+  - {fileID: 243393950758671493, guid: 9c939e066b4bf0c4a9e26ec886993485, type: 3}
+  itemPrefab: []
 --- !u!4 &1562591363
 Transform:
   m_ObjectHideFlags: 0
@@ -3221,7 +3225,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 448754881}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1737751323
@@ -3273,7 +3278,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1793357620
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3456,4 +3461,3 @@ SceneRoots:
   - {fileID: 1737751324}
   - {fileID: 1793357621}
   - {fileID: 1562591363}
-  - {fileID: 635826231}
