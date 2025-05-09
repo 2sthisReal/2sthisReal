@@ -5,25 +5,24 @@ using UnityEngine;
 
 namespace SWScene
 {
-    public enum UIState
-    {
-        Home,
-        Game,
-        GameOver,
-        Pause
-    }
 
     public class UIManager : MonoBehaviour
     {
+        public static UIManager instance { get; private set; }
         HomeUI homeUI;
         GameUI gameUI;
         GameOverUI gameOverUI;
         PauseUI pauseUI;
-        private UIState currentState;
+        private GameState currentState;
 
 
         private void Awake()
         {
+            if (instance != null)
+            {
+                Destroy(this);
+                return;
+            }
             homeUI = GetComponentInChildren<HomeUI>(true);
             homeUI.Init(this);
             gameUI = GetComponentInChildren<GameUI>(true);
@@ -32,30 +31,35 @@ namespace SWScene
             gameOverUI.Init(this);
             pauseUI = GetComponentInChildren<PauseUI>(true);
             pauseUI.Init(this);
+            DontDestroyOnLoad(gameObject);
+            instance = this;
+        }
 
-            ChangeState(UIState.Home);
+        private void Start()
+        {
+            SetHome();
         }
 
         public void SetPlayGame()
         {
-            ChangeState(UIState.Game);
+            GameManager.Instance.ChangeState(GameState.InGame);
         }
 
         public void SetGameOver()
         {
-            ChangeState(UIState.GameOver);
+            GameManager.Instance.ChangeState(GameState.GameOver);
         }
         public void SetHome()
         {
-            ChangeState(UIState.Home);
+            GameManager.Instance.ChangeState(GameState.MainMenu);
         }
 
         public void SetPause()
         {
-            ChangeState(UIState.Pause);
+            GameManager.Instance.ChangeState(GameState.Pause);
         }
 
-        public void ChangeState(UIState state)
+        public void ChangeState(GameState state)
         {
             currentState = state;
             homeUI.SetActive(currentState);

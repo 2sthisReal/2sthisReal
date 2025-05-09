@@ -10,9 +10,9 @@ namespace SWScene
         [SerializeField] private Button breakButton;
         [SerializeField] private Button homeButton;
         [SerializeField] private Button exitButton;
-        protected override UIState GetUIState()
+        protected override GameState GetUIState()
         {
-            return UIState.Pause;
+            return GameState.Pause;
         }
 
         public override void Init(UIManager uiManager)
@@ -25,11 +25,11 @@ namespace SWScene
 
         public void OnClickBreakButton()
         {
-            GameManager.instance.StartGame();
+            GameManager.Instance.ChangeState(GameState.Pause);
         }
         public void OnClickHomeButton()
         {
-            GameManager.instance.GoHome();
+            GameManager.Instance.ChangeState(GameState.MainMenu);
         }
 
         public void OnClickExitButton()

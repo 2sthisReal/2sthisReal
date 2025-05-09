@@ -11,8 +11,8 @@ namespace SWScene
             this.uiManager = uiManager;
         }
 
-        protected abstract UIState GetUIState();
-        public void SetActive(UIState state)
+        protected abstract GameState GetUIState();
+        public void SetActive(GameState state)
         {
             this.gameObject.SetActive(GetUIState() == state);
         }

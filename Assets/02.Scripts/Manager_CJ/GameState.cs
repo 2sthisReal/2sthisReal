@@ -9,5 +9,6 @@ public enum GameState
     InGame,
     StageClear,
     GameOver,
-    Victory
+    Victory,
+    Pause
 }

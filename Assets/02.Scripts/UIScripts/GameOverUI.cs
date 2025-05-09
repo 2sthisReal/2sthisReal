@@ -10,9 +10,9 @@ namespace SWScene
         [SerializeField] private Button restartButton;
         [SerializeField] private Button homeButton;
         [SerializeField] private Button exitButton;
-        protected override UIState GetUIState()
+        protected override GameState GetUIState()
         {
-            return UIState.GameOver;
+            return GameState.GameOver;
         }
         public override void Init(UIManager uiManager)
         {
@@ -24,12 +24,12 @@ namespace SWScene
 
         public void OnClickRestartButton()
         {
-            GameManager.instance.StartGame();
+            GameManager.Instance.ChangeState(GameState.InGame);
         }
 
         public void OnClickHomeButton()
         {
-            GameManager.instance.GoHome();
+            GameManager.Instance.ChangeState(GameState.MainMenu);
         }
 
         public void OnClickExitButton()

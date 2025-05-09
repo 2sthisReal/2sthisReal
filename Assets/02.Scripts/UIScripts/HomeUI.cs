@@ -20,7 +20,8 @@ namespace SWScene
 
         public void OnClickStartButton()
         {
-            GameManager.instance.StartGame();
+            GameManager.Instance.ChangeState(GameState.InGame);
+            UIManager.instance.ChangeState(GameState.InGame);
         }
 
         public void OnClickExitButton()
@@ -28,9 +29,9 @@ namespace SWScene
             Application.Quit();
         }
 
-        protected override UIState GetUIState()
+        protected override GameState GetUIState()
         {
-            return UIState.Home;
+            return GameState.MainMenu;
         }
     }
 }

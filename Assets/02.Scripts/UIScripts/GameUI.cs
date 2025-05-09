@@ -9,9 +9,9 @@ namespace SWScene
     {
         [SerializeField] private Button pauseButton;
         [SerializeField] private Button tempGameOverButton;
-        protected override UIState GetUIState()
+        protected override GameState GetUIState()
         {
-            return UIState.Game;
+            return GameState.InGame;
         }
 
         public override void Init(UIManager uiManager)
@@ -23,11 +23,13 @@ namespace SWScene
 
         public void OnClickPauseButton()
         {
-            GameManager.instance.PauseGame();
+            GameManager.Instance.ChangeState(GameState.Pause);
+            UIManager.instance.ChangeState(GameState.Pause);
         }
         public void OnClickGameOverButton()
         {
-            GameManager.instance.GameOver();
+            GameManager.Instance.ChangeState(GameState.GameOver);
+            UIManager.instance.ChangeState(GameState.GameOver);
         }
     }
 }
