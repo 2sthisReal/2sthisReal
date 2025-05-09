@@ -53,7 +53,8 @@ public class Player : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        monsterCounter.Add(collision.transform);
+        if (collision.CompareTag("Enemy")) ;
+            monsterCounter.Add(collision.transform);
     }
 
     private void OnTriggerStay2D(Collider2D collision)

@@ -11,16 +11,17 @@ public class Weapon_Bow : Weapon
     private void Update()
     {
         attackCooldown -= Time.deltaTime;
+    }
+    public void AttackTarget(Vector2 vector)
+    {
         if (attackCooldown <= 0f)
         {
+            directionVector = vector;
+
             attackCooldown = 1f / rate;
 
             GameObject arrow = Instantiate(arrowPrefabs, weapontransform.position, Quaternion.identity);
             arrow.GetComponent<ProjectileController>().Init(directionVector, shotSpeed);
         }
-    }
-    public void AttackTarget(Vector2 vector)
-    {
-        directionVector = vector;
     }
 }
