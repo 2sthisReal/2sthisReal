@@ -28,16 +28,16 @@
 ## 다른 시스템에서 사용할 수 있는 메서드
 
 ### 장비 관련
-'''
+```
 var weapon = GameManager.Instance.GetEquipment(EquipmentSlot.Weapon);
 if (weapon != null)
   player.ApplyWeapon(weapon);
 
 var pet1 = GameManager.Instance.GetEquipment(EquipmentSlot.Pet1);
-'''
+```
 
 ### 스킬 관련
-'''
+```
 foreach(var skill in GameManager.Instance.GetSelectedSkills())
 {
   Debug.Log(skill.skillName);
@@ -47,20 +47,20 @@ if ( GameManger.Instance.HasSkill("wingman"))
 {
   petController.EnableProjectileBlocking();
 }
-'''
+```
 
 ### 상태 초기화(전투 종료 시)
-'''
+```
 GameManager.Instance.ResetPlayerSession();
-'''
+```
 
 ### 장비 장착 예시 (UI/Inventory 시스템과 연동 필요)
-'''
+```
 if (GameManager.Instance.CanEquip(EquipmentSlot.Accessory1, draggedEquipment))
 {
   GameManager.Instance.SetEquipment(EquipmentSlot.Accessory1, draggedEquipment);
 }
-'''
+```
 
 ## 슬롯 타입 정의(EquipmentSlot)
 - Weapon
