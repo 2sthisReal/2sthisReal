@@ -8,11 +8,12 @@ public class Player : MonoBehaviour
     Animator weaponAnimator;
     SpriteRenderer spriteRenderer;
     Transform playerTransform;
+    Weapon_Bow weaponbow;
 
     public bool inRanged;
+    Vector2 directionVector;
 
-    //�߻�Ŭ�������� ���� ����
-    [SerializeField]float tempspeed = 3;   //�÷��̾��� �ӵ�
+    [SerializeField]float tempspeed = 3;   
     List<Transform> monsterCounter = new List<Transform>();
     
 
@@ -23,6 +24,7 @@ public class Player : MonoBehaviour
         weaponAnimator = transform.Find("Weapon_bow").GetComponent<Animator>();
         spriteRenderer = transform.Find("Sprite").GetComponent<SpriteRenderer>();
         playerTransform = GetComponent<Transform>();
+        weaponbow = GetComponentInChildren<Weapon_Bow>();
     }
     private void FixedUpdate()
     {
@@ -33,13 +35,20 @@ public class Player : MonoBehaviour
     {
         monsterCounter.RemoveAll(monster => monster == null);
         Transform closest = TargetSet();
-        if(closest == null)
+        if (closest == null)
+        {
+            weaponbow.WeaponWait();
+            weaponbow.StopAttack();
             return;
-
+        }
+        weaponbow.WeaponReady();
+        directionVector = (closest.position - playerTransform.position).normalized;
+        weaponbow.GetVector(directionVector);
+        
         if (closest.position.x - playerTransform.position.x > 0)
-            spriteRenderer.flipX = false;    //�÷��̾ �������� �ٶ󺸰� ��
+            spriteRenderer.flipX = false;  
         else if (closest.position.x - playerTransform.position.x < 0)
-            spriteRenderer.flipX = true;   //�÷��̾ ������ �ٶ󺸰� ��
+            spriteRenderer.flipX = true;   
 
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -49,10 +58,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        Vector2 targetPos = collision.transform.position;
-
-        //attack
-
+      // weaponbow.TargetVector(directionVector);
     }
 
     private void OnTriggerExit2D(Collider2D collision)

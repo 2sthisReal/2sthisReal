@@ -622,11 +622,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebe2baa6c842bb44dab42c562879bbbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowPrefabs: {fileID: 7774842186976022172, guid: 67792482167b0dc4288643688c1fa41e, type: 3}
   attack: 0
-  rate: 0
-  shotSpeed: 0
+  rate: 2
+  shotSpeed: 1
   numberOfShot: 0
+  arrowPrefabs: {fileID: 7774842186976022172, guid: 67792482167b0dc4288643688c1fa41e, type: 3}
 --- !u!1 &2047831900
 GameObject:
   m_ObjectHideFlags: 0

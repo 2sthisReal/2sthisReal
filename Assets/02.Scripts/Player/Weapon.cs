@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    private Coroutine attackCoroutine;
 
     protected Transform weapontransform;
     protected Animator animator;
 
     protected Vector2 directionVector;
-    
+
 
     [Header("¹«±â½ºÅÝ")]
     public float attack;
@@ -18,6 +17,8 @@ public class Weapon : MonoBehaviour
     public float shotSpeed;
     public int numberOfShot;
 
+    protected float attackCooldown = 0f;
+    private bool isAttack = false;
     private void Awake()
     {
         weapontransform = GetComponent<Transform>();
@@ -39,17 +40,17 @@ public class Weapon : MonoBehaviour
         float rotZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         weapontransform.localRotation = Quaternion.Euler(0f, 0f, rotZ);
         if (rotZ < 0f) rotZ += 360f;
-        
+
     }
     public virtual void AttackMotion()
     {
         animator.SetBool("IsShoot", true);
-        
+
     }
 
     public void WeaponReady()
     {
-        animator.SetBool("IsRanged" , true);
+        animator.SetBool("IsRanged", true);
     }
 
     public void WeaponWait()
@@ -59,24 +60,14 @@ public class Weapon : MonoBehaviour
 
     public void StartAttack()
     {
-        if (attackCoroutine == null)
-            attackCoroutine = StartCoroutine(AttackRoutine(rate));
+        isAttack = true;
     }
 
     public void StopAttack()
     {
-        if (attackCoroutine != null)
-        {
-            StopCoroutine(attackCoroutine);
-            attackCoroutine = null;
-        }
+        isAttack=false;
     }
-
-
-    IEnumerator AttackRoutine(float attackRate)
-    {
-        AttackMotion();
-        yield return new WaitForSeconds(1f / attackRate);
-    }
-
+    public bool IsAttack()
+    { return isAttack; }
 }
+
