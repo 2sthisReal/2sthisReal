@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace SWScene
 {
-    public class GameUI : BaseUI
+    public class InGameUI : BaseUI
     {
         [SerializeField] private Button pauseButton;
         [SerializeField] private Button tempGameOverButton;

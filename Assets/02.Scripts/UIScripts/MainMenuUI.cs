@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace SWScene 
 {
-    public class HomeUI : BaseUI
+    public class MainMenuUI : BaseUI
     {
         [SerializeField] private Button startButton;
         [SerializeField] private Button exitButton;

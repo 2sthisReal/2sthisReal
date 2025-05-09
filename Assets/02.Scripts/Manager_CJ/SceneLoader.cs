@@ -10,8 +10,13 @@ public class SceneLoader : MonoBehaviour
 
     private Dictionary<GameState, string> sceneByState = new Dictionary<GameState, string>()
     {
-        { GameState.MainMenu, "MainScene" },
-        { GameState.InGame, "StageScene" }
+        { GameState.MainMenu, "MainMenuScene" },
+        { GameState.InGame, "InGameScene" },
+        { GameState.Victory, "VictoryScene" },
+        { GameState.Preparing, "PreparingScene" },
+        { GameState.StageClear, "StageClearScene" },
+        { GameState.Pause, "PauseScene"},
+        { GameState.GameOver, "GameOverScene" }
     };
 
     private void Awake()
@@ -25,7 +30,7 @@ public class SceneLoader : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void LoadSceneForState(GameState state, Action onLoaded = null)
+    public void LoadSceneForState(GameState state)
     {
         if (!sceneByState.ContainsKey(state))
         {
@@ -37,7 +42,6 @@ public class SceneLoader : MonoBehaviour
         StartCoroutine(LoadSceneAsync(sceneName, () =>
         {
             GameManager.Instance.ChangeState(state);
-            onLoaded?.Invoke();
         }));
     }
 
