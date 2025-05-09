@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace Jang
@@ -10,10 +9,9 @@ namespace Jang
         private StagePresetManager stagePresetManager; // 프리셋 랜덤으로 가져오기 위한 Manager
 
         [Header("Object Prefabs")]
-        [SerializeField] GameObject monsterPrefab; 
-        [SerializeField] GameObject obstaclePrefab;
-        [SerializeField] GameObject itemPrefab;
-
+        [SerializeField] GameObject[] monsterPrefab;
+        [SerializeField] GameObject[] obstaclePrefab;
+        [SerializeField] GameObject[] itemPrefab;
 
         public void Init()
         {
@@ -28,7 +26,7 @@ namespace Jang
         {
             InitStage(preset);
         }
-        
+
         // 스테이지 설정
         void InitStage(StagePreset preset)
         {
@@ -38,13 +36,16 @@ namespace Jang
         }
 
         // 오브젝트 생성
-        void SpawnObjects(List<Vector2> points, GameObject prefab)
+        void SpawnObjects(List<Vector2> points, GameObject[] prefabs)
         {
-            if(points == null || prefab == null) return;
+            if (points == null || prefabs == null) return;
 
-            foreach(var point in points)
+
+
+            foreach (var point in points)
             {
-                GameObject obj = Instantiate(prefab, point, Quaternion.identity);
+                int random = Random.Range(0, prefabs.Length);
+                Instantiate(prefabs[random], point, Quaternion.identity);
             }
         }
     }
