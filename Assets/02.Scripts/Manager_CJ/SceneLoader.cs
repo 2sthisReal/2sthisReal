@@ -25,19 +25,17 @@ public class SceneLoader : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void LoadSceneForState(GameState state, Action onLoaded = null)
+    public void LoadSceneForState(GameState state)
     {
-        if (!sceneByState.ContainsKey(state))
+        if (!sceneByState.TryGetValue(state, out string sceneName))
         {
             Debug.LogWarning($"No scene mapped for state: {state}");
             return;
         }
 
-        string sceneName = sceneByState[state];
         StartCoroutine(LoadSceneAsync(sceneName, () =>
         {
-            GameManager.Instance.ChangeState(state);
-            onLoaded?.Invoke();
+            GameManager.Instance.SetState(state);
         }));
     }
 
