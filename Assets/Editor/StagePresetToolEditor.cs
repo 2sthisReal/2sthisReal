@@ -24,7 +24,7 @@ namespace Jang
                 OverwritePreset(tool);
             }
 
-            if(GUILayout.Button("Preview Preset"))
+            if (GUILayout.Button("Preview Preset"))
             {
                 PreviewPreset(tool);
             }
@@ -111,7 +111,7 @@ namespace Jang
             StagePreset[] presets = Resources.LoadAll<StagePreset>("StagePresets");
             StagePreset preset = presets.SingleOrDefault(p => p.stageID == tool.stageID);
 
-            if(preset == null)
+            if (preset == null)
             {
                 Debug.LogWarning($"Doesn't Exist Preset (ID: {tool.stageID})");
                 return;

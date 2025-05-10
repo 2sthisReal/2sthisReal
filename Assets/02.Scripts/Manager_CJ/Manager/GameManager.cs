@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Jang;
 using SWScene;
 using UnityEngine;
 
@@ -19,6 +20,7 @@ public class GameManager : MonoBehaviour
 
     #region Stage Progress
     private int remainingEnemies;
+    public StageManager stageManager;
     #endregion
 
     private void Awake()
@@ -33,7 +35,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    #region »óÅÂ º¯È¯
+    #region ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
     public void ChangeState(GameState newState)
     {
         if (CurrentState == newState) return;
@@ -56,18 +58,21 @@ public class GameManager : MonoBehaviour
         {
             ResetPlayerSession();
         }
+
+        if(newState == GameState.InGame)
+            InitStage();
     }
     #endregion
 
-    #region ¸ó½ºÅÍ
-    // ½ºÅ×ÀÌÁö ½ÃÀÛ ½Ã Àû ¼ö µî·ÏÇØÁÖ¸é µË´Ï´Ù. (StageÂÊ)
+    #region ï¿½ï¿½ï¿½ï¿½
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ ï¿½Ë´Ï´ï¿½. (Stageï¿½ï¿½)
     public void RegisterEnemies(int count)
     {
         remainingEnemies = count;
         Debug.Log($"[GameManager] Registered {count} enemies");
     }
 
-    // NotifyEnemyKilled()¸¦ Die()¿¡¼­ È£ÃâÇØÁÖ¸é µË´Ï´Ù. (MonsterÂÊ)
+    // NotifyEnemyKilled()ï¿½ï¿½ Die()ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ ï¿½Ë´Ï´ï¿½. (Monsterï¿½ï¿½)
     public void NotifyEnemyKilled()
     {
         if (CurrentState != GameState.InGame) return;
@@ -80,6 +85,11 @@ public class GameManager : MonoBehaviour
             Debug.Log("[GameManager] All enemies defeated. Stage Clear.");
             ChangeState(GameState.StageClear);
         }
+    }
+
+    public void InitStage()
+    {
+        stageManager.Init(this);
     }
     #endregion
 

@@ -121,10 +121,10 @@ public class Player : BaseCharacter
     {
         if (currentWeapon != null)
         {
-            Destroy(currentWeapon.gameObject);  // ÇöÀç ÀåÂøµÈ ¹«±â Á¦°Å
+            Destroy(currentWeapon.gameObject);  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
 
-        // »õ·Î¿î ¹«±â ÀÎ½ºÅÏ½º¸¦ ÀåÂø
+        // ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ï½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         currentWeapon = Instantiate(weaponPrefabs[weaponIndex], weapons.position, Quaternion.identity);
         currentWeapon.transform.SetParent(weapons);
         weapon = currentWeapon;

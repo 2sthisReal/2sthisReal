@@ -6,6 +6,7 @@ namespace Jang
 {
     public class StageManager : MonoBehaviour
     {
+        GameManager gameManager;
         [SerializeField] StagePreset currentPreset; // 현재 스테이지 프리셋
         private StagePresetManager stagePresetManager; // 프리셋 랜덤으로 가져오기 위한 Manager
 
@@ -16,17 +17,25 @@ namespace Jang
 
         void Awake()
         {
-            //GameManager.Instance.stageManager = this;
+            GameManager.Instance.stageManager = this;
         }
 
         // 스테이지 설정 세팅 및 스테이지 생성
-        public void Init()
+        public void Init(GameManager gameManager)
         {
-            if (stagePresetManager == null)
-                stagePresetManager = GetComponentInChildren<StagePresetManager>();
+            this.gameManager = gameManager;
+            stagePresetManager = GetComponentInChildren<StagePresetManager>();
 
+            GenerateNewStage();
+        }
+
+        // 새로운 스테이지 생성
+        public void GenerateNewStage()
+        {
             currentPreset = stagePresetManager.GetRandomPreset();
             InitStage(currentPreset, () => {});
+    
+            gameManager.RegisterEnemies(currentPreset.monsterPoints.Count);
         }
 
         // 스테이지 미리보기
