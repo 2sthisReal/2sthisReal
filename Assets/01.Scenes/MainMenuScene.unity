@@ -673,7 +673,7 @@ GameObject:
   - component: {fileID: 202753272}
   - component: {fileID: 202753271}
   m_Layer: 5
-  m_Name: WeaponButton
+  m_Name: WeaponImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1231,7 +1231,7 @@ GameObject:
   - component: {fileID: 299090871}
   - component: {fileID: 299090870}
   m_Layer: 5
-  m_Name: Pet2Button
+  m_Name: Pet2Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1464,7 +1464,7 @@ GameObject:
   - component: {fileID: 352157293}
   - component: {fileID: 352157292}
   m_Layer: 5
-  m_Name: Pet1Button
+  m_Name: Pet1Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1615,7 +1615,7 @@ GameObject:
   - component: {fileID: 414803105}
   - component: {fileID: 414803104}
   m_Layer: 5
-  m_Name: ArmorButton
+  m_Name: ArmorImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5721,7 +5721,7 @@ GameObject:
   - component: {fileID: 870794134}
   - component: {fileID: 870794133}
   m_Layer: 5
-  m_Name: Accessory1Button
+  m_Name: Accessory1Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9891,7 +9891,7 @@ GameObject:
   - component: {fileID: 1715394118}
   - component: {fileID: 1715394117}
   m_Layer: 5
-  m_Name: Accessory2Button
+  m_Name: Accessory2Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11121,13 +11121,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startButton: {fileID: 1902348788}
   mainMenuButton: {fileID: 542264717}
-  WeaponButton: {fileID: 0}
-  ArmorButton: {fileID: 0}
-  Accessory1Button: {fileID: 0}
-  Accessory2Button: {fileID: 0}
-  Pet1Button: {fileID: 0}
-  Pet2Button: {fileID: 0}
-  InventoryButton:
+  weaponImage: {fileID: 202753271}
+  armorImage: {fileID: 414803104}
+  accessory1Image: {fileID: 870794133}
+  accessory2Image: {fileID: 1715394117}
+  pet1Image: {fileID: 352157292}
+  pet2Image: {fileID: 299090870}
+  inventoryButton:
   - {fileID: 1101653528}
   - {fileID: 1970382390}
   - {fileID: 868299870}
