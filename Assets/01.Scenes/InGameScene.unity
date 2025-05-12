@@ -275,8 +275,10 @@ MonoBehaviour:
   isMoving: 0
   weaponPrefabs:
   - {fileID: 1320653475934402969, guid: fb5990426a1e4c3458bc038db10676fd, type: 3}
+  shotSpeed: 0
   inRanged: 0
-  tempspeed: 3
+  invincible: 0
+  invincibleTimer: 0
 --- !u!4 &274589926
 Transform:
   m_ObjectHideFlags: 0
@@ -571,6 +573,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5358875823883480936, guid: 3a31b564d36820245acef84abb38eb5a, type: 3}
+      propertyPath: monsterPrefab.Array.data[0]
+      value: 
+      objectReference: {fileID: 7165314511928076218, guid: 58a98d786ec152d4c98e8b52540b5252, type: 3}
     - target: {fileID: 7073314871383367969, guid: 3a31b564d36820245acef84abb38eb5a, type: 3}
       propertyPath: m_Name
       value: StageManager

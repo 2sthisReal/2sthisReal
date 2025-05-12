@@ -2568,13 +2568,13 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 766248178}
-  - {fileID: 636877720}
   - {fileID: 1219279164}
   - {fileID: 2105737715}
   - {fileID: 1115047112}
   - {fileID: 1629479239}
   - {fileID: 575099157}
+  - {fileID: 636877720}
+  - {fileID: 766248178}
   m_Father: {fileID: 1404150467}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2599,8 +2599,8 @@ MonoBehaviour:
   tempVictoryButton: {fileID: 2105737716}
   tempStageClearButton: {fileID: 1629479240}
   tempSkillSelectButton: {fileID: 575099158}
-  pauseUI: {fileID: 0}
-  skillSelectUI: {fileID: 0}
+  pauseUI: {fileID: 636877721}
+  skillSelectUI: {fileID: 766248179}
 --- !u!1 &605507854
 GameObject:
   m_ObjectHideFlags: 0
