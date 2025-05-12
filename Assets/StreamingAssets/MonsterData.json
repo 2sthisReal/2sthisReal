@@ -4,7 +4,7 @@
             "id": "goblin_archer",
             "monsterName": "���� �ü�",
             "level": 5,
-            "maxHealth": 100,
+            "maxHealth": 10,
             "attackDamage": 15,
             "attackSpeed": 1.2,
             "moveSpeed": 2.5,
