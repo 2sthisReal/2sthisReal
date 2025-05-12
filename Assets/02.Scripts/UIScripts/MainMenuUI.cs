@@ -27,7 +27,6 @@ namespace SWScene
             preparingButton.onClick.AddListener(
                 () =>
                 {
-                    Application.Quit();
                     GameManager.Instance.ChangeState(GameState.Preparing);
                 });
             exitButton.onClick.AddListener(

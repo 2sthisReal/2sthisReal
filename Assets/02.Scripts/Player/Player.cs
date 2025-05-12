@@ -102,10 +102,12 @@ public class Player : BaseCharacter
     {
         if (invincible)
             return;
-        animator.SetTrigger("IsDamaged");
+        Monster monster = collision.gameObject.GetComponent<Monster>();
+        
         if (collision.collider.CompareTag("Enemy"))
         {
-            Damaged(5);
+            animator.SetTrigger("IsDamaged");
+            TakeDamage(monster.attackDamage);
             ApplyKnockback(collision.transform);
         }
     }
@@ -162,8 +164,9 @@ public class Player : BaseCharacter
         }
 
         // ���ο� ���� �ν��Ͻ��� ����
-        currentWeapon = Instantiate(weaponPrefabs[weaponIndex], weapons.position, Quaternion.identity);
+        currentWeapon = Instantiate(weaponPrefabs[weaponIndex]);
         currentWeapon.transform.SetParent(weapons);
+        currentWeapon.transform.localPosition = Vector3.zero;
         weapon = currentWeapon;
     }
 
@@ -172,8 +175,11 @@ public class Player : BaseCharacter
         
     }
 
-    public void Damaged(float damage)
+    public override void TakeDamage(float damage)
     {
+        if (invincible)
+            return;
+
         currentHealth -= damage;
         if (currentHealth < 0)
         {
