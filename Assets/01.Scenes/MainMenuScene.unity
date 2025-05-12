@@ -2568,6 +2568,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 766248178}
+  - {fileID: 636877720}
   - {fileID: 1219279164}
   - {fileID: 2105737715}
   - {fileID: 1115047112}
@@ -2597,6 +2599,8 @@ MonoBehaviour:
   tempVictoryButton: {fileID: 2105737716}
   tempStageClearButton: {fileID: 1629479240}
   tempSkillSelectButton: {fileID: 575099158}
+  pauseUI: {fileID: 0}
+  skillSelectUI: {fileID: 0}
 --- !u!1 &605507854
 GameObject:
   m_ObjectHideFlags: 0
@@ -2837,7 +2841,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &636877720
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2845,7 +2849,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 636877719}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2854,7 +2858,7 @@ RectTransform:
   - {fileID: 743414807}
   - {fileID: 540557383}
   - {fileID: 996871068}
-  m_Father: {fileID: 1404150467}
+  m_Father: {fileID: 581304181}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3727,7 +3731,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &766248178
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3744,7 +3748,7 @@ RectTransform:
   - {fileID: 1664749816}
   - {fileID: 1013064929}
   - {fileID: 2144882293}
-  m_Father: {fileID: 1404150467}
+  m_Father: {fileID: 581304181}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3765,6 +3769,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillSelectButton: {fileID: 1664749817}
   skillCancelButton: {fileID: 1013064930}
+  RandomSkill0: {fileID: 0}
+  RandomSkill1: {fileID: 0}
+  RandomSkill2: {fileID: 0}
 --- !u!1 &797996908
 GameObject:
   m_ObjectHideFlags: 0
@@ -6209,10 +6216,8 @@ RectTransform:
   - {fileID: 1609686291}
   - {fileID: 1991924690}
   - {fileID: 750005133}
-  - {fileID: 636877720}
   - {fileID: 1269108379}
   - {fileID: 797996911}
-  - {fileID: 766248178}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

@@ -30,8 +30,8 @@ namespace SWScene
         {
             if (scene.name == "InGameScene")
             {
-                pauseUI.SetActive(GameState.InGame);
-                skillSelectUI.SetActive(GameState.InGame);
+                pauseUI.gameObject.SetActive(false);
+                skillSelectUI.gameObject.SetActive(false);
             }
         }
 
@@ -43,18 +43,20 @@ namespace SWScene
         public override void Init(UIManager uiManager)
         {
             base.Init(uiManager);
+            pauseUI.Init(uiManager);
+            skillSelectUI.Init(uiManager); 
             pauseButton.onClick.AddListener(
                 () => 
                 {
-                    pauseUI.SetActive(GameState.Pause);
-                    skillSelectUI.SetActive(GameState.Pause);
+                    pauseUI.gameObject.SetActive(true);
+                    skillSelectUI.gameObject.SetActive(false);
                     //GameManager.Instance.ChangeState(GameState.Pause); 
                 });
             tempSkillSelectButton.onClick.AddListener(
                 () =>
                 {
-                    pauseUI.SetActive(GameState.SkillSelect);
-                    skillSelectUI.SetActive(GameState.SkillSelect);
+                    pauseUI.gameObject.SetActive(false);
+                    skillSelectUI.gameObject.SetActive(true);
                     //GameManager.Instance.ChangeState(GameState.SkillSelect);
                 });
             tempGameOverButton.onClick.AddListener(

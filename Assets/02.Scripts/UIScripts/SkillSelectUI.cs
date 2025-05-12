@@ -21,16 +21,17 @@ namespace SWScene
         public override void Init(UIManager uiManager)
         {
             base.Init(uiManager);
+            this.gameObject.SetActive(false);
             skillSelectButton.onClick.AddListener(
                 () => 
                 {
-                    this.SetActive(GameState.InGame);
+                    this.gameObject.SetActive(false);
                     //GameManager.Instance.ChangeState(GameState.InGame); 
                 });
             skillCancelButton.onClick.AddListener(
                 () =>
                 {
-                    Application.Quit();
+                    this.gameObject.SetActive(false);
                     GameManager.Instance.ChangeState(GameState.InGame);
                 });
         }
