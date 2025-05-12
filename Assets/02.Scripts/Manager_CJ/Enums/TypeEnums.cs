@@ -12,10 +12,16 @@ public enum EquipmentType
 
 public enum SkillType
 {
-    Active = 0,
-    Passive = 1
+    Passive = 0,
+    Active = 1
 }
 
+public enum PassiveType
+{
+    Attack = 0,
+    AttackSpeed = 1,
+    MaxHp = 2
+}
 public enum ElementType
 {
     None = -1,
