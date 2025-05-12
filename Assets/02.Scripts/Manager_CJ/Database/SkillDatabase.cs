@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -6,6 +7,8 @@ using UnityEngine;
 public class SkillDatabase : MonoBehaviour
 {
     public static SkillDatabase Instance {  get; private set; }
+
+    [SerializeField]
     public List<SkillData> Skills {  get; private set; }
 
     private void Awake()

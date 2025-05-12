@@ -2,164 +2,89 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// MonsterSpawner´Â ¸ó½ºÅÍ¸¦ ÁÖ±âÀûÀ¸·Î ¼ÒÈ¯ÇÏ´Â ÄÄÆ÷³ÍÆ®ÀÔ´Ï´Ù.
+/// MonsterSpawnerëŠ” ì§€ì •ëœ ìœ„ì¹˜ì— ëª¬ìŠ¤í„°ë¥¼ ì†Œí™˜í•˜ëŠ” ì»´í¬ë„ŒíŠ¸ì…ë‹ˆë‹¤.
+/// ìµœëŒ€ ëª¬ìŠ¤í„° ìˆ˜ ì œí•œê³¼ ì£¼ê¸°ì  ìë™ ì†Œí™˜ì„ ì§€ì›í•©ë‹ˆë‹¤.
 /// </summary>
 public class MonsterSpawner : MonoBehaviour
 {
-    [Header("½ºÆù ¼³Á¤")]
-    [SerializeField] private float spawnRadius = 10f;               // ¼ÒÈ¯ ¹İ°æ
-    [SerializeField] private int maxMonsters = 5;                   // µ¿½Ã¿¡ Á¸ÀçÇÒ ¼ö ÀÖ´Â ÃÖ´ë ¸ó½ºÅÍ ¼ö
-    [SerializeField] private float spawnInterval = 5f;              // ¸ó½ºÅÍ ¼ÒÈ¯ °£°İ
-    [SerializeField] private Transform spawnPointParent;            // ¼ÒÈ¯ À§Ä¡¸¦ ÀÚ½ÄÀ¸·Î °¡Áö´Â ºÎ¸ğ ¿ÀºêÁ§Æ®
+    [Header("ëª¬ìŠ¤í„° ì„¤ì •")]
+    [SerializeField] private List<string> monsterIdsToSpawn = new();
+    [SerializeField] private float spawnInterval = 5f;
+    [SerializeField] private int maxMonsters = 10;
 
-    [Header("¸ó½ºÅÍ ¼³Á¤")]
-    [SerializeField] private List<string> monsterIdsToSpawn = new(); // ¼ÒÈ¯ÇÒ ¸ó½ºÅÍ ID ¸ñ·Ï
-
-    private List<Transform> spawnPoints = new();                    // ½ÇÁ¦ »ç¿ëµÉ ¼ÒÈ¯ À§Ä¡ ¸ñ·Ï
-    private List<Monster> activeMonsters = new();                   // ÇöÀç »ì¾ÆÀÖ´Â ¸ó½ºÅÍ ¸®½ºÆ®
-    private float nextSpawnTime;                                    // ´ÙÀ½ ¼ÒÈ¯ ½ÃÁ¡
+    private List<Monster> activeMonsters = new();
+    private List<Vector3> spawnPositions = new();
+    private float nextSpawnTime;
 
     private void Start()
     {
-        InitializeSpawnPoints();                                     // ¼ÒÈ¯ À§Ä¡ ÃÊ±âÈ­
-        nextSpawnTime = Time.time + spawnInterval;                  // Ã¹ ¼ÒÈ¯ Å¸ÀÌ¹Ö ¼³Á¤
+        nextSpawnTime = Time.time + spawnInterval;
     }
 
     private void Update()
     {
-        // Á×Àº ¸ó½ºÅÍ´Â ¸®½ºÆ®¿¡¼­ Á¦°Å
         activeMonsters.RemoveAll(monster => monster == null || !monster.isAlive);
 
-        // ¸ó½ºÅÍ ¼ö°¡ ÇÑµµº¸´Ù Àû°í, ¼ÒÈ¯ Å¸ÀÌ¹ÖÀÌ µÇ¸é ¼ÒÈ¯ ½ÇÇà
-        if (activeMonsters.Count < maxMonsters && Time.time >= nextSpawnTime)
+        if (Time.time >= nextSpawnTime && activeMonsters.Count < maxMonsters && spawnPositions.Count > 0)
         {
-            SpawnMonster();
+            Vector3 randomPos = spawnPositions[Random.Range(0, spawnPositions.Count)];
+            SpawnMonsterInternal(randomPos);
             nextSpawnTime = Time.time + spawnInterval;
         }
     }
 
     /// <summary>
-    /// ¼ÒÈ¯ À§Ä¡ ¸ñ·ÏÀ» ÃÊ±âÈ­
-    /// - spawnPointParent°¡ ÀÖÀ¸¸é ±× ÀÚ½ÄµéÀ» »ç¿ë
-    /// - ¾øÀ¸¸é ÇöÀç À§Ä¡¸¦ ±âº» ¼ÒÈ¯ À§Ä¡·Î »ç¿ë
+    /// ì™¸ë¶€ í˜¸ì¶œìš©: ì§€ì •ëœ ìœ„ì¹˜ì— ëª¬ìŠ¤í„°ë¥¼ ìŠ¤í°í•˜ê³  ìŠ¤í° ìœ„ì¹˜ ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€
     /// </summary>
-    private void InitializeSpawnPoints()
+    public void SpawnMonsterInStage(Vector3 spawnPos)
     {
-        spawnPoints.Clear();
+        if (!spawnPositions.Contains(spawnPos))
+            spawnPositions.Add(spawnPos);
 
-        if (spawnPointParent != null)
-        {
-            foreach (Transform child in spawnPointParent)
-                spawnPoints.Add(child);
-        }
-
-        if (spawnPoints.Count == 0)
-            spawnPoints.Add(transform);
+        SpawnMonsterInternal(spawnPos);
     }
 
     /// <summary>
-    /// ¸ó½ºÅÍ ÇÑ ¸¶¸®¸¦ ¼ÒÈ¯
+    /// ì‹¤ì œ ëª¬ìŠ¤í„° ìŠ¤í° ë¡œì§ (ìœ„ì¹˜ë§Œ ë°›ìŒ)
     /// </summary>
-    private void SpawnMonster()
+    private void SpawnMonsterInternal(Vector3 spawnPos)
     {
         if (monsterIdsToSpawn.Count == 0)
         {
-            Debug.LogWarning("½ºÆùÇÒ ¸ó½ºÅÍ ID°¡ ¾ø½À´Ï´Ù.");
+            Debug.LogWarning("ìŠ¤í°í•  ëª¬ìŠ¤í„° IDê°€ ì—†ìŠµë‹ˆë‹¤.");
             return;
         }
 
-        // ·£´ıÀ¸·Î ¸ó½ºÅÍ ID ¼±ÅÃ ÈÄ µ¥ÀÌÅÍ ·Îµå
         string monsterId = monsterIdsToSpawn[Random.Range(0, monsterIdsToSpawn.Count)];
         MonsterData monsterData = MonsterManager.Instance.GetMonsterData(monsterId);
 
         if (monsterData == null)
         {
-            Debug.LogError($"MonsterData ¸ø Ã£À½: {monsterId}");
+            Debug.LogError($"MonsterDataë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤: {monsterId}");
             return;
         }
 
-        // ¼ÒÈ¯ À§Ä¡ °è»ê
-        Vector3 spawnPos = GetRandomSpawnPosition();
-        Debug.Log($"¸ó½ºÅÍ ½ºÆù ½Ãµµ: ID={monsterId}, °æ·Î={monsterData.prefabPath}, À§Ä¡={spawnPos}");
-
-        // Resources Æú´õ¿¡¼­ ÇÁ¸®ÆÕ ·Îµå
         GameObject prefab = Resources.Load<GameObject>(monsterData.prefabPath);
         if (prefab == null)
         {
-            Debug.LogError($"ÇÁ¸®ÆÕ ·Îµå ½ÇÆĞ: {monsterData.prefabPath}");
+            Debug.LogError($"í”„ë¦¬íŒ¹ ë¡œë“œ ì‹¤íŒ¨: {monsterData.prefabPath}");
             return;
         }
 
-        // ¸ó½ºÅÍ ÀÎ½ºÅÏ½º »ı¼º
         GameObject monsterObj = Instantiate(prefab, spawnPos, Quaternion.identity);
 
         if (monsterObj != null)
         {
-            // ÀÚ½Ä ¿ÀºêÁ§Æ® Áß MainSpriteÀÌ Á¸ÀçÇÏ´ÂÁö È®ÀÎ
-            Transform mainSpriteTr = monsterObj.transform.Find("MainSprite");
-            Debug.Log(mainSpriteTr != null ? "MainSprite Ã£À½" : "MainSprite ¸ø Ã£À½");
-
-            // Monster ½ºÅ©¸³Æ® È®ÀÎ ÈÄ ÃÊ±âÈ­
             Monster monster = monsterObj.GetComponent<Monster>();
             if (monster != null)
             {
-                CheckAndFixSprites(monsterObj, monsterData);
-                monster.Initialize(monsterId);               // ¸ó½ºÅÍ ID Àü´Ş
-                activeMonsters.Add(monster);                // È°¼ºÈ­µÈ ¸ó½ºÅÍ·Î µî·Ï
+                monster.Initialize(monsterId);
+                activeMonsters.Add(monster);
             }
             else
             {
-                Debug.LogError("Monster ÄÄÆ÷³ÍÆ®¸¦ Ã£Áö ¸øÇß½À´Ï´Ù.");
+                Debug.LogError("Monster ì»´í¬ë„ŒíŠ¸ë¥¼ ì°¾ì§€ ëª»í–ˆìŠµë‹ˆë‹¤.");
             }
-        }
-    }
-
-    /// <summary>
-    /// ¸ó½ºÅÍ ¿ÀºêÁ§Æ®ÀÇ ½ºÇÁ¶óÀÌÆ®/¾Ö´Ï¸ŞÀÌÅÍ È®ÀÎ ·Î±×
-    /// µğ¹ö±ë¿ë - ¸®¼Ò½º ´©¶ô ¿©ºÎ Ã¼Å©
-    /// </summary>
-    private void CheckAndFixSprites(GameObject monsterObj, MonsterData monsterData)
-    {
-        Transform mainSpriteTr = monsterObj.transform.Find("MainSprite");
-        if (mainSpriteTr != null)
-        {
-            Animator animator = mainSpriteTr.GetComponent<Animator>();
-            Debug.Log(animator != null
-                ? "Animator ¿¬°áµÊ. SpriteRenderer´Â Animator°¡ Á¦¾îÇÔ"
-                : "Animator ¾øÀ½. SpriteRenderer ¼öµ¿ ¼³Á¤ ÇÊ¿äÇÒ ¼ö ÀÖÀ½");
-
-            SpriteRenderer mainRenderer = mainSpriteTr.GetComponent<SpriteRenderer>();
-            Debug.Log(mainRenderer != null
-                ? $"MainSprite¿¡ SpriteRenderer ÀÖÀ½. ÇöÀç sprite: {(mainRenderer.sprite != null ? mainRenderer.sprite.name : "null")}"
-                : "MainSprite¿¡ SpriteRenderer ¾øÀ½");
-        }
-    }
-
-    /// <summary>
-    /// ·£´ı À§Ä¡ ¹İÈ¯ (¼ÒÈ¯ ¹İ°æ ³»¿¡¼­)
-    /// </summary>
-    private Vector3 GetRandomSpawnPosition()
-    {
-        Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)];
-        Vector2 offset = Random.insideUnitCircle * spawnRadius;
-        return spawnPoint.position + new Vector3(offset.x, offset.y, 0);
-    }
-
-    /// <summary>
-    /// ¿¡µğÅÍ¿¡¼­ ¼ÒÈ¯ ¹İ°æÀ» ½Ã°¢ÀûÀ¸·Î º¸¿©ÁÖ´Â ±âÁî¸ğ
-    /// </summary>
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-
-        if (spawnPointParent != null)
-        {
-            foreach (Transform child in spawnPointParent)
-                Gizmos.DrawWireSphere(child.position, spawnRadius);
-        }
-        else
-        {
-            Gizmos.DrawWireSphere(transform.position, spawnRadius);
         }
     }
 }
