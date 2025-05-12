@@ -31,11 +31,6 @@ public class Monster : BaseCharacter
     {
         // 플레이어 찾기
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
-        if (player == null)
-        {
-            Debug.Log("unknown player");
-        }
-        Debug.Log($"123{player.transform}");
 
         // 몬스터 데이터 로드
         monsterData = MonsterManager.Instance.GetMonsterData(monsterId);
@@ -119,6 +114,7 @@ public class Monster : BaseCharacter
             Player player = other.GetComponent<Player>();
             if (player != null)
             {
+                //player.TakeDamage(attackDamage); // 플레이어 스크립트에서 데미지 주는 메서드 가져와야함
                 Debug.Log($"{characterName}이 플레이어에게 충돌하여 {attackDamage} 데미지를 입힘");
             }
         }
