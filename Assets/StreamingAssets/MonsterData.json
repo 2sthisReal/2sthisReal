@@ -2,7 +2,7 @@
     "monsters": [
         {
             "id": "goblin_archer",
-            "monsterName": "°íºí¸° ±Ã¼ö",
+            "monsterName": "ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¼ï¿½",
             "level": 5,
             "maxHealth": 100,
             "attackDamage": 15,
@@ -11,7 +11,7 @@
             "attackRange": 5.0,
             "prefabPath": "GoblinArcher",
             "type": 0,
-            "dropItems": [ "item_arrow", "item_bow" ],
+            "dropItems": [ "item_exp" ],
             "dropRate": 0.5,
             "expReward": 20,
             "attackPattern": 1
