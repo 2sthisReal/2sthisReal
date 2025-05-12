@@ -1,4 +1,5 @@
 using SWScene;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -17,17 +18,18 @@ public class Player : BaseCharacter
 
     public float shotSpeed;
 
-    private bool isMove;
+    public bool isMove;
     public bool inRanged;
     public bool invincible = false;
     private bool isKnockback = false;
+    public bool multipleShots = false;
     private float knockbackDuration = 0.0f;
     public float invincibleTimer;
 
     Vector2 knockback = Vector2.zero;
-    Vector2 directionVector;
+    public Vector2 directionVector;
 
-    List<Transform> monsterCounter = new List<Transform>();
+    public List<Transform> monsterCounter = new List<Transform>();
     
 
     protected override void Awake()
@@ -36,7 +38,6 @@ public class Player : BaseCharacter
         animator = transform.Find("Sprite").GetComponent<Animator>();
         spriteRenderer = transform.Find("Sprite").GetComponent<SpriteRenderer>();
         playerTransform = GetComponent<Transform>();
-        weapon = GetComponentInChildren<Weapon>();
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
     private void Start()
@@ -57,7 +58,14 @@ public class Player : BaseCharacter
         if (isKnockback)
             return;
         Move(Vector2.zero);
-        
+        //trigger는 움직여야 작동되기때문에 쓴 꼼수
+        if (!isMove)
+        { 
+            rb.velocity = Vector2.right * 0.000001f;
+            rb.velocity = Vector2.left * 0.000001f;
+        }
+
+
     }
 
     void Update()
@@ -84,25 +92,12 @@ public class Player : BaseCharacter
             if (invincibleTimer <= 0)
                 invincible = false;
         }
-        
-
     }
 
 
     //Trigger는 플레이어 밖에 공격범위 큰원
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Enemy"))
-            monsterCounter.Add(collision.transform);
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Enemy") && isMove == false)
-        {
-            weapon.AttackTarget(directionVector, shotSpeed, attackSpeed);
-        }
-    }
+      
+    
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (invincible)
@@ -117,10 +112,7 @@ public class Player : BaseCharacter
     
 
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        monsterCounter.Remove(collision.transform);
-    }
+    
 
     void OnDrawGizmos()
     {
@@ -188,7 +180,8 @@ public class Player : BaseCharacter
             //GameOver();
         }
         invincible = true;
-        invincibleTimer = 2.0f;
+        invincibleTimer = 2.0f; //2초무적
+        StartCoroutine(BlinkAlpha(2.0f, 0.1f));
     }
 
     public void ApplyKnockback(Transform other)
@@ -198,6 +191,39 @@ public class Player : BaseCharacter
         knockback = -(other.position - transform.position).normalized * 4f; 
         rb.velocity = knockback;
     }
+
+    IEnumerator BlinkAlpha(float duration, float frequency)
+    {
+        float timer = 0f;
+        Color originalColor = spriteRenderer.color;
+
+        while (timer < duration)
+        {
+            Color c = spriteRenderer.color;
+            c.a = (c.a == 1f) ? 0.2f : 1f;
+            spriteRenderer.color = c;
+
+            yield return new WaitForSeconds(frequency);
+            timer += frequency;
+        }
+
+        spriteRenderer.color = originalColor; // 원래대로 복구
+    }
+    public void ToggleMultiShot()
+    {
+        multipleShots = !multipleShots;
+    }
+
+
+
+
+
+
+
+
+    /// <summary>
+    /// //////////////////////////////////////////////////////////////////////////////////////////////////
+    /// </summary>
 
 
 

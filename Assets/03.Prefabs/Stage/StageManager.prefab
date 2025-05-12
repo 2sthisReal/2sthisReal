@@ -45,6 +45,56 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   presets: []
+--- !u!1 &4785198111391985287
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5632289618581997940}
+  - component: {fileID: 2510888213805785804}
+  m_Layer: 0
+  m_Name: MonsterSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5632289618581997940
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4785198111391985287}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -217.15242, y: -328.0873, z: 2.849062}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3834841032419003750}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2510888213805785804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4785198111391985287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90e086d70bd2d9c4bad0f2934ad02932, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnRadius: 10
+  maxMonsters: 5
+  spawnInterval: 5
+  spawnPointParent: {fileID: 0}
+  monsterIdsToSpawn:
+  - goblin_archer
 --- !u!1 &7073314871383367969
 GameObject:
   m_ObjectHideFlags: 0
@@ -76,6 +126,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1510735823914262627}
+  - {fileID: 5632289618581997940}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5358875823883480936
@@ -91,10 +142,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentPreset: {fileID: 0}
-  monsterPrefab:
-  - {fileID: 1561492691561167235, guid: 7645e384de152f24d8ef44316fb7c035, type: 3}
+  monsterSpawner: {fileID: 0}
   obstaclePrefab:
   - {fileID: 243393950758671493, guid: 9c939e066b4bf0c4a9e26ec886993485, type: 3}
   - {fileID: 7535745128999794880, guid: bd54054d5716c4a46800d91832eea197, type: 3}
   itemPrefab:
   - {fileID: 383019405079115151, guid: 58b14a3f9c9ef814d9740d4832f4b0d3, type: 3}
+  stageMap: {fileID: 0}
+  stageDoor: {fileID: 0}

@@ -11,7 +11,7 @@
             "attackRange": 5.0,
             "prefabPath": "GoblinArcher",
             "type": 0,
-            "dropItems": [ "item_arrow", "item_bow" ],
+            "dropItems": [ "item_exp" ],
             "dropRate": 0.5,
             "expReward": 20,
             "attackPattern": 1
