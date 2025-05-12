@@ -1858,6 +1858,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiManager: {fileID: 0}
+  stageManager: {fileID: 0}
 --- !u!4 &605507856
 Transform:
   m_ObjectHideFlags: 0

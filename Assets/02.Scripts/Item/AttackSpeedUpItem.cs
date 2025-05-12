@@ -1,7 +1,7 @@
-public class HealItem : ItemBase
+public class AttackSpeedUpItem : ItemBase
 {
     protected override void ApplyStat(BaseCharacter player, float value)
     {
-        player.currentHealth += value;
+        player.attackSpeed += value;
     }
 }
