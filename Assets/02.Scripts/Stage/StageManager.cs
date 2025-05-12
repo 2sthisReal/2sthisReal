@@ -12,20 +12,23 @@ namespace Jang
         private StagePresetManager stagePresetManager; // 프리셋 랜덤으로 가져오기 위한 Manager
 
         [Header("Object Prefabs")]
-        [SerializeField] GameObject[] monsterPrefab;
+        [SerializeField] MonsterSpawner monsterSpawner;
         [SerializeField] GameObject[] obstaclePrefab;
         [SerializeField] GameObject[] itemPrefab;
         [SerializeField] GameObject stageMap;
         private bool isClear = false;
         private int currentStage = 1;
         [SerializeField] StageDoor stageDoor;
+        
 
         // 스테이지 설정 세팅 및 스테이지 생성
         public void Init(GameManager gameManager)
         {
             this.gameManager = gameManager;
             stagePresetManager = GetComponentInChildren<StagePresetManager>();
+            monsterSpawner = GetComponentInChildren<MonsterSpawner>();
             stageDoor = FindObjectOfType<StageDoor>();
+            
 
             StartStage();
         }
@@ -51,7 +54,7 @@ namespace Jang
         {
             isClear = false;
             stageDoor.SetDoor(isClear);
-            
+
             currentPreset = stagePresetManager.GetRandomPreset();
             InitStage(currentPreset, () => { });
 
@@ -74,7 +77,7 @@ namespace Jang
             Instantiate(preset.baseTileMap, Vector3.zero, Quaternion.identity);
 
             // 오브젝트들 생성
-            SpawnObjects(preset.monsterPoints, monsterPrefab);
+            SpawnMonster(preset.monsterPoints);
             SpawnObjects(preset.obstaclePoints, obstaclePrefab);
             SpawnObjects(preset.itemPoints, itemPrefab);
 
@@ -91,6 +94,16 @@ namespace Jang
                 int random = UnityEngine.Random.Range(0, prefabs.Length);
                 GameObject obj = Instantiate(prefabs[random], point, Quaternion.identity);
                 obj.transform.SetParent(stageMap.transform);
+            }
+        }
+
+        void SpawnMonster(List<Vector2>points)
+        {
+            if(points == null) return;
+
+            foreach(var point in points)
+            {
+                monsterSpawner.SpawnMonsterInStage(point);
             }
         }
     }
