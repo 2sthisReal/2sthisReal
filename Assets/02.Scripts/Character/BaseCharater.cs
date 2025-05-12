@@ -1,110 +1,114 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// BaseCharacter 클래스는 몬스터, 플레이어 등 공통 캐릭터의
+/// 기본적인 동작(이동, 피격, 사망 등)을 정의하는 추상 클래스입니다.
+/// 
+/// 주로:
+/// - 체력/공격력 등 기본 스탯
+/// - 이동 처리 (물리 기반)
+/// - 피격/사망 처리
+/// 
+/// 를 제공합니다. Monster.cs 같은 실제 캐릭터들은 이 클래스를 상속받아 구현합니다.
+/// </summary>
 public abstract class BaseCharacter : MonoBehaviour
 {
-    [Header("기본 스탯")]  // Inspector 창에서 그룹화하여 표시
-    public string characterName;   // 캐릭터의 이름
-    public int level = 1;          // 캐릭터의 레벨, 기본값 1
-    public float maxHealth;        // 최대 체력
-    public float currentHealth;    // 현재 체력
-    public float moveSpeed;        // 이동 속도
-    public float attackDamage;     // 공격력
-    public float attackSpeed;      // 공격 속도(초당 공격 횟수)
-    public float attackRange;      // 공격 범위
+    [Header("기본 스탯")]
+    public string characterName;         // 캐릭터 이름 (ex: 고블린 궁수)
+    public int level = 1;                // 캐릭터 레벨
+    public float maxHealth;              // 최대 체력
+    public float currentHealth;          // 현재 체력
+    public float moveSpeed;              // 이동 속도
+    public float attackDamage;           // 공격력
+    public float attackSpeed;            // 초당 공격 횟수
+    public float attackRange;            // 공격 거리
 
-    [Header("상태")]  // 캐릭터의 현재 상태 관련 변수
-    public bool isAlive = true;    // 생존 상태, 기본값 true
-    public bool isAttacking = false; // 공격 중인지 여부
-    public bool isMoving = false;  // 이동 중인지 여부
+    [Header("상태")]
+    public bool isAlive = true;          // 생존 여부
+    public bool isAttacking = false;     // 현재 공격 중인지 여부
+    public bool isMoving = false;        // 현재 이동 중인지 여부
 
-    // 자식 클래스에서 접근 가능한 컴포넌트 참조
-    protected Animator animator;    // 애니메이션 제어를 위한 Animator 컴포넌트
-    protected Rigidbody2D rb;      // 물리 이동을 위한 Rigidbody2D 컴포넌트
+    // 컴포넌트 캐시
+    protected Animator animator;         // 애니메이션 제어용
+    protected Rigidbody2D rb;            // 물리 이동용
 
-    // 초기화 메서드, virtual로 선언하여 자식 클래스에서 확장 가능
+    /// <summary>
+    /// 컴포넌트를 가져오고 체력을 초기화합니다.
+    /// 자식 클래스에서 확장할 수 있도록 virtual 처리.
+    /// </summary>
     protected virtual void Awake()
     {
-        // 필요한 컴포넌트 참조 가져오기
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        // 시작 시 현재 체력을 최대 체력으로 설정
-        currentHealth = maxHealth;
+        currentHealth = maxHealth;       // 시작할 때 체력을 최대치로 설정
     }
 
-    // 캐릭터 이동 처리 메서드
+    /// <summary>
+    /// 방향 벡터를 받아 캐릭터를 이동시키는 메서드입니다.
+    /// 방향의 크기가 0이면 이동 중지로 처리됩니다.
+    /// </summary>
+    /// <param name="direction">이동할 방향 (예: (1, 0) → 오른쪽)</param>
     public virtual void Move(Vector2 direction)
     {
-        // 사망 상태면 이동하지 않음
-        if (!isAlive) return;
+        if (!isAlive) return;   // 죽은 경우 이동 금지
 
-        // 정규화된 방향 벡터에 이동 속도와 시간을 곱하여 이동량 계산
+        // 방향 벡터 정규화 후 속도/시간 반영해서 이동량 계산
         Vector2 movement = direction.normalized * moveSpeed * Time.deltaTime;
-        // Rigidbody2D를 사용하여 물리적으로 위치 이동
-        rb.MovePosition(rb.position + movement);
+        rb.MovePosition(rb.position + movement);  // 실제 이동
 
-        // 방향 벡터의 크기가 0보다 크면 이동 중인 상태로 설정
+        // 이동 여부 체크해서 애니메이션 파라미터 설정
         isMoving = direction.magnitude > 0;
+        animator.SetBool("IsMoving", isMoving);
 
-        if (isMoving)
+        // 방향에 따라 캐릭터 좌우 반전
+        if (direction.x != 0)
         {
-            // 이동 중이면 애니메이션 파라미터 설정
-            animator.SetBool("IsMoving", true);
-
-            // 캐릭터 좌우 방향 설정 (x가 양수면 오른쪽, 음수면 왼쪽)
-            if (direction.x != 0)
-            {
-                transform.localScale = new Vector3(Mathf.Sign(direction.x), 1, 1);
-            }
-        }
-        else
-        {
-            // 이동하지 않으면 애니메이션 파라미터 해제
-            animator.SetBool("IsMoving", false);
+            transform.localScale = new Vector3(Mathf.Sign(direction.x), 1, 1);
         }
     }
 
-    // 공격 메서드 - 추상 메서드로 선언하여 자식 클래스에서 반드시 구현하도록 함
+    /// <summary>
+    /// 공격 로직. 추상 메서드이므로 반드시 자식 클래스에서 구현해야 합니다.
+    /// </summary>
     public abstract void Attack();
 
-    // 데미지 처리 메서드
+    /// <summary>
+    /// 데미지를 받을 때 호출되는 메서드.
+    /// 현재 체력을 감소시키고 사망 여부를 체크합니다.
+    /// </summary>
+    /// <param name="damage">받을 데미지 양</param>
     public virtual void TakeDamage(float damage)
     {
-        // 사망 상태면 데미지를 받지 않음
-        if (!isAlive) return;
+        if (!isAlive) return;   // 이미 죽었으면 무시
 
-        // 현재 체력에서 데미지만큼 감소
-        currentHealth -= damage;
+        currentHealth -= damage;  // 체력 감소
 
-        // 데미지 이펙트 또는 UI 표시 등을 여기서 처리
-
-        // 체력이 0 이하면 사망 처리
         if (currentHealth <= 0)
         {
-            Die();
+            Die();  // 체력 0 이하일 경우 사망 처리
         }
         else
         {
-            // 피격 애니메이션 트리거
-            animator.SetTrigger("Hit");
+            animator.SetTrigger("Hit");  // 피격 애니메이션
         }
     }
 
-    // 사망 처리 메서드
+    /// <summary>
+    /// 사망 처리 메서드.
+    /// - isAlive 플래그를 끄고
+    /// - 사망 애니메이션 실행
+    /// - 충돌 판정 및 물리 시뮬레이션 비활성화
+    /// </summary>
     protected virtual void Die()
     {
-        // 사망 상태로 변경
         isAlive = false;
-        isAttacking = false;
-        isMoving = false;
-
-        // 사망 애니메이션 트리거
         animator.SetTrigger("Die");
 
-        // 물리적 충돌 비활성화
+        // 충돌 비활성화 (다른 오브젝트에 더 이상 반응하지 않음)
         GetComponent<Collider2D>().enabled = false;
-        // 물리 시뮬레이션 비활성화
+
+        // Rigidbody 시뮬레이션 끔 (중력 등도 더 이상 안 받음)
         rb.simulated = false;
     }
 }
