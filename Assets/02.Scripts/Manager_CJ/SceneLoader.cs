@@ -16,7 +16,8 @@ public class SceneLoader : MonoBehaviour
         { GameState.Preparing, "PreparingScene" },
         { GameState.StageClear, "StageClearScene" },
         { GameState.Pause, "PauseScene"},
-        { GameState.GameOver, "GameOverScene" }
+        { GameState.GameOver, "GameOverScene" },
+        { GameState.SkillSelect, "SkillSelectScene" }
     };
 
     private void Awake()

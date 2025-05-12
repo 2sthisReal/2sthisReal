@@ -40,7 +40,10 @@ public class GameManager : MonoBehaviour
     {
         if (CurrentState == newState) return;
 
-        if(newState == GameState.MainMenu || newState == GameState.InGame)
+        SceneLoader.Instance.LoadSceneForState(newState);
+        return;
+
+        if (newState == GameState.MainMenu || newState == GameState.InGame)
         {
             SceneLoader.Instance.LoadSceneForState(newState);
             return;
