@@ -14,9 +14,13 @@ public class Player : BaseCharacter
     private Weapon currentWeapon;
     private Transform weapons;
 
-    [SerializeField]public float shotSpeed;
-    [SerializeField]public float fireRate;
 
+    [Header("기본 스탯")]
+    public float shotSpeed;
+
+
+
+    private bool isMove;
     public bool inRanged;
     public bool invincible = false;
     private bool isKnockback = false;
@@ -97,16 +101,15 @@ public class Player : BaseCharacter
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (invincible)
-            return;
-        if (collision.CompareTag("Enemy"))
+        if (collision.CompareTag("Enemy") && isMove == false)
         {
-            weapon.AttackTarget(directionVector, shotSpeed, fireRate);
+            weapon.AttackTarget(directionVector, shotSpeed, attackSpeed);
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("피격");
+        if (invincible)
+            return;
         animator.SetTrigger("IsDamaged");
         if (collision.collider.CompareTag("Enemy"))
         {
@@ -141,7 +144,8 @@ public class Player : BaseCharacter
         float moveVertical = Input.GetAxisRaw("Vertical");
         Vector2 movement = (new Vector2(moveHorizontal, moveVertical).normalized) * moveSpeed;
         rb.velocity = movement;
-        animator.SetBool("IsMoving", movement.magnitude > 0.5f);
+        isMove = movement.magnitude > 0.5f;
+        animator.SetBool("IsMoving", isMove);
     }
 
     Transform TargetSet()

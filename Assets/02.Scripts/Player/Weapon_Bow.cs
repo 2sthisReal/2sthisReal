@@ -18,10 +18,10 @@ public class Weapon_Bow : Weapon
         {
             directionVector = vector;
 
-            attackCooldown = 1f / rate;
+            attackCooldown = 1f / Rate;
 
             GameObject arrow = Instantiate(arrowPrefabs, weapontransform.position, Quaternion.identity);
-            arrow.GetComponent<ProjectileController>().Init(directionVector, shotSpeed);
+            arrow.GetComponent<ProjectileController>().Init(directionVector, ShotSpeed);
         }
     }
 }

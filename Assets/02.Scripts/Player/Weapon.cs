@@ -13,8 +13,6 @@ public class Weapon : MonoBehaviour
 
     [Header("¹«±â½ºÅÝ")]
     public float attack;
-    public float rate;
-    public float shotSpeed;
     public int numberOfShot;
 
     protected float attackCooldown = 0f;
