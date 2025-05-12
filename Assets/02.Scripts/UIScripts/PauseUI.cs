@@ -21,7 +21,8 @@ namespace SWScene
             breakButton.onClick.AddListener(
                 () =>
                 {
-                    GameManager.Instance.ChangeState(GameState.InGame);
+                    this.SetActive(GameState.InGame);
+                    //GameManager.Instance.ChangeState(GameState.InGame);
                 });
             homeButton.onClick.AddListener(
                 () =>

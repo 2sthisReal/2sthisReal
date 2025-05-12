@@ -37,9 +37,9 @@ namespace SWScene
             RegisterUI(GetComponentInChildren<VictoryUI>(true));
             RegisterUI(GetComponentInChildren<PreparingUI>(true));
             RegisterUI(GetComponentInChildren<StageClearUI>(true));
-            RegisterUI(GetComponentInChildren<PauseUI>(true));
+            //RegisterUI(GetComponentInChildren<PauseUI>(true));
             RegisterUI(GetComponentInChildren<GameOverUI>(true));
-            RegisterUI(GetComponentInChildren<SkillSelectUI>(true));
+            //RegisterUI(GetComponentInChildren<SkillSelectUI>(true));
             DontDestroyOnLoad(gameObject);
             SceneManager.sceneLoaded += OnSceneLoaded;
             instance = this;

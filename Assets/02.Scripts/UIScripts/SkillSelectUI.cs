@@ -23,8 +23,9 @@ namespace SWScene
             base.Init(uiManager);
             skillSelectButton.onClick.AddListener(
                 () => 
-                { 
-                    GameManager.Instance.ChangeState(GameState.InGame); 
+                {
+                    this.SetActive(GameState.InGame);
+                    //GameManager.Instance.ChangeState(GameState.InGame); 
                 });
             skillCancelButton.onClick.AddListener(
                 () =>
