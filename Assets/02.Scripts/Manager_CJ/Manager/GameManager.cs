@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
 
     #region Stage Progress
     private int remainingEnemies;
-    public StageManager stageManager;
+    private StageManager stageManager;
     #endregion
 
     private void Awake()
@@ -33,6 +33,8 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        stageManager = GetComponentInChildren<StageManager>();
     }
 
     #region ���� ��ȯ
@@ -87,12 +89,19 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("[GameManager] All enemies defeated. Stage Clear.");
             ChangeState(GameState.StageClear);
+            stageManager.StageClear();
         }
     }
 
     public void InitStage()
     {
         stageManager.Init(this);
+    }
+
+    [ContextMenu("MoveToNextStage")]
+    public void MoveToNextStage()
+    {
+        stageManager.StartStage();
     }
     #endregion
 

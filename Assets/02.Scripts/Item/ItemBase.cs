@@ -9,7 +9,7 @@ public abstract class ItemBase : MonoBehaviour
 
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             UseItem(other.GetComponent<BaseCharacter>());
         }
