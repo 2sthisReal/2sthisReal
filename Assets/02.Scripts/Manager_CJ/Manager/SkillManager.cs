@@ -6,7 +6,8 @@ public class SkillManager : MonoBehaviour
 {
     private SkillDatabase skillDatabase;
     private readonly List<SkillConfig> selectedSkills = new();
-    private BaseCharacter player;
+    [SerializeField] private BaseCharacter player;
+    public SkillConfig skillConfig;
 
     private void Awake()
     {
@@ -15,7 +16,7 @@ public class SkillManager : MonoBehaviour
 
     public void Init()
     {
-        player = FindObjectOfType<BaseCharacter>();
+        player = GameObject.FindWithTag("Player").GetComponent<BaseCharacter>();
     }
 
     public void AddSkill(SkillConfig skill)
@@ -50,14 +51,15 @@ public class SkillManager : MonoBehaviour
     public List<SkillConfig> GetRandomSkills()
     {
         List<SkillConfig> skills = skillDatabase.GetSkills();
-
         return skills.OrderBy(x => Random.value).Take(3).ToList();
     }
 
     public void ApplySelectSkill(SkillConfig skill)
     {
         SkillBase sb = Instantiate(skill.skillBase);
+        sb.Init(skill);
         sb.ApplySkill(player);
+        Destroy(sb.gameObject);
     }
 
     //public void ApplySelectedSkillsToPlayer(PlayerController player, List<PetController> pets)

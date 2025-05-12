@@ -58,7 +58,7 @@ public class Player : BaseCharacter
         if (isKnockback)
             return;
         Move(Vector2.zero);
-        //trigger´Â ¿òÁ÷¿©¾ß ÀÛµ¿µÇ±â¶§¹®¿¡ ¾´ ²Ä¼ö
+        //triggerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ûµï¿½ï¿½Ç±â¶§ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ä¼ï¿½
         if (!isMove)
         { 
             rb.velocity = Vector2.right * 0.000001f;
@@ -95,7 +95,7 @@ public class Player : BaseCharacter
     }
 
 
-    //Trigger´Â ÇÃ·¹ÀÌ¾î ¹Û¿¡ °ø°Ý¹üÀ§ Å«¿ø
+    //Triggerï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ Å«ï¿½ï¿½
       
     
     private void OnCollisionEnter2D(Collision2D collision)
@@ -180,7 +180,7 @@ public class Player : BaseCharacter
             //GameOver();
         }
         invincible = true;
-        invincibleTimer = 2.0f; //2ÃÊ¹«Àû
+        invincibleTimer = 2.0f; //2ï¿½Ê¹ï¿½ï¿½ï¿½
         StartCoroutine(BlinkAlpha(2.0f, 0.1f));
     }
 
@@ -207,7 +207,7 @@ public class Player : BaseCharacter
             timer += frequency;
         }
 
-        spriteRenderer.color = originalColor; // ¿ø·¡´ë·Î º¹±¸
+        spriteRenderer.color = originalColor; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
     public void ToggleMultiShot()
     {
@@ -230,13 +230,13 @@ public class Player : BaseCharacter
     [System.Serializable]
     public class PlayerData
     {
-        public string characterName;   // Ä³¸¯ÅÍÀÇ ÀÌ¸§
-        public int level = 1;          // Ä³¸¯ÅÍÀÇ ·¹º§, ±âº»°ª 1
-        public float maxHealth;        // ÃÖ´ë Ã¼·Â
-        public float currentHealth;    // ÇöÀç Ã¼·Â
-        public float moveSpeed;        // ÀÌµ¿ ¼Óµµ
-        public float attackDamage;     // °ø°Ý·Â
-        public float attackSpeed;      // °ø°Ý ¼Óµµ(ÃÊ´ç °ø°Ý È½¼ö)
+        public string characterName;   // Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
+        public int level = 1;          // Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½âº»ï¿½ï¿½ 1
+        public float maxHealth;        // ï¿½Ö´ï¿½ Ã¼ï¿½ï¿½
+        public float currentHealth;    // ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½
+        public float moveSpeed;        // ï¿½Ìµï¿½ ï¿½Óµï¿½
+        public float attackDamage;     // ï¿½ï¿½ï¿½Ý·ï¿½
+        public float attackSpeed;      // ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½(ï¿½Ê´ï¿½ ï¿½ï¿½ï¿½ï¿½ È½ï¿½ï¿½)
         public float shotSpeed;
     }
 
@@ -270,11 +270,11 @@ public class Player : BaseCharacter
     void SaveJson()
     {
         PlayerData data = SaveData();
-        string json = JsonUtility.ToJson(data, true); // º¸±â ÁÁ°Ô ÀúÀåÇÏ·Á¸é true
+        string json = JsonUtility.ToJson(data, true); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ true
         string path = Application.persistentDataPath + "/player.json";
 
         File.WriteAllText(path, json);
-        Debug.Log("ÀúÀå ¿Ï·á: " + path);
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½: " + path);
     }
 
     void LoadFromFile()
@@ -286,11 +286,11 @@ public class Player : BaseCharacter
             string json = File.ReadAllText(path);
             PlayerData data = JsonUtility.FromJson<PlayerData>(json);
             LoadData(data);
-            Debug.Log("ºÒ·¯¿À±â ¿Ï·á");
+            Debug.Log("ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½");
         }
         else
         {
-            Debug.LogWarning("ÀúÀå ÆÄÀÏÀÌ ¾ø½À´Ï´Ù: " + path);
+            Debug.LogWarning("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½: " + path);
         }
     }
 }
