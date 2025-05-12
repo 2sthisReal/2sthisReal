@@ -2,17 +2,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// MonsterSpawner´Â ¸ó½ºÅÍ¸¦ ÁÖ±âÀûÀ¸·Î ¼ÒÈ¯ÇÏ´Â ÄÄÆ÷³ÍÆ®ÀÔ´Ï´Ù.
+/// MonsterSpawnerï¿½ï¿½ ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½Ô´Ï´ï¿½.
 /// </summary>
 public class MonsterSpawner : MonoBehaviour
 {
-    [Header("½ºÆù ¼³Á¤")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½")]
     [SerializeField] private float spawnRadius = 10f;
     [SerializeField] private int maxMonsters = 5;
     [SerializeField] private float spawnInterval = 5f;
     [SerializeField] private Transform spawnPointParent;
 
-    [Header("¸ó½ºÅÍ ¼³Á¤")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½")]
     [SerializeField] private List<string> monsterIdsToSpawn = new();
 
     private List<Transform> spawnPoints = new();
@@ -27,6 +27,7 @@ public class MonsterSpawner : MonoBehaviour
 
     private void Update()
     {
+        /*
         activeMonsters.RemoveAll(monster => monster == null || !monster.isAlive);
 
         if (activeMonsters.Count < maxMonsters && Time.time >= nextSpawnTime)
@@ -34,6 +35,7 @@ public class MonsterSpawner : MonoBehaviour
             SpawnMonster();
             nextSpawnTime = Time.time + spawnInterval;
         }
+        */
     }
 
     private void InitializeSpawnPoints()
@@ -54,7 +56,7 @@ public class MonsterSpawner : MonoBehaviour
     {
         if (monsterIdsToSpawn.Count == 0)
         {
-            Debug.LogWarning("½ºÆùÇÒ ¸ó½ºÅÍ ID°¡ ¾ø½À´Ï´Ù.");
+            Debug.LogWarning("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ IDï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
             return;
         }
 
@@ -63,17 +65,17 @@ public class MonsterSpawner : MonoBehaviour
 
         if (monsterData == null)
         {
-            Debug.LogError($"MonsterData ¸ø Ã£À½: {monsterId}");
+            Debug.LogError($"MonsterData ï¿½ï¿½ Ã£ï¿½ï¿½: {monsterId}");
             return;
         }
 
         Vector3 spawnPos = GetRandomSpawnPosition();
-        Debug.Log($"¸ó½ºÅÍ ½ºÆù ½Ãµµ: ID={monsterId}, °æ·Î={monsterData.prefabPath}, À§Ä¡={spawnPos}");
+        Debug.Log($"ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ãµï¿½: ID={monsterId}, ï¿½ï¿½ï¿½={monsterData.prefabPath}, ï¿½ï¿½Ä¡={spawnPos}");
 
         GameObject prefab = Resources.Load<GameObject>(monsterData.prefabPath);
         if (prefab == null)
         {
-            Debug.LogError($"ÇÁ¸®ÆÕ ·Îµå ½ÇÆÐ: {monsterData.prefabPath}");
+            Debug.LogError($"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½: {monsterData.prefabPath}");
             return;
         }
 
@@ -82,7 +84,7 @@ public class MonsterSpawner : MonoBehaviour
         if (monsterObj != null)
         {
             Transform mainSpriteTr = monsterObj.transform.Find("MainSprite");
-            Debug.Log(mainSpriteTr != null ? "MainSprite Ã£À½" : "MainSprite ¸ø Ã£À½");
+            Debug.Log(mainSpriteTr != null ? "MainSprite Ã£ï¿½ï¿½" : "MainSprite ï¿½ï¿½ Ã£ï¿½ï¿½");
 
             Monster monster = monsterObj.GetComponent<Monster>();
             if (monster != null)
@@ -93,7 +95,7 @@ public class MonsterSpawner : MonoBehaviour
             }
             else
             {
-                Debug.LogError("Monster ÄÄÆ÷³ÍÆ®¸¦ Ã£Áö ¸øÇß½À´Ï´Ù.");
+                Debug.LogError("Monster ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.");
             }
         }
     }
@@ -105,13 +107,13 @@ public class MonsterSpawner : MonoBehaviour
         {
             Animator animator = mainSpriteTr.GetComponent<Animator>();
             Debug.Log(animator != null
-                ? "Animator ¿¬°áµÊ. SpriteRenderer´Â Animator°¡ Á¦¾îÇÔ"
-                : "Animator ¾øÀ½. SpriteRenderer ¼öµ¿ ¼³Á¤ ÇÊ¿äÇÒ ¼ö ÀÖÀ½");
+                ? "Animator ï¿½ï¿½ï¿½ï¿½ï¿½. SpriteRendererï¿½ï¿½ Animatorï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"
+                : "Animator ï¿½ï¿½ï¿½ï¿½. SpriteRenderer ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 
             SpriteRenderer mainRenderer = mainSpriteTr.GetComponent<SpriteRenderer>();
             Debug.Log(mainRenderer != null
-                ? $"MainSprite¿¡ SpriteRenderer ÀÖÀ½. ÇöÀç sprite: {(mainRenderer.sprite != null ? mainRenderer.sprite.name : "null")}"
-                : "MainSprite¿¡ SpriteRenderer ¾øÀ½");
+                ? $"MainSpriteï¿½ï¿½ SpriteRenderer ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ sprite: {(mainRenderer.sprite != null ? mainRenderer.sprite.name : "null")}"
+                : "MainSpriteï¿½ï¿½ SpriteRenderer ï¿½ï¿½ï¿½ï¿½");
         }
     }
 
@@ -134,6 +136,51 @@ public class MonsterSpawner : MonoBehaviour
         else
         {
             Gizmos.DrawWireSphere(transform.position, spawnRadius);
+        }
+    }
+
+    public void SpawnMonsterInStage(Vector3 spawnPos)
+    {
+        if (monsterIdsToSpawn.Count == 0)
+        {
+            Debug.LogWarning("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ IDï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
+            return;
+        }
+
+        string monsterId = monsterIdsToSpawn[Random.Range(0, monsterIdsToSpawn.Count)];
+        MonsterData monsterData = MonsterManager.Instance.GetMonsterData(monsterId);
+
+        if (monsterData == null)
+        {
+            Debug.LogError($"MonsterData ï¿½ï¿½ Ã£ï¿½ï¿½: {monsterId}");
+            return;
+        }
+
+        GameObject prefab = Resources.Load<GameObject>(monsterData.prefabPath);
+        if (prefab == null)
+        {
+            Debug.LogError($"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½: {monsterData.prefabPath}");
+            return;
+        }
+
+        GameObject monsterObj = Instantiate(prefab, spawnPos, Quaternion.identity);
+
+        if (monsterObj != null)
+        {
+            Transform mainSpriteTr = monsterObj.transform.Find("MainSprite");
+            Debug.Log(mainSpriteTr != null ? "MainSprite Ã£ï¿½ï¿½" : "MainSprite ï¿½ï¿½ Ã£ï¿½ï¿½");
+
+            Monster monster = monsterObj.GetComponent<Monster>();
+            if (monster != null)
+            {
+                CheckAndFixSprites(monsterObj, monsterData);
+                monster.Initialize(monsterId);
+                activeMonsters.Add(monster);
+            }
+            else
+            {
+                Debug.LogError("Monster ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.");
+            }
         }
     }
 }
