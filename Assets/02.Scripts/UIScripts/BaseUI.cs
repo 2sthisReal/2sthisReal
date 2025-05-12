@@ -7,6 +7,15 @@ namespace SWScene
     {
         protected UIManager uiManager;
 
+        protected virtual void Start()
+        {
+
+        }
+        protected virtual void Awake()
+        {
+
+        }
+
         public virtual void Init(UIManager uiManager)
         {
             this.uiManager = uiManager;
@@ -34,6 +43,11 @@ namespace SWScene
         }
 
         protected virtual void OnSceneLoaded()
+        {
+
+        }
+
+        protected virtual void Update()
         {
 
         }

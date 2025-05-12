@@ -9,6 +9,7 @@ namespace SWScene
 
     public class UIManager : MonoBehaviour
     {
+        public EquipmentDatabase equipmentDatabase;
         public static UIManager instance { get; private set; }
         List<BaseUI> uiList = new List<BaseUI>();
         private GameState currentState;
