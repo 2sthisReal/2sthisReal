@@ -8,7 +8,7 @@ public class SpikeObstacle : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             BaseCharacter player = other.GetComponent<BaseCharacter>();
-            player.currentHealth -= damage;
+            player.TakeDamage(damage);
         }
     }
 }

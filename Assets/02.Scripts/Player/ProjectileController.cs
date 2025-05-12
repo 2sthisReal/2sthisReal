@@ -23,10 +23,17 @@ public class ProjectileController : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            //Dealt Damage
+            Monster monster = collision.gameObject.GetComponent<Monster>();
 
+            if (monster != null)
+            {
+                // 체력 5 감소
+                monster.currentHealth -= 5;
+            }
 
             Destroy(this.gameObject);
         }
+        else
+            Destroy(this.gameObject);
     }
 }
