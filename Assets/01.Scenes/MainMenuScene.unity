@@ -4160,24 +4160,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5358875823883480936, guid: 3a31b564d36820245acef84abb38eb5a, type: 3}
-      propertyPath: monsterPrefab.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5358875823883480936, guid: 3a31b564d36820245acef84abb38eb5a, type: 3}
-      propertyPath: monsterPrefab.Array.data[0]
-      value: 
-      objectReference: {fileID: 7165314511928076218, guid: 58a98d786ec152d4c98e8b52540b5252, type: 3}
     - target: {fileID: 7073314871383367969, guid: 3a31b564d36820245acef84abb38eb5a, type: 3}
       propertyPath: m_Name
       value: StageManager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 3834841032419003750, guid: 3a31b564d36820245acef84abb38eb5a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1378191594}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a31b564d36820245acef84abb38eb5a, type: 3}
 --- !u!4 &986978250 stripped
@@ -6084,56 +6073,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1342417728}
   m_CullTransparentMesh: 1
---- !u!1 &1378191593
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1378191594}
-  - component: {fileID: 1378191595}
-  m_Layer: 0
-  m_Name: MonsterSpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1378191594
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1378191593}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -217.15242, y: -328.0873, z: 2.849062}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 986978250}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1378191595
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1378191593}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90e086d70bd2d9c4bad0f2934ad02932, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnRadius: 10
-  maxMonsters: 5
-  spawnInterval: 5
-  spawnPointParent: {fileID: 0}
-  monsterIdsToSpawn:
-  - goblin_archer
 --- !u!1 &1384503195
 GameObject:
   m_ObjectHideFlags: 0
