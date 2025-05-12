@@ -17,7 +17,7 @@ public class Player : BaseCharacter
 
     public float shotSpeed;
 
-    private bool isMove;
+    public bool isMove;
     public bool inRanged;
     public bool invincible = false;
     private bool isKnockback = false;
@@ -25,9 +25,9 @@ public class Player : BaseCharacter
     public float invincibleTimer;
 
     Vector2 knockback = Vector2.zero;
-    Vector2 directionVector;
+    public Vector2 directionVector;
 
-    List<Transform> monsterCounter = new List<Transform>();
+    public List<Transform> monsterCounter = new List<Transform>();
     
 
     protected override void Awake()
@@ -36,7 +36,6 @@ public class Player : BaseCharacter
         animator = transform.Find("Sprite").GetComponent<Animator>();
         spriteRenderer = transform.Find("Sprite").GetComponent<SpriteRenderer>();
         playerTransform = GetComponent<Transform>();
-        weapon = GetComponentInChildren<Weapon>();
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
     private void Start()
@@ -57,7 +56,13 @@ public class Player : BaseCharacter
         if (isKnockback)
             return;
         Move(Vector2.zero);
-        
+        if (!isMove)
+        { 
+            rb.velocity = Vector2.right * 0.000001f;
+            rb.velocity = Vector2.left * 0.000001f;
+        }
+
+
     }
 
     void Update()
@@ -90,21 +95,11 @@ public class Player : BaseCharacter
 
 
     //Trigger는 플레이어 밖에 공격범위 큰원
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Enemy"))
-            monsterCounter.Add(collision.transform);
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Enemy") && isMove == false)
-        {
-            weapon.AttackTarget(directionVector, shotSpeed, attackSpeed);
-        }
-    }
+      
+    
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log("충돌");
         if (invincible)
             return;
         animator.SetTrigger("IsDamaged");
@@ -117,10 +112,7 @@ public class Player : BaseCharacter
     
 
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        monsterCounter.Remove(collision.transform);
-    }
+    
 
     void OnDrawGizmos()
     {
