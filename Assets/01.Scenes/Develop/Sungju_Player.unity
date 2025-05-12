@@ -226,6 +226,7 @@ GameObject:
   - component: {fileID: 1326591817}
   - component: {fileID: 1326591816}
   - component: {fileID: 1326591818}
+  - component: {fileID: 1326591819}
   m_Layer: 0
   m_Name: tempenemy
   m_TagString: Enemy
@@ -345,6 +346,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!50 &1326591819
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326591815}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1454297533
 GameObject:
   m_ObjectHideFlags: 0
@@ -427,9 +455,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: 
   level: 1
-  maxHealth: 0
-  currentHealth: 0
-  moveSpeed: 0
+  maxHealth: 10
+  currentHealth: 10
+  moveSpeed: 3
   attackDamage: 0
   attackSpeed: 0
   attackRange: 0
@@ -441,7 +469,8 @@ MonoBehaviour:
   shotSpeed: 1
   fireRate: 2
   inRanged: 0
-  tempspeed: 3
+  invincible: 0
+  invincibleTimer: 0
 --- !u!61 &1802544746
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -502,7 +531,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -530,14 +559,14 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1802544743}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2

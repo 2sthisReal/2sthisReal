@@ -1,3 +1,4 @@
+using SWScene;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,9 +18,14 @@ public class Player : BaseCharacter
     [SerializeField]public float fireRate;
 
     public bool inRanged;
+    public bool invincible = false;
+    private bool isKnockback = false;
+    private float knockbackDuration = 0.0f;
+    public float invincibleTimer;
+
+    Vector2 knockback = Vector2.zero;
     Vector2 directionVector;
 
-    [SerializeField]float tempspeed = 3;   
     List<Transform> monsterCounter = new List<Transform>();
     
 
@@ -30,6 +36,7 @@ public class Player : BaseCharacter
         spriteRenderer = transform.Find("Sprite").GetComponent<SpriteRenderer>();
         playerTransform = GetComponent<Transform>();
         weapon = GetComponentInChildren<Weapon>();
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
     private void Start()
     {
@@ -40,7 +47,16 @@ public class Player : BaseCharacter
     }
     private void FixedUpdate()
     {
-        PlayerMove();
+        if (knockbackDuration > 0.0f)
+        {
+            knockbackDuration -= Time.fixedDeltaTime;
+            if (knockbackDuration <= 0.0f)
+                isKnockback=false;
+        }
+        if (isKnockback)
+            return;
+        Move(Vector2.zero);
+        
     }
 
     void Update()
@@ -59,9 +75,20 @@ public class Player : BaseCharacter
         if (closest.position.x - playerTransform.position.x > 0)
             spriteRenderer.flipX = false;  
         else if (closest.position.x - playerTransform.position.x < 0)
-            spriteRenderer.flipX = true;   
+            spriteRenderer.flipX = true;
+
+        if (invincibleTimer > 0)
+        {
+            invincibleTimer -= Time.deltaTime;
+            if (invincibleTimer <= 0)
+                invincible = false;
+        }
+        
 
     }
+
+
+    //Trigger는 플레이어 밖에 공격범위 큰원
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
@@ -70,11 +97,25 @@ public class Player : BaseCharacter
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if (invincible)
+            return;
         if (collision.CompareTag("Enemy"))
         {
             weapon.AttackTarget(directionVector, shotSpeed, fireRate);
         }
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("피격");
+        animator.SetTrigger("IsDamaged");
+        if (collision.collider.CompareTag("Enemy"))
+        {
+            Damaged(5);
+            ApplyKnockback(collision.transform);
+        }
+    }
+    
+
 
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -94,11 +135,11 @@ public class Player : BaseCharacter
     }
 
 
-    void PlayerMove()
+    public override void Move(Vector2 vector)
     {
         float moveHorizontal = Input.GetAxisRaw("Horizontal");
         float moveVertical = Input.GetAxisRaw("Vertical");
-        Vector2 movement = (new Vector2(moveHorizontal, moveVertical).normalized) * tempspeed;
+        Vector2 movement = (new Vector2(moveHorizontal, moveVertical).normalized) * moveSpeed;
         rb.velocity = movement;
         animator.SetBool("IsMoving", movement.magnitude > 0.5f);
     }
@@ -137,4 +178,25 @@ public class Player : BaseCharacter
     {
         
     }
+
+    public void Damaged(float damage)
+    {
+        currentHealth -= damage;
+        if (currentHealth < 0)
+        {
+            //GameOver();
+        }
+        invincible = true;
+        invincibleTimer = 2.0f;
+    }
+
+    public void ApplyKnockback(Transform other)
+    {
+        isKnockback = true;
+        knockbackDuration = 0.125f;
+        knockback = -(other.position - transform.position).normalized * 4f; 
+        rb.velocity = knockback;
+    }
+
+    
 }
