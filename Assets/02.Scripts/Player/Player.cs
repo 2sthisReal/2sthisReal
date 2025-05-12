@@ -1,4 +1,5 @@
 using SWScene;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -56,6 +57,7 @@ public class Player : BaseCharacter
         if (isKnockback)
             return;
         Move(Vector2.zero);
+        //trigger는 움직여야 작동되기때문에 쓴 꼼수
         if (!isMove)
         { 
             rb.velocity = Vector2.right * 0.000001f;
@@ -180,7 +182,8 @@ public class Player : BaseCharacter
             //GameOver();
         }
         invincible = true;
-        invincibleTimer = 2.0f;
+        invincibleTimer = 2.0f; //2초무적
+        StartCoroutine(BlinkAlpha(2.0f, 0.1f));
     }
 
     public void ApplyKnockback(Transform other)
@@ -190,6 +193,35 @@ public class Player : BaseCharacter
         knockback = -(other.position - transform.position).normalized * 4f; 
         rb.velocity = knockback;
     }
+
+    IEnumerator BlinkAlpha(float duration, float frequency)
+    {
+        float timer = 0f;
+        Color originalColor = spriteRenderer.color;
+
+        while (timer < duration)
+        {
+            Color c = spriteRenderer.color;
+            c.a = (c.a == 1f) ? 0.2f : 1f;
+            spriteRenderer.color = c;
+
+            yield return new WaitForSeconds(frequency);
+            timer += frequency;
+        }
+
+        spriteRenderer.color = originalColor; // 원래대로 복구
+    }
+
+
+
+
+
+
+
+
+    /// <summary>
+    /// //////////////////////////////////////////////////////////////////////////////////////////////////
+    /// </summary>
 
 
 
