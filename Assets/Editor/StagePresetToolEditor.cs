@@ -24,7 +24,7 @@ namespace Jang
                 OverwritePreset(tool);
             }
 
-            if(GUILayout.Button("Preview Preset"))
+            if (GUILayout.Button("Preview Preset"))
             {
                 PreviewPreset(tool);
             }
@@ -44,7 +44,7 @@ namespace Jang
             // 같은 ID의 프리셋이 존재한다면 생성 X
             if (AssetDatabase.LoadAssetAtPath<StagePreset>(path) != null)
             {
-                Debug.LogWarning("Exsit StageID");
+                Debug.LogWarning($"{tool.stageID} is Already Exsit StageID");
                 return;
             }
 
@@ -92,6 +92,7 @@ namespace Jang
             // 프리셋 ID 설정
             preset.stageID = tool.stageID;
             preset.name = $"Stage_{tool.stageID}";
+            preset.baseTileMap = tool.baseTileMap;
 
             // 각 몬스터, 장애물, 아이템 위치 저장
             foreach (var point in tool.monsterPoints)
@@ -110,7 +111,7 @@ namespace Jang
             StagePreset[] presets = Resources.LoadAll<StagePreset>("StagePresets");
             StagePreset preset = presets.SingleOrDefault(p => p.stageID == tool.stageID);
 
-            if(preset == null)
+            if (preset == null)
             {
                 Debug.LogWarning($"Doesn't Exist Preset (ID: {tool.stageID})");
                 return;

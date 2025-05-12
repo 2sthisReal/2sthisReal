@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5907b9cc3dcdddb44ad35e4b83485089, type: 3}
+  m_Name: Stage_113
+  m_EditorClassIdentifier: 
+  stageID: 113
+  baseTileMap: {fileID: 1831806253681734473, guid: 925b6b87fe06d884690510435e2676c5, type: 3}
+  monsterPoints:
+  - {x: -7, y: 1}
+  - {x: 7, y: 1}
+  - {x: 0, y: 2}
+  obstaclePoints:
+  - {x: -6.5, y: -2.5}
+  - {x: 6.5, y: -2.5}
+  itemPoints: []

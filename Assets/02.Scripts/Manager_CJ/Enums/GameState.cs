@@ -10,5 +10,6 @@ public enum GameState
     StageClear,
     GameOver,
     Victory,
-    Pause
+    Pause,
+    SkillSelect
 }

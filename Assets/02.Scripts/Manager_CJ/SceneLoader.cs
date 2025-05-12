@@ -10,8 +10,14 @@ public class SceneLoader : MonoBehaviour
 
     private Dictionary<GameState, string> sceneByState = new Dictionary<GameState, string>()
     {
-        { GameState.MainMenu, "MainScene" },
-        { GameState.InGame, "StageScene" }
+        { GameState.MainMenu, "MainMenuScene" },
+        { GameState.InGame, "InGameScene" },
+        { GameState.Victory, "VictoryScene" },
+        { GameState.Preparing, "PreparingScene" },
+        { GameState.StageClear, "StageClearScene" },
+        { GameState.Pause, "PauseScene"},
+        { GameState.GameOver, "GameOverScene" },
+        { GameState.SkillSelect, "SkillSelectScene" }
     };
 
     private void Awake()
@@ -25,19 +31,17 @@ public class SceneLoader : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void LoadSceneForState(GameState state, Action onLoaded = null)
+    public void LoadSceneForState(GameState state)
     {
-        if (!sceneByState.ContainsKey(state))
+        if (!sceneByState.TryGetValue(state, out string sceneName))
         {
             Debug.LogWarning($"No scene mapped for state: {state}");
             return;
         }
 
-        string sceneName = sceneByState[state];
         StartCoroutine(LoadSceneAsync(sceneName, () =>
         {
-            GameManager.Instance.ChangeState(state);
-            onLoaded?.Invoke();
+            GameManager.Instance.SetState(state);
         }));
     }
 
@@ -48,8 +52,8 @@ public class SceneLoader : MonoBehaviour
 
     private IEnumerator LoadSceneAsync(string sceneName, Action onLoaded)
     {
-        // ·Îµù UI°¡ ÀÖ´Ù¸é ¿©±â¼­ È°¼ºÈ­
-        // ¿¹½Ã)
+        // ï¿½Îµï¿½ UIï¿½ï¿½ ï¿½Ö´Ù¸ï¿½ ï¿½ï¿½ï¿½â¼­ È°ï¿½ï¿½È­
+        // ï¿½ï¿½ï¿½ï¿½)
         // ShowLoadingUI();
         // yield return SceneManager.LoadSceneAsync(sceneName);
         // HideLoadingUI();
