@@ -20,7 +20,8 @@ namespace SWScene
             { "PreparingScene", GameState.Preparing },
             { "StageClearScene", GameState.StageClear },
             { "PauseScene", GameState.Pause},
-            { "GameOverScene", GameState.GameOver }
+            { "GameOverScene", GameState.GameOver },
+            { "SkillSelectScene", GameState.SkillSelect }
         };
 
 
@@ -38,6 +39,7 @@ namespace SWScene
             RegisterUI(GetComponentInChildren<StageClearUI>(true));
             RegisterUI(GetComponentInChildren<PauseUI>(true));
             RegisterUI(GetComponentInChildren<GameOverUI>(true));
+            RegisterUI(GetComponentInChildren<SkillSelectUI>(true));
             DontDestroyOnLoad(gameObject);
             SceneManager.sceneLoaded += OnSceneLoaded;
             instance = this;

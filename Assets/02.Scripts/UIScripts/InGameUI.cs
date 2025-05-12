@@ -11,6 +11,7 @@ namespace SWScene
         [SerializeField] private Button tempGameOverButton;
         [SerializeField] private Button tempVictoryButton;
         [SerializeField] private Button tempStageClearButton;
+        [SerializeField] private Button tempSkillSelectButton;
 
         protected override GameState GetUIState()
         {
@@ -38,6 +39,11 @@ namespace SWScene
                 () => 
                 { 
                     GameManager.Instance.ChangeState(GameState.StageClear); 
+                });
+            tempSkillSelectButton.onClick.AddListener(
+                () =>
+                {
+                    GameManager.Instance.ChangeState(GameState.SkillSelect);
                 });
         }
     }
