@@ -366,12 +366,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5428f8c381d0b74408a57ef2e51d4a2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: 
+  characterName: hi
   level: 1
   maxHealth: 10
   currentHealth: 10
   moveSpeed: 3
-  attackDamage: 0
+  attackDamage: 5
   attackSpeed: 2
   attackRange: 0
   isAlive: 1
@@ -383,7 +383,7 @@ MonoBehaviour:
   isMove: 0
   inRanged: 0
   invincible: 0
-  multipleShots: 0
+  multipleShots: 1
   invincibleTimer: 0
   directionVector: {x: 0, y: 0}
   monsterCounter: []
