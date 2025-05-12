@@ -22,6 +22,7 @@ public class Player : BaseCharacter
     public bool inRanged;
     public bool invincible = false;
     private bool isKnockback = false;
+    public bool multipleShots = false;
     private float knockbackDuration = 0.0f;
     public float invincibleTimer;
 
@@ -91,8 +92,6 @@ public class Player : BaseCharacter
             if (invincibleTimer <= 0)
                 invincible = false;
         }
-        
-
     }
 
 
@@ -101,7 +100,6 @@ public class Player : BaseCharacter
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("충돌");
         if (invincible)
             return;
         animator.SetTrigger("IsDamaged");
@@ -210,6 +208,10 @@ public class Player : BaseCharacter
         }
 
         spriteRenderer.color = originalColor; // 원래대로 복구
+    }
+    public void ToggleMultiShot()
+    {
+        multipleShots = !multipleShots;
     }
 
 

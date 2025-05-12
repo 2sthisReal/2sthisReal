@@ -40,7 +40,7 @@ public class AttackRange : MonoBehaviour
                 Debug.LogError("weapon not found");
                 return;
             }
-            weapon.AttackTarget(player.directionVector, player.shotSpeed, player.attackSpeed);
+            weapon.AttackTarget(player.directionVector, player.shotSpeed, player.attackSpeed, player.multipleShots);
         }
     }
 
