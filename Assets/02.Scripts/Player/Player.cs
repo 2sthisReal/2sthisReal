@@ -1,5 +1,6 @@
 using SWScene;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class Player : BaseCharacter
@@ -14,11 +15,7 @@ public class Player : BaseCharacter
     private Weapon currentWeapon;
     private Transform weapons;
 
-
-    [Header("기본 스탯")]
     public float shotSpeed;
-
-
 
     private bool isMove;
     public bool inRanged;
@@ -202,5 +199,72 @@ public class Player : BaseCharacter
         rb.velocity = knockback;
     }
 
-    
+
+
+    [System.Serializable]
+    public class PlayerData
+    {
+        public string characterName;   // 캐릭터의 이름
+        public int level = 1;          // 캐릭터의 레벨, 기본값 1
+        public float maxHealth;        // 최대 체력
+        public float currentHealth;    // 현재 체력
+        public float moveSpeed;        // 이동 속도
+        public float attackDamage;     // 공격력
+        public float attackSpeed;      // 공격 속도(초당 공격 횟수)
+        public float shotSpeed;
+    }
+
+    PlayerData SaveData()
+    {
+        return new PlayerData
+        {
+            characterName = this.characterName,
+            level = this.level,
+            maxHealth = this.maxHealth,
+            currentHealth = this.currentHealth,
+            moveSpeed = this.moveSpeed,
+            attackDamage = this.attackDamage,
+            attackSpeed = this.attackSpeed,
+            shotSpeed = this.shotSpeed
+        };
+    }
+
+    void LoadData(PlayerData data )
+    {
+        this.characterName = data.characterName;
+        this.level = data.level;
+        this.maxHealth = data.maxHealth;
+        this.currentHealth = data.currentHealth;
+        this.moveSpeed = data.moveSpeed;
+        this.attackDamage = data.attackDamage;
+        this.attackSpeed = data.attackSpeed;
+        this.shotSpeed = data.shotSpeed;
+    }
+
+    void SaveJson()
+    {
+        PlayerData data = SaveData();
+        string json = JsonUtility.ToJson(data, true); // 보기 좋게 저장하려면 true
+        string path = Application.persistentDataPath + "/player.json";
+
+        File.WriteAllText(path, json);
+        Debug.Log("저장 완료: " + path);
+    }
+
+    void LoadFromFile()
+    {
+        string path = Application.persistentDataPath + "/player.json";
+
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            PlayerData data = JsonUtility.FromJson<PlayerData>(json);
+            LoadData(data);
+            Debug.Log("불러오기 완료");
+        }
+        else
+        {
+            Debug.LogWarning("저장 파일이 없습니다: " + path);
+        }
+    }
 }
