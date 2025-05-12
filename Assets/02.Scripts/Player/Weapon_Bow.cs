@@ -12,16 +12,16 @@ public class Weapon_Bow : Weapon
     {
         attackCooldown -= Time.deltaTime;
     }
-    public override void AttackTarget(Vector2 vector)
+    public override void AttackTarget(Vector2 vector, float ShotSpeed, float Rate)
     {
         if (attackCooldown <= 0f)
         {
             directionVector = vector;
 
-            attackCooldown = 1f / rate;
+            attackCooldown = 1f / Rate;
 
             GameObject arrow = Instantiate(arrowPrefabs, weapontransform.position, Quaternion.identity);
-            arrow.GetComponent<ProjectileController>().Init(directionVector, shotSpeed);
+            arrow.GetComponent<ProjectileController>().Init(directionVector, ShotSpeed);
         }
     }
 }
