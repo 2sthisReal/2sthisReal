@@ -137,7 +137,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5709434731645226742, guid: ae3f66d605d8291498c14e698423084f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.77
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 5709434731645226742, guid: ae3f66d605d8291498c14e698423084f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -349,6 +349,7 @@ MonoBehaviour:
   particle: {fileID: 1725367514}
   anim: {fileID: 1572689655}
   col: {fileID: 1572689656}
+  startPos: {x: 0, y: -3}
 --- !u!1 &1725367511
 GameObject:
   m_ObjectHideFlags: 0

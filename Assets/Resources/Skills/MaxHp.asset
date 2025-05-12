@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1638c4c20491b0c4a9600801867842d3, type: 3}
+  m_Name: MaxHp
+  m_EditorClassIdentifier: 
+  skillIcon: {fileID: 0}
+  skillName: MaxHpUp
+  skillType: 0
+  skillValue: 50
+  skillDescription: "\uCD5C\uB300\uCCB4\uB825\uC774 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  skill: {fileID: 5101880822642966607, guid: d79b376242c4aeb4382966eedf03747a, type: 3}

@@ -5,6 +5,7 @@ public class StageDoor : MonoBehaviour
    [SerializeField] private ParticleSystem particle;
     [SerializeField] private Animator anim;
     [SerializeField] private Collider2D col;
+    [SerializeField] private Vector2 startPos;
 
     void Awake()
     {
@@ -28,6 +29,7 @@ public class StageDoor : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             GameManager.Instance.MoveToNextStage();
+            other.transform.position = startPos;
         }
     }
 }
