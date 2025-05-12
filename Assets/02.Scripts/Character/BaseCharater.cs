@@ -39,7 +39,7 @@ public abstract class BaseCharacter : MonoBehaviour
     /// </summary>
     protected virtual void Awake()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth;       // 시작할 때 체력을 최대치로 설정
     }
