@@ -14,7 +14,7 @@ public class SkillDatabase : MonoBehaviour
 
     private void LoadSkills()
     {
-        Skills = Resources.LoadAll<SkillConfig>("Assets/Skills").ToList();
+        Skills = Resources.LoadAll<SkillConfig>("Skills").ToList();
     }
 
     public List<SkillConfig> GetSkills()

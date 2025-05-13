@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     #region Stage Progress
     private int remainingEnemies;
     private StageManager stageManager;
-    private SkillManager skillManager;
+    public SkillManager skillManager { get; private set; } = new();
     #endregion
 
     private void Awake()
