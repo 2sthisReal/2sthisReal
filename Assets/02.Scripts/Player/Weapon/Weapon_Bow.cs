@@ -12,13 +12,13 @@ public class Weapon_Bow : Weapon
     {
         attackCooldown -= Time.deltaTime;
     }
-    public override void AttackTarget(Vector2 vector, float ShotSpeed, float Rate, bool multipleShot)
+    public override void AttackTarget(Vector2 vector, Player player)
     {
         if (attackCooldown <= 0f)
         {
             directionVector = vector;
 
-            attackCooldown = 1f / Rate;
+            attackCooldown = 1f / player.attackSpeed;
             //multipleshot
 
 
@@ -26,7 +26,7 @@ public class Weapon_Bow : Weapon
             Vector2 basePosition = weapontransform.position;
             Vector2 perpendicular = new Vector2(-vector.y, vector.x).normalized;
 
-            if (multipleShot)
+            if (player.multipleShots)
             {
                 for (int i = -1; i <= 1; i++)
                 {
@@ -34,13 +34,15 @@ public class Weapon_Bow : Weapon
                     Vector2 spawnPos = basePosition + offset;
 
                     GameObject arrow = Instantiate(arrowPrefabs, spawnPos, Quaternion.identity);
-                    arrow.GetComponent<ProjectileController>().Init(vector, ShotSpeed);
+                    arrow.GetComponent<ProjectileController>().Init(vector, player.shotSpeed);
+                    arrow.GetComponent<ProjectileController>().SetPlayer(player);
                 }
             }
             else
             {
                 GameObject arrow = Instantiate(arrowPrefabs, weapontransform.position, Quaternion.identity);
-                arrow.GetComponent<ProjectileController>().Init(directionVector, ShotSpeed);
+                arrow.GetComponent<ProjectileController>().Init(directionVector, player.shotSpeed);
+                arrow.GetComponent<ProjectileController>().SetPlayer(player);
             }
         }
     }

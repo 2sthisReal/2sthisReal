@@ -187,6 +187,7 @@ public class Player : BaseCharacter
         {
             //GameOver();
             //SaveJson();
+            GameManager.Instance.ChangeState(GameState.GameOver);
             Debug.Log("Game Over");
         }
         invincible = true;

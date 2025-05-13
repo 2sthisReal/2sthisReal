@@ -10,9 +10,9 @@ public class ProjectileController : MonoBehaviour
     // Start is called before the first frame update
     Transform pivot;
     Rigidbody2D rb;
-    public Player player;
+    Player player;
 
-    private double projectileDamage;
+    private double projectileDamage =0;
 
 
 
@@ -21,7 +21,7 @@ public class ProjectileController : MonoBehaviour
     {
         pivot = transform.GetChild(0);
         rb = GetComponent<Rigidbody2D>();
-        player = GetComponent<Player>();
+        
     }
     public void Init(Vector2 direction, float shotspeed)
     {
@@ -56,5 +56,9 @@ public class ProjectileController : MonoBehaviour
         Debug.Log(rand);
         if (rand < player.critRate)
             projectileDamage = player.attackDamage * 1.5;
+    }
+    public void SetPlayer(Player player)
+    {
+        this.player = player;
     }
 }
