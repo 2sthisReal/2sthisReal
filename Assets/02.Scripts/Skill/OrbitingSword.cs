@@ -8,6 +8,7 @@ public class OrbitingSword : MonoBehaviour
     [SerializeField] float angleOffset;
     [SerializeField] float damageScale = 1.5f;
     Player player;
+    public AudioClip swordHit;
 
     float currentAngle;
 
@@ -43,6 +44,7 @@ public class OrbitingSword : MonoBehaviour
         if(collision.CompareTag("Enemy"))
         {
             collision.GetComponent<BaseCharacter>().TakeDamage(damageScale * player.attackDamage);
+            SoundManager.PlayClip(swordHit);
         }
     }
 }

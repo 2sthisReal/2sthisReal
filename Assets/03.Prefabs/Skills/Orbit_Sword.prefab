@@ -102,7 +102,8 @@ MonoBehaviour:
   radius: 1.5
   rotateSpeed: 2
   angleOffset: 59.7
-  damage: 10
+  damageScale: 1.5
+  swordHit: {fileID: 8300000, guid: aba8caf8c2c804a4f80943251506cde3, type: 3}
 --- !u!61 &8846182631808414219
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -250,7 +251,8 @@ MonoBehaviour:
   radius: 1.5
   rotateSpeed: 2
   angleOffset: 0
-  damage: 10
+  damageScale: 1.5
+  swordHit: {fileID: 8300000, guid: aba8caf8c2c804a4f80943251506cde3, type: 3}
 --- !u!61 &3305535748324059988
 BoxCollider2D:
   m_ObjectHideFlags: 0
