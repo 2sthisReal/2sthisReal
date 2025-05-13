@@ -7399,7 +7399,9 @@ MonoBehaviour:
   soundEffectVolume: 0.333
   soundEffectPitchVariance: 0.222
   musicVolume: 0.111
-  musicClip: []
+  musicClip:
+  - {fileID: 8300000, guid: d245ee69fa19d6d49b034f27a5428ce4, type: 3}
+  - {fileID: 0}
   soundSourcePrefab: {fileID: 3570549822273553237, guid: 05a73f8caeb4f5441bec0cfb3ad9d78b, type: 3}
 --- !u!82 &1076531461
 AudioSource:

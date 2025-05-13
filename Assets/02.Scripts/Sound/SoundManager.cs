@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    public static SoundManager instance;
+    public static SoundManager instance { get; private set; }
 
     [SerializeField][Range(0f, 1f)] private float soundEffectVolume;
     [SerializeField][Range(0f, 1f)] private float soundEffectPitchVariance;
@@ -17,7 +17,13 @@ public class SoundManager : MonoBehaviour
 
     private void Awake()
     {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
         instance = this;
+        DontDestroyOnLoad(gameObject);
         musicAudioSource = GetComponent<AudioSource>();
         musicAudioSource.volume = musicVolume;
         musicAudioSource.loop = true;
@@ -45,6 +51,6 @@ public class SoundManager : MonoBehaviour
     {
         SoundSource obj = Instantiate(instance.soundSourcePrefab);
         SoundSource soundSource = obj.GetComponent<SoundSource>();
-        //soundSource.Play(clip, instance.soundEffectVolume, instance.soundEffectPitchVariance);
+        soundSource.Play(clip, instance.soundEffectVolume, instance.soundEffectPitchVariance);
     }
 }
