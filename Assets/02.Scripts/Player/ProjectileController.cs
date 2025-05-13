@@ -65,7 +65,6 @@ public class ProjectileController : MonoBehaviour
 
             if (monster != null)
             {
-                // ü�� 5 ����
                 CritCalculator();
                 monster.TakeDamage((float)projectileDamage);
                 projectileDamage = player.attackDamage;
@@ -158,6 +157,7 @@ public class ProjectileController : MonoBehaviour
 
     private void CritCalculator()
     {
+        projectileDamage = player.attackDamage;
         float rand = UnityEngine.Random.Range(0f, 1f);
         Debug.Log(rand);
         if (rand < player.critRate)
