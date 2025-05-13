@@ -36,13 +36,12 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        // 플레이어 태그를 가진 오브젝트에 닿으면 데미지 적용
+        Debug.Log($"[Projectile] 충돌 발생! name: {col.name}, tag: {col.tag}, layer: {LayerMask.LayerToName(col.gameObject.layer)}");
+
         if (col.CompareTag("Player"))
         {
-            // PlayerHealth 컴포넌트가 있으면 데미지 적용
+            Debug.Log("플레이어에 명중!");
             col.GetComponent<PlayerHealth>()?.TakeDamage(damage);
-
-            // 충돌 후 발사체 삭제
             Destroy(gameObject);
         }
         else if (col.CompareTag("Wall"))
