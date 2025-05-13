@@ -7,18 +7,20 @@ public class SkillDatabase : MonoBehaviour
     [SerializeField]
     public List<SkillConfig> Skills {  get; private set; }
 
-    private void Awake()
+    public void LoadSkills()
     {
-        LoadSkills();
-    }
-
-    private void LoadSkills()
-    {
-        Skills = Resources.LoadAll<SkillConfig>("Assets/Skills").ToList();
+        Skills = Resources.LoadAll<SkillConfig>("Skills").ToList();
+        Debug.Log($"Loaded Skills: {Skills.Count}");
     }
 
     public List<SkillConfig> GetSkills()
     {
         return Skills;
+    }
+
+    public void RemoveActiveSkill(SkillConfig selectSkill)
+    {
+        if(Skills.Contains(selectSkill))
+            Skills.Remove(selectSkill);
     }
 }

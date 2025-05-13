@@ -17,6 +17,7 @@ public class SkillManager : MonoBehaviour
     public void Init()
     {
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        skillDatabase.LoadSkills();
     }
 
     public void AddSkill(SkillConfig skill)
@@ -47,7 +48,9 @@ public class SkillManager : MonoBehaviour
     public List<SkillConfig> GetRandomSkills()
     {
         List<SkillConfig> skills = skillDatabase.GetSkills();
-        return skills.OrderBy(x => Random.value).Take(3).ToList();
+        var randomSkills = skills.OrderBy(x => Random.value).Take(3).ToList();
+
+        return randomSkills;
     }
 
     // 테스트용 메서드
@@ -67,6 +70,11 @@ public class SkillManager : MonoBehaviour
         sb.Init(skill);
         sb.ApplySkill(player);
         Destroy(sb.gameObject);
+
+        if(skill.skillType == SkillType.Active)
+        {
+            skillDatabase.RemoveActiveSkill(skill);
+        }
 
         // 선택한 스킬에 추가
         AddSkill(skill);

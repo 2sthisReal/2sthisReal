@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
 
         if(newState == GameState.InGame)
         {
-            InitStage();
+            stageManager.Init(this);
             skillManager.Init();
         }
     }
@@ -96,11 +96,6 @@ public class GameManager : MonoBehaviour
             //ChangeState(GameState.StageClear);
             stageManager.StageClear();
         }
-    }
-
-    public void InitStage()
-    {
-        stageManager.Init(this);
     }
 
     [ContextMenu("MoveToNextStage")]
