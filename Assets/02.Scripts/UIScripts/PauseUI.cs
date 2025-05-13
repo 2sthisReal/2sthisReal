@@ -44,12 +44,14 @@ namespace SWScene
                 () =>
                 {
                     this.gameObject.SetActive(false);
+                    GameManager.Instance.ResumeGame();
                     //GameManager.Instance.ChangeState(GameState.InGame);
                 });
             homeButton.onClick.AddListener(
                 () =>
                 {
                     this.gameObject.SetActive(false);
+                    GameManager.Instance.ResumeGame();
                     GameManager.Instance.ChangeState(GameState.MainMenu);
                 });
             exitButton.onClick.AddListener(

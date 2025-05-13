@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1638c4c20491b0c4a9600801867842d3, type: 3}
   m_Name: MonsterBounce
   m_EditorClassIdentifier: 
-  skillIcon: {fileID: 0}
+  skillIcon: {fileID: 21300000, guid: e41e5ecca3a387d4e97d2c39276f9de6, type: 3}
   skillName: MonsterBounce
   skillType: 1
   skillValue: 0

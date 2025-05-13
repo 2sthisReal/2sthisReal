@@ -33,12 +33,14 @@ namespace SWScene
                         {
                             GameManager.Instance?.skillManager.AddSkill(skillConfig[index]);
                         }
+                        GameManager.Instance.ResumeGame();
                         UIManager.instance.SkillSelectUISetActive(false);
                     });
             }
             skillCancelButton.onClick.AddListener(
                 () =>
                 {
+                    GameManager.Instance.ResumeGame();
                     UIManager.instance.SkillSelectUISetActive(false);
                 });
         }
