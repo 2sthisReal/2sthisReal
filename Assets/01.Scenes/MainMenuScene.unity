@@ -6812,7 +6812,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  selectSkill: {fileID: 0}
 --- !u!1001 &986978249
 PrefabInstance:
   m_ObjectHideFlags: 0

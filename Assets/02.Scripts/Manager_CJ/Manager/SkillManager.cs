@@ -7,7 +7,6 @@ public class SkillManager : MonoBehaviour
     private SkillDatabase skillDatabase;
     private readonly List<SkillConfig> selectedSkills = new();
     [SerializeField] private Player player;
-    [SerializeField] SkillConfig selectSkill;
 
     private void Awake()
     {
@@ -51,16 +50,6 @@ public class SkillManager : MonoBehaviour
         var randomSkills = skills.OrderBy(x => Random.value).Take(3).ToList();
 
         return randomSkills;
-    }
-
-    // 테스트용 메서드
-    [ContextMenu("TestSkill")]
-    public void ApplySelectSkill()
-    {
-        SkillBase sb = Instantiate(selectSkill.skillBase);
-        sb.Init(selectSkill);
-        sb.ApplySkill(player);
-        Destroy(sb.gameObject);
     }
 
     // 선택한 스킬 적용
