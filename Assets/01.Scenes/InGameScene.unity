@@ -368,10 +368,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: hi
   level: 1
-  maxHealth: 10
-  currentHealth: 10
+  maxHealth: 100
+  currentHealth: 100
   moveSpeed: 3
-  attackDamage: 5
+  attackDamage: 33
   attackSpeed: 2
   attackRange: 0
   isAlive: 1

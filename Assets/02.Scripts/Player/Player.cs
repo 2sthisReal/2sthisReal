@@ -11,11 +11,12 @@ public class Player : BaseCharacter
     Transform playerTransform;
     Weapon weapon;
 
-
+    public AudioClip damageClip;
     public Weapon[] weaponPrefabs;
-    private Weapon currentWeapon;
     public Weapon CurrentWeapon { get => currentWeapon; }
     private Transform weapons;
+    private Weapon currentWeapon;
+
 
     public float shotSpeed;
 
@@ -47,6 +48,7 @@ public class Player : BaseCharacter
         weapons = transform.Find("Weapons");
         EquipWeapon(0);
         weaponAnimator = transform.Find("Weapons").GetComponent<Animator>();
+        currentHealth = maxHealth;
 
     }
     private void FixedUpdate()
@@ -183,6 +185,7 @@ public class Player : BaseCharacter
             return;
 
         currentHealth -= damage;
+        SoundManager.PlayClip(damageClip);
         if (currentHealth < 0)
         {
             //GameOver();
@@ -242,13 +245,7 @@ public class Player : BaseCharacter
     public class PlayerData
     {
         public string characterName;   // ĳ������ �̸�
-        public int level = 1;          // ĳ������ ����, �⺻�� 1
-        public float maxHealth;        // �ִ� ü��
-        public float currentHealth;    // ���� ü��
-        public float moveSpeed;        // �̵� �ӵ�
-        public float attackDamage;     // ���ݷ�
-        public float attackSpeed;      // ���� �ӵ�(�ʴ� ���� Ƚ��)
-        public float shotSpeed;
+     
     }
 
     PlayerData SaveData()
@@ -256,26 +253,14 @@ public class Player : BaseCharacter
         return new PlayerData
         {
             characterName = this.characterName,
-            level = this.level,
-            maxHealth = this.maxHealth,
-            currentHealth = this.currentHealth,
-            moveSpeed = this.moveSpeed,
-            attackDamage = this.attackDamage,
-            attackSpeed = this.attackSpeed,
-            shotSpeed = this.shotSpeed
+          
         };
     }
 
     void LoadData(PlayerData data)
     {
         this.characterName = data.characterName;
-        this.level = data.level;
-        this.maxHealth = data.maxHealth;
-        this.currentHealth = data.currentHealth;
-        this.moveSpeed = data.moveSpeed;
-        this.attackDamage = data.attackDamage;
-        this.attackSpeed = data.attackSpeed;
-        this.shotSpeed = data.shotSpeed;
+        
     }
 
     void SaveJson()
