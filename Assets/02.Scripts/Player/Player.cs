@@ -258,7 +258,6 @@ public class Player : BaseCharacter
             characterName = this.characterName,
             level = this.level,
             maxHealth = this.maxHealth,
-            currentHealth = this.currentHealth,
             moveSpeed = this.moveSpeed,
             attackDamage = this.attackDamage,
             attackSpeed = this.attackSpeed,
@@ -271,7 +270,6 @@ public class Player : BaseCharacter
         this.characterName = data.characterName;
         this.level = data.level;
         this.maxHealth = data.maxHealth;
-        this.currentHealth = data.currentHealth;
         this.moveSpeed = data.moveSpeed;
         this.attackDamage = data.attackDamage;
         this.attackSpeed = data.attackSpeed;
