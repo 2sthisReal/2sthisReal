@@ -71,5 +71,15 @@ namespace SWScene
                 ui.SetActive(currentState);
             }
         }
+
+        public void PauseUISetActive(bool active)
+        {
+            GetComponentInChildren<PauseUI>().gameObject.SetActive(active);
+        }
+
+        public void SkillSelectUISetActive(bool active)
+        {
+            GetComponentInChildren<SkillSelectUI>().gameObject.SetActive(active);
+        }
     }
 }

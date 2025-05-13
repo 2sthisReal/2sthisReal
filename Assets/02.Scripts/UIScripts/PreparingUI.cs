@@ -51,25 +51,7 @@ namespace SWScene
         protected override void OnEnable()
         {
             base.OnEnable();
-            SceneManager.sceneLoaded += OnSceneLoaded;
-        }
-
-        protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-        {
-            base.OnSceneLoaded(scene, mode);
-            /*if (scene.name == "PreparingScene")
-            {
-                equipmentList = UIManager.instance.equipmentDatabase.AllEquipments;
-                for(int i = 0; i < 6; i++)
-                {
-                    if (equipmentList.Count > i)
-                    {
-                        Image image = InventoryButton[i].image;
-                        Debug.Log(equipmentList[i].iconPath);
-                        image.sprite = Resources.Load<Sprite>(equipmentList[i].iconPath);
-                    }
-                }
-            }*/
+            
         }
 
         protected override void Start()
@@ -96,12 +78,6 @@ namespace SWScene
                     });
                 }
             }
-        }
-
-        protected override void OnDisable()
-        {
-            base.OnDisable();
-            SceneManager.sceneLoaded -= OnSceneLoaded;
         }
 
         protected override void Update()
