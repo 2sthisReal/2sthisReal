@@ -21,7 +21,7 @@ namespace SWScene
         protected override void OnEnable()
         {
             base.OnEnable();
-            List<SkillConfig> selectedSkillList = GameManager.Instance.skillManager.GetAll();
+            List<SkillConfig> selectedSkillList = GameManager.Instance.skillManager.GetAllSelectedSkills();
             for(int i = 0; i < skillImageList.Count; i++)
             {
                 if(selectedSkillList.Count > i)
