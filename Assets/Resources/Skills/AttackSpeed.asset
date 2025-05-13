@@ -15,6 +15,6 @@ MonoBehaviour:
   skillIcon: {fileID: 21300000, guid: 6f496a8fec82eee4090995cdf5fff0c1, type: 3}
   skillName: AttackSpeedUp
   skillType: 0
-  skillValue: 1
+  skillValue: 0.5
   skillDescription: "\uACF5\uACA9\uC18D\uB3C4\uAC00 \uC99D\uAC00\uD569\uB2C8\uB2E4."
   skillBase: {fileID: 4376061845044718099, guid: b0e74d5c0fed6ca468d677fc007fb880, type: 3}
