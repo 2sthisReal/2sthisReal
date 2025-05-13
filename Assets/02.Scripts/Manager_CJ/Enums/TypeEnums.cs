@@ -22,6 +22,13 @@ public enum PassiveType
     AttackSpeed = 1,
     MaxHp = 2
 }
+
+public enum ArrowSkillType
+{
+    Pierce, // 관통
+    WallReflect, // 벽 반사
+    MonsterBounce, // 몬스터 튕기기
+}
 public enum ElementType
 {
     None = -1,

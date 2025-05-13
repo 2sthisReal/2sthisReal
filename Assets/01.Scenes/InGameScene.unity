@@ -383,7 +383,7 @@ MonoBehaviour:
   isMove: 0
   inRanged: 0
   invincible: 0
-  multipleShots: 1
+  multipleShots: 0
   invincibleTimer: 0
   directionVector: {x: 0, y: 0}
   monsterCounter: []

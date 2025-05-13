@@ -7,6 +7,8 @@ public class Weapon_Bow : Weapon
 
     public GameObject arrowPrefabs;
     public bool multipleShots = false;
+    // Player Arrow Skills
+    public List<ArrowSkillType> arrowSkills = new List<ArrowSkillType>();
 
     private void Update()
     {
@@ -22,7 +24,7 @@ public class Weapon_Bow : Weapon
             //multipleshot
 
 
-            float spreadDistance = 0.3f; // ¹ß»ç À§Ä¡ °£ °£°Ý
+            float spreadDistance = 0.3f; // ï¿½ß»ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             Vector2 basePosition = weapontransform.position;
             Vector2 perpendicular = new Vector2(-vector.y, vector.x).normalized;
 
@@ -34,13 +36,13 @@ public class Weapon_Bow : Weapon
                     Vector2 spawnPos = basePosition + offset;
 
                     GameObject arrow = Instantiate(arrowPrefabs, spawnPos, Quaternion.identity);
-                    arrow.GetComponent<ProjectileController>().Init(vector, ShotSpeed);
+                    arrow.GetComponent<ProjectileController>().Init(vector, ShotSpeed, arrowSkills);
                 }
             }
             else
             {
                 GameObject arrow = Instantiate(arrowPrefabs, weapontransform.position, Quaternion.identity);
-                arrow.GetComponent<ProjectileController>().Init(directionVector, ShotSpeed);
+                arrow.GetComponent<ProjectileController>().Init(directionVector, ShotSpeed, arrowSkills);
             }
         }
     }
