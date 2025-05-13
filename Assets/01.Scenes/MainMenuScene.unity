@@ -7072,6 +7072,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 605507856}
     m_Modifications:
+    - target: {fileID: 2510888213805785804, guid: 3a31b564d36820245acef84abb38eb5a, type: 3}
+      propertyPath: monsterIdsToSpawn.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2510888213805785804, guid: 3a31b564d36820245acef84abb38eb5a, type: 3}
+      propertyPath: monsterIdsToSpawn.Array.data[0]
+      value: goblin
+      objectReference: {fileID: 0}
+    - target: {fileID: 2510888213805785804, guid: 3a31b564d36820245acef84abb38eb5a, type: 3}
+      propertyPath: monsterIdsToSpawn.Array.data[1]
+      value: chort
+      objectReference: {fileID: 0}
     - target: {fileID: 3834841032419003750, guid: 3a31b564d36820245acef84abb38eb5a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
