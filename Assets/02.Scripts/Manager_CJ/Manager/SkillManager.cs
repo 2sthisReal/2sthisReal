@@ -22,13 +22,11 @@ public class SkillManager : MonoBehaviour
 
     public void AddSkill(SkillConfig skill)
     {
-        if (!selectedSkills.Contains(skill))
-        {
-            selectedSkills.Add(skill);
-            ApplySelectSkill(skill);
-            
-            Debug.Log($"[GameManager] Skill selected: {skill.skillName}");
-        }
+        selectedSkills.Add(skill);
+        ApplySelectSkill(skill);
+
+        Debug.Log($"[GameManager] Skill selected: {skill.skillName}");
+
     }
 
     // 선택한 스킬 리스트 반환
@@ -73,13 +71,10 @@ public class SkillManager : MonoBehaviour
         sb.ApplySkill(player);
         Destroy(sb.gameObject);
 
-        if(skill.skillType == SkillType.Active)
+        if (skill.skillType == SkillType.Active)
         {
             skillDatabase.RemoveActiveSkill(skill);
         }
-
-        // 선택한 스킬에 추가
-        AddSkill(skill);
     }
 
     //public void ApplySelectedSkillsToPlayer(PlayerController player, List<PetController> pets)
