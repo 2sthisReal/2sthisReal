@@ -25,6 +25,8 @@ public class SkillManager : MonoBehaviour
         if (!selectedSkills.Contains(skill))
         {
             selectedSkills.Add(skill);
+            ApplySelectSkill(skill);
+            
             Debug.Log($"[GameManager] Skill selected: {skill.skillName}");
         }
     }
@@ -64,7 +66,7 @@ public class SkillManager : MonoBehaviour
     }
 
     // 선택한 스킬 적용
-    public void ApplySelectSkill(SkillConfig skill)
+    private void ApplySelectSkill(SkillConfig skill)
     {
         SkillBase sb = Instantiate(skill.skillBase);
         sb.Init(skill);
