@@ -5519,7 +5519,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 20
+  m_SortingOrder: 55
   m_SortAtRoot: 0
 --- !u!1 &1942000925
 GameObject:
