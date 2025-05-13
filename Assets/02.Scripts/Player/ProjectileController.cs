@@ -67,7 +67,7 @@ public class ProjectileController : MonoBehaviour
             {
                 // ü�� 5 ����
                 CritCalculator();
-                monster.currentHealth -= (float)projectileDamage;
+                monster.TakeDamage((float)projectileDamage);
                 projectileDamage = player.attackDamage;
             }
 
