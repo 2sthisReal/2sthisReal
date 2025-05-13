@@ -20,6 +20,7 @@ namespace Jang
         private int currentStage = 1;
         [SerializeField] StageDoor stageDoor;
         
+        public static event Action<int> onStageStart;
 
         // 스테이지 설정 세팅 및 스테이지 생성
         public void Init(GameManager gameManager)
@@ -29,6 +30,7 @@ namespace Jang
             monsterSpawner = GetComponentInChildren<MonsterSpawner>();
             stageDoor = FindObjectOfType<StageDoor>();
 
+            currentStage = 1;
             StartStage();
         }
 
@@ -37,7 +39,7 @@ namespace Jang
             stageDoor.SetDoor(isClear);
             GenerateNewStage();
 
-            currentStage = 1;
+            onStageStart?.Invoke(currentStage);
         }
 
         [ContextMenu("StageClear")]
@@ -55,7 +57,7 @@ namespace Jang
             stageDoor.SetDoor(isClear);
 
             currentPreset = stagePresetManager.GetRandomPreset();
-            InitStage(currentPreset, () => { });
+            InitStage(currentPreset);
 
             gameManager.RegisterEnemies(currentPreset.monsterPoints.Count);
         }
@@ -63,11 +65,11 @@ namespace Jang
         // 스테이지 미리보기
         public void PreviewStage(StagePreset preset)
         {
-            InitStage(preset, () => { });
+            InitStage(preset);
         }
 
         // 스테이지 설정
-        void InitStage(StagePreset preset, Action onCompleted)
+        void InitStage(StagePreset preset)
         {
             Destroy(stageMap);
             GameObject map = new GameObject("Stage");
@@ -80,8 +82,6 @@ namespace Jang
             SpawnMonster(preset.monsterPoints);
             SpawnObjects(preset.obstaclePoints, obstaclePrefab);
             SpawnObjects(preset.itemPoints, itemPrefab);
-
-            onCompleted?.Invoke();
         }
 
         // 오브젝트 생성

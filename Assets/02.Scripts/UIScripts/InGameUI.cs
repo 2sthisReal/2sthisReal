@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Jang;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -16,6 +18,9 @@ namespace SWScene
         [SerializeField] private BaseUI pauseUI;
         [SerializeField] private BaseUI skillSelectUI;
 
+        // InGameUI
+        [SerializeField] private TextMeshProUGUI stageText;
+
         protected override GameState GetUIState()
         {
             return GameState.InGame;
@@ -24,6 +29,7 @@ namespace SWScene
         protected override void OnEnable()
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
+            StageManager.onStageStart += UpdateStageText;
         }
 
         protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -38,6 +44,7 @@ namespace SWScene
         protected override void OnDisable()
         {
             SceneManager.sceneLoaded -= OnSceneLoaded;
+            StageManager.onStageStart -= UpdateStageText;
         }
 
         public override void Init(UIManager uiManager)
@@ -76,6 +83,11 @@ namespace SWScene
                 { 
                     GameManager.Instance.ChangeState(GameState.StageClear); 
                 });
+        }
+
+        void UpdateStageText(int currentStage)
+        {
+            stageText.text = currentStage.ToString();
         }
     }
 }
