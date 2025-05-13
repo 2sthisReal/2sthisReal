@@ -11,7 +11,7 @@ public class ArrowSkill : SkillBase
         
         if (weapon)
         {
-            weapon.arrowSkills.Add(arrowType);
+            //weapon.arrowSkills.Add(arrowType);
         }
     }
 }

@@ -7,28 +7,26 @@ public class Weapon_Bow : Weapon
 
     public GameObject arrowPrefabs;
     public bool multipleShots = false;
-    // Player Arrow Skills
-    public List<ArrowSkillType> arrowSkills = new List<ArrowSkillType>();
 
     private void Update()
     {
         attackCooldown -= Time.deltaTime;
     }
-    public override void AttackTarget(Vector2 vector, float ShotSpeed, float Rate, bool multipleShot)
+    public override void AttackTarget(Vector2 vector, Player player)
     {
         if (attackCooldown <= 0f)
         {
             directionVector = vector;
 
-            attackCooldown = 1f / Rate;
+            attackCooldown = 1f / player.attackSpeed;
             //multipleshot
 
 
-            float spreadDistance = 0.3f; // ï¿½ß»ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            float spreadDistance = 0.3f; // ¹ß»ç À§Ä¡ °£ °£°Ý
             Vector2 basePosition = weapontransform.position;
             Vector2 perpendicular = new Vector2(-vector.y, vector.x).normalized;
 
-            if (multipleShot)
+            if (player.multipleShots)
             {
                 for (int i = -1; i <= 1; i++)
                 {
@@ -36,13 +34,15 @@ public class Weapon_Bow : Weapon
                     Vector2 spawnPos = basePosition + offset;
 
                     GameObject arrow = Instantiate(arrowPrefabs, spawnPos, Quaternion.identity);
-                    arrow.GetComponent<ProjectileController>().Init(vector, ShotSpeed, arrowSkills);
+                    arrow.GetComponent<ProjectileController>().Init(vector, player.shotSpeed);
+                    arrow.GetComponent<ProjectileController>().SetPlayer(player);
                 }
             }
             else
             {
                 GameObject arrow = Instantiate(arrowPrefabs, weapontransform.position, Quaternion.identity);
-                arrow.GetComponent<ProjectileController>().Init(directionVector, ShotSpeed, arrowSkills);
+                arrow.GetComponent<ProjectileController>().Init(directionVector, player.shotSpeed);
+                arrow.GetComponent<ProjectileController>().SetPlayer(player);
             }
         }
     }
