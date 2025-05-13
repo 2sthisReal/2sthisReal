@@ -21,18 +21,25 @@ public abstract class ItemBase : MonoBehaviour
             StartCoroutine(UseItemCoroutine(player));
 
         else
+        {
             ApplyStat(player, value);
+            Destroy(gameObject);
+        }
 
-        Destroy(gameObject);
+        
     }
 
     abstract protected void ApplyStat(BaseCharacter player, float value);
 
     virtual protected IEnumerator UseItemCoroutine(BaseCharacter player)
     {
+        GetComponentInChildren<SpriteRenderer>().enabled = false;
+        GetComponent<Collider2D>().enabled = false;
+
         ApplyStat(player, value);
         yield return new WaitForSeconds(duration);
         ApplyStat(player, -value);
-    
+
+        Destroy(gameObject);
     }
 }

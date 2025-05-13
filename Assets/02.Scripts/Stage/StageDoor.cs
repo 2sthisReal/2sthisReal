@@ -4,6 +4,7 @@ public class StageDoor : MonoBehaviour
 {
    [SerializeField] private ParticleSystem particle;
     [SerializeField] private Animator anim;
+    [SerializeField] private Collider2D trigger;
     [SerializeField] private Collider2D col;
     [SerializeField] private Vector2 startPos;
 
@@ -11,13 +12,14 @@ public class StageDoor : MonoBehaviour
     {
         anim.GetComponent<Animator>();
         particle = GetComponentInChildren<ParticleSystem>();
-        col = GetComponent<Collider2D>();
+        trigger = GetComponent<Collider2D>();
     }
     public void SetDoor(bool isClear)
     {
         anim.SetBool("IsClear", isClear);
-        col.enabled = isClear;
-
+        trigger.enabled = isClear;
+        col.enabled = !isClear;
+        
         if (isClear)
             particle.Play();
         else
