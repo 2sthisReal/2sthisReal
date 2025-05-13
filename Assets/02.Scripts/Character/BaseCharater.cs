@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -33,6 +34,7 @@ public abstract class BaseCharacter : MonoBehaviour
     protected Animator animator;         // �ִϸ��̼� �����
     protected Rigidbody2D rb;            // ���� �̵���
 
+    public Action<float, float> OnChangedHp;
     /// <summary>
     /// ������Ʈ�� �������� ü���� �ʱ�ȭ�մϴ�.
     /// �ڽ� Ŭ�������� Ȯ���� �� �ֵ��� virtual ó��.
@@ -92,6 +94,8 @@ public abstract class BaseCharacter : MonoBehaviour
         {
             animator.SetTrigger("Hit");  // �ǰ� �ִϸ��̼�
         }
+
+        OnChangedHp?.Invoke(maxHealth, currentHealth);
     }
 
     /// <summary>

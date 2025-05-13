@@ -196,6 +196,8 @@ public class Player : BaseCharacter
         invincible = true;
         invincibleTimer = 2.0f; //2�ʹ���
         StartCoroutine(BlinkAlpha(2.0f, 0.1f));
+        
+        OnChangedHp?.Invoke(maxHealth, currentHealth);
     }
 
     public void ApplyKnockback(Transform other)
