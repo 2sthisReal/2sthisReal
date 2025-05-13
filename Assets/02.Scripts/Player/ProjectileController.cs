@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Playables;
+
+
 
 public class ProjectileController : MonoBehaviour
 {
@@ -19,10 +22,15 @@ public class ProjectileController : MonoBehaviour
     // 이미 맞은 몬스터 관리
     List<Monster> hitMonsters = new List<Monster>();
 
+    public Player player;
+
+    private double projectileDamage;
+
     private void Awake()
     {
         pivot = transform.GetChild(0);
         rb = GetComponent<Rigidbody2D>();
+        player = GetComponent<Player>();
     }
     public void Init(Vector2 direction, float shotspeed, List<ArrowSkillType> arrowSkills)
     {
@@ -58,7 +66,9 @@ public class ProjectileController : MonoBehaviour
             if (monster != null)
             {
                 // ü�� 5 ����
-                monster.TakeDamage(5);
+                CritCalculator();
+                monster.currentHealth -= (float)projectileDamage;
+                projectileDamage = player.attackDamage;
             }
 
             // 몬스터 반사가 있다면 가까운 몬스터로 이동
@@ -144,5 +154,13 @@ public class ProjectileController : MonoBehaviour
 
         else
             Destroy(this.gameObject);
+    }
+
+    private void CritCalculator()
+    {
+        float rand = UnityEngine.Random.Range(0f, 1f);
+        Debug.Log(rand);
+        if (rand < player.critRate)
+            projectileDamage = player.attackDamage * 1.5;
     }
 }

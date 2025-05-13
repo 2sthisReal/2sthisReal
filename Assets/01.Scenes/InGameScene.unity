@@ -385,6 +385,7 @@ MonoBehaviour:
   invincible: 0
   multipleShots: 0
   invincibleTimer: 0
+  critRate: 0
   directionVector: {x: 0, y: 0}
   monsterCounter: []
 --- !u!4 &876823615

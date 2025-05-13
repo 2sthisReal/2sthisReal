@@ -26,6 +26,7 @@ public class Player : BaseCharacter
     public bool multipleShots = false;
     private float knockbackDuration = 0.0f;
     public float invincibleTimer;
+    public float critRate = 0.0f;
 
     Vector2 knockback = Vector2.zero;
     public Vector2 directionVector;
@@ -39,6 +40,7 @@ public class Player : BaseCharacter
         spriteRenderer = transform.Find("Sprite").GetComponent<SpriteRenderer>();
         playerTransform = GetComponent<Transform>();
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        LoadFromFile();
     }
     private void Start()
     {
@@ -184,6 +186,8 @@ public class Player : BaseCharacter
         if (currentHealth < 0)
         {
             //GameOver();
+            //SaveJson();
+            Debug.Log("Game Over");
         }
         invincible = true;
         invincibleTimer = 2.0f; //2�ʹ���
