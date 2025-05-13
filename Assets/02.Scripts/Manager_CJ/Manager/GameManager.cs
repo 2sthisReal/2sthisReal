@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
         if(remainingEnemies <= 0)
         {
             Debug.Log("[GameManager] All enemies defeated. Stage Clear.");
-            ChangeState(GameState.StageClear);
+            //ChangeState(GameState.StageClear);
             stageManager.StageClear();
         }
     }

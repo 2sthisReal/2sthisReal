@@ -1,8 +1,8 @@
 public class MultiShot : SkillBase
 {
-    protected override void ApplyActiveSkill(BaseCharacter player)
+    protected override void ApplyActiveSkill(Player player)
     {
         base.ApplyActiveSkill(player);
-        player.GetComponent<Player>().ToggleMultiShot();
+        player.ToggleMultiShot();
     }
 }

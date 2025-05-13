@@ -3,7 +3,7 @@ using UnityEngine;
 public class PassiveSkill : SkillBase
 {
     [SerializeField] PassiveType type;
-    protected override void ApplyPassiveSkill(BaseCharacter player)
+    protected override void ApplyPassiveSkill(Player player)
     {
         switch (type)
         {
