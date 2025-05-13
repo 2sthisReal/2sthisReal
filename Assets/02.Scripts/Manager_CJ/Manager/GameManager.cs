@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     public SkillManager Skills { get; private set; } = new();
     public EquipmentManager Equipment { get; private set; } = new();
     public PetManager Pets { get; private set; } = new();
+
+    private bool isPaused = false;
     #endregion
 
     #region Stage Progress
@@ -109,5 +111,29 @@ public class GameManager : MonoBehaviour
     {
         Skills.Clear();
         Debug.Log("[GameManager] Player session data has been reset");
+    }
+
+    public void PauseGame()
+    {
+        if (isPaused) return;
+
+        Time.timeScale = 0f;
+        isPaused = true;
+    }
+
+    public void ResumeGame()
+    {
+        if (!isPaused) return;
+
+        Time.timeScale = 1f;
+        isPaused = false;
+    }
+
+    public void TogglePause()
+    {
+        if (isPaused)
+            ResumeGame();
+        else
+            PauseGame();
     }
 }
