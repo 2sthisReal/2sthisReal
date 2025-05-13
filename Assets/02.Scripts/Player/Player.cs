@@ -14,6 +14,7 @@ public class Player : BaseCharacter
 
     public Weapon[] weaponPrefabs;
     private Weapon currentWeapon;
+    public Weapon CurrentWeapon { get => currentWeapon; }
     private Transform weapons;
 
     public float shotSpeed;
@@ -25,12 +26,12 @@ public class Player : BaseCharacter
     public bool multipleShots = false;
     private float knockbackDuration = 0.0f;
     public float invincibleTimer;
+    public float critRate = 0.0f;
 
     Vector2 knockback = Vector2.zero;
     public Vector2 directionVector;
 
     public List<Transform> monsterCounter = new List<Transform>();
-    
 
     protected override void Awake()
     {
@@ -39,6 +40,7 @@ public class Player : BaseCharacter
         spriteRenderer = transform.Find("Sprite").GetComponent<SpriteRenderer>();
         playerTransform = GetComponent<Transform>();
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        LoadFromFile();
     }
     private void Start()
     {
@@ -53,14 +55,14 @@ public class Player : BaseCharacter
         {
             knockbackDuration -= Time.fixedDeltaTime;
             if (knockbackDuration <= 0.0f)
-                isKnockback=false;
+                isKnockback = false;
         }
         if (isKnockback)
             return;
         Move(Vector2.zero);
         //trigger�� �������� �۵��Ǳ⶧���� �� �ļ�
         if (!isMove)
-        { 
+        {
             rb.velocity = Vector2.right * 0.000001f;
             rb.velocity = Vector2.left * 0.000001f;
         }
@@ -80,9 +82,9 @@ public class Player : BaseCharacter
         weapon.WeaponReady();
         directionVector = (closest.position - playerTransform.position).normalized;
         weapon.GetVector(directionVector);
-        
+
         if (closest.position.x - playerTransform.position.x > 0)
-            spriteRenderer.flipX = false;  
+            spriteRenderer.flipX = false;
         else if (closest.position.x - playerTransform.position.x < 0)
             spriteRenderer.flipX = true;
 
@@ -96,14 +98,14 @@ public class Player : BaseCharacter
 
 
     //Trigger�� �÷��̾� �ۿ� ���ݹ��� ū��
-      
-    
+
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (invincible)
             return;
         Monster monster = collision.gameObject.GetComponent<Monster>();
-        
+
         if (collision.collider.CompareTag("Enemy"))
         {
             animator.SetTrigger("IsDamaged");
@@ -111,10 +113,10 @@ public class Player : BaseCharacter
             ApplyKnockback(collision.transform);
         }
     }
-    
 
 
-    
+
+
 
     void OnDrawGizmos()
     {
@@ -172,7 +174,7 @@ public class Player : BaseCharacter
 
     public override void Attack()
     {
-        
+
     }
 
     public override void TakeDamage(float damage)
@@ -184,6 +186,8 @@ public class Player : BaseCharacter
         if (currentHealth < 0)
         {
             //GameOver();
+            //SaveJson();
+            Debug.Log("Game Over");
         }
         invincible = true;
         invincibleTimer = 2.0f; //2�ʹ���
@@ -194,7 +198,7 @@ public class Player : BaseCharacter
     {
         isKnockback = true;
         knockbackDuration = 0.125f;
-        knockback = -(other.position - transform.position).normalized * 4f; 
+        knockback = -(other.position - transform.position).normalized * 4f;
         rb.velocity = knockback;
     }
 
@@ -261,7 +265,7 @@ public class Player : BaseCharacter
         };
     }
 
-    void LoadData(PlayerData data )
+    void LoadData(PlayerData data)
     {
         this.characterName = data.characterName;
         this.level = data.level;

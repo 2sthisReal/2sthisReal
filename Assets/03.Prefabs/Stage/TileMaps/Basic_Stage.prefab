@@ -1682,7 +1682,7 @@ GameObject:
   - component: {fileID: 5674437972846533438}
   m_Layer: 0
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1715,7 +1715,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 4
-      m_TileSpriteIndex: 5
+      m_TileSpriteIndex: 7
       m_TileMatrixIndex: 0
       m_TileColorIndex: 1
       m_TileObjectToInstantiateIndex: 65535
@@ -2055,7 +2055,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 1
-      m_TileSpriteIndex: 4
+      m_TileSpriteIndex: 5
       m_TileMatrixIndex: 0
       m_TileColorIndex: 1
       m_TileObjectToInstantiateIndex: 65535
@@ -2225,7 +2225,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 2
-      m_TileSpriteIndex: 2
+      m_TileSpriteIndex: 4
       m_TileMatrixIndex: 0
       m_TileColorIndex: 1
       m_TileObjectToInstantiateIndex: 65535
@@ -2254,18 +2254,18 @@ Tilemap:
     m_Data: {fileID: 887863401, guid: 22e6b300172e7204182b0aacf6f00cd0, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: -881016438, guid: 6553030c3b808a949b2b2acef3d971b2, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: -176775161, guid: 22e6b300172e7204182b0aacf6f00cd0, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 30
     m_Data: {fileID: -657935658, guid: 22e6b300172e7204182b0aacf6f00cd0, type: 3}
   - m_RefCount: 1
+    m_Data: {fileID: -176775161, guid: 22e6b300172e7204182b0aacf6f00cd0, type: 3}
+  - m_RefCount: 1
     m_Data: {fileID: 110849230, guid: 22e6b300172e7204182b0aacf6f00cd0, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: -1942551058, guid: 22e6b300172e7204182b0aacf6f00cd0, type: 3}
-  - m_RefCount: 1
     m_Data: {fileID: -1659236021, guid: 22e6b300172e7204182b0aacf6f00cd0, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: -1942551058, guid: 22e6b300172e7204182b0aacf6f00cd0, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 44
     m_Data:

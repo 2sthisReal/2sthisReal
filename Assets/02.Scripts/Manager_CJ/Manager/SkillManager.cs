@@ -6,8 +6,8 @@ public class SkillManager : MonoBehaviour
 {
     private SkillDatabase skillDatabase;
     private readonly List<SkillConfig> selectedSkills = new();
-    [SerializeField] private BaseCharacter player;
-    public SkillConfig skillConfig;
+    [SerializeField] private Player player;
+    [SerializeField] SkillConfig selectSkill;
 
     private void Awake()
     {
@@ -16,7 +16,8 @@ public class SkillManager : MonoBehaviour
 
     public void Init()
     {
-        player = GameObject.FindWithTag("Player").GetComponent<BaseCharacter>();
+        player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        skillDatabase.LoadSkills();
     }
 
     public void AddSkill(SkillConfig skill)
@@ -28,14 +29,10 @@ public class SkillManager : MonoBehaviour
         }
     }
 
-    public List<SkillConfig> GetAll()
+    // 선택한 스킬 리스트 반환
+    public List<SkillConfig> GetAllSelectedSkills()
     {
         return new List<SkillConfig>(selectedSkills);
-    }
-
-    public bool Has(string skillName)
-    {
-        return selectedSkills.Exists(skill => skill.skillName == skillName);
     }
 
     public void Clear()
@@ -51,15 +48,36 @@ public class SkillManager : MonoBehaviour
     public List<SkillConfig> GetRandomSkills()
     {
         List<SkillConfig> skills = skillDatabase.GetSkills();
-        return skills.OrderBy(x => Random.value).Take(3).ToList();
+        var randomSkills = skills.OrderBy(x => Random.value).Take(3).ToList();
+
+        return randomSkills;
     }
 
+    // 테스트용 메서드
+    [ContextMenu("TestSkill")]
+    public void ApplySelectSkill()
+    {
+        SkillBase sb = Instantiate(selectSkill.skillBase);
+        sb.Init(selectSkill);
+        sb.ApplySkill(player);
+        Destroy(sb.gameObject);
+    }
+
+    // 선택한 스킬 적용
     public void ApplySelectSkill(SkillConfig skill)
     {
         SkillBase sb = Instantiate(skill.skillBase);
         sb.Init(skill);
         sb.ApplySkill(player);
         Destroy(sb.gameObject);
+
+        if(skill.skillType == SkillType.Active)
+        {
+            skillDatabase.RemoveActiveSkill(skill);
+        }
+
+        // 선택한 스킬에 추가
+        AddSkill(skill);
     }
 
     //public void ApplySelectedSkillsToPlayer(PlayerController player, List<PetController> pets)

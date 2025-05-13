@@ -23,6 +23,7 @@ public class MonsterSpawner : MonoBehaviour
 
     private void Update()
     {
+        /*
         activeMonsters.RemoveAll(monster => monster == null || !monster.isAlive);
 
         if (Time.time >= nextSpawnTime && activeMonsters.Count < maxMonsters && spawnPositions.Count > 0)
@@ -31,6 +32,7 @@ public class MonsterSpawner : MonoBehaviour
             SpawnMonsterInternal(randomPos);
             nextSpawnTime = Time.time + spawnInterval;
         }
+        */
     }
 
     /// <summary>

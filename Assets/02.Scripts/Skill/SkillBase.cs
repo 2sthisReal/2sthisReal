@@ -9,7 +9,7 @@ public abstract class SkillBase : MonoBehaviour
         this.skill = skill;
     }
 
-    public void ApplySkill(BaseCharacter player)
+    public void ApplySkill(Player player)
     {
         switch (skill.skillType)
         {
@@ -22,12 +22,12 @@ public abstract class SkillBase : MonoBehaviour
                 break;
         }
     }
-    protected virtual void ApplyPassiveSkill(BaseCharacter player)
+    protected virtual void ApplyPassiveSkill(Player player)
     {
 
     }
 
-    protected virtual void ApplyActiveSkill(BaseCharacter player)
+    protected virtual void ApplyActiveSkill(Player player)
     {
 
     }
