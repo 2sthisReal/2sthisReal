@@ -10,8 +10,8 @@ namespace SWScene
     public class SkillSelectUI : BaseUI
     {
         [SerializeField] private Button skillCancelButton;
-        [SerializeField] private List<Button> RandomSkillButton;
-        [SerializeField] private List<TextMeshProUGUI> RandomSkillTooltip;
+        [SerializeField] private List<Button> RandomSkillButtonList;
+        [SerializeField] private List<TextMeshProUGUI> RandomSkillNameList;
         private List<SkillConfig> skillConfig;
         protected override GameState GetUIState()
         {
@@ -22,11 +22,11 @@ namespace SWScene
         {
             base.Init(uiManager);
             this.gameObject.SetActive(false);
-            skillConfig = new List<SkillConfig>(RandomSkillButton.Count);
-            for (int i = 0; i < RandomSkillButton.Count; i++)
+            skillConfig = new List<SkillConfig>(RandomSkillButtonList.Count);
+            for (int i = 0; i < RandomSkillButtonList.Count; i++)
             {
                 int index = i;
-                RandomSkillButton[index].onClick.AddListener(
+                RandomSkillButtonList[index].onClick.AddListener(
                     () =>
                     {
                         if(skillConfig.Count > index)
@@ -51,10 +51,10 @@ namespace SWScene
             Debug.Log(skillConfig.Count);
             for (int i = 0; i < skillConfig.Count; i++)
             {
-                if (i < RandomSkillButton.Count)
+                if (i < RandomSkillButtonList.Count)
                 {
-                    RandomSkillButton[i].image.sprite = skillConfig[i].skillIcon;
-                    RandomSkillTooltip[i].SetText(skillConfig[i].skillName);
+                    RandomSkillButtonList[i].image.sprite = skillConfig[i].skillIcon;
+                    RandomSkillNameList[i].SetText(skillConfig[i].skillName);
                 }
             }
         }
