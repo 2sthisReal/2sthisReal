@@ -45,31 +45,33 @@ namespace SWScene
             base.Init(uiManager);
             pauseUI.Init(uiManager);
             skillSelectUI.Init(uiManager); 
-            pauseButton.onClick.AddListener(
+            pauseButton?.onClick.AddListener(
                 () => 
                 {
                     pauseUI.gameObject.SetActive(true);
                     skillSelectUI.gameObject.SetActive(false);
+                    GameManager.Instance.PauseGame();
                     //GameManager.Instance.ChangeState(GameState.Pause); 
                 });
-            tempSkillSelectButton.onClick.AddListener(
+            tempSkillSelectButton?.onClick.AddListener(
                 () =>
                 {
                     pauseUI.gameObject.SetActive(false);
                     skillSelectUI.gameObject.SetActive(true);
+                    GameManager.Instance.PauseGame();
                     //GameManager.Instance.ChangeState(GameState.SkillSelect);
                 });
-            tempGameOverButton.onClick.AddListener(
+            tempGameOverButton?.onClick.AddListener(
                 () => 
                 { 
                     GameManager.Instance.ChangeState(GameState.GameOver); 
                 });
-            tempVictoryButton.onClick.AddListener(
+            tempVictoryButton?.onClick.AddListener(
                 () => 
                 { 
                     GameManager.Instance.ChangeState(GameState.Victory); 
                 });
-            tempStageClearButton.onClick.AddListener(
+            tempStageClearButton?.onClick.AddListener(
                 () => 
                 { 
                     GameManager.Instance.ChangeState(GameState.StageClear); 
