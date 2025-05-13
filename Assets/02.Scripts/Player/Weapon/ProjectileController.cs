@@ -11,6 +11,10 @@ public class ProjectileController : MonoBehaviour
     Transform pivot;
     Rigidbody2D rb;
     Player player;
+    public AudioClip arrowSound;
+    public AudioClip arrowHit;
+    float arrowSustain = 5f;
+
 
     private double projectileDamage = 0;
 
@@ -31,12 +35,18 @@ public class ProjectileController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
     }
+    private void Update()
+    {
+        arrowSustain -= Time.deltaTime;
+        if (arrowSustain < 0)
+            Destroy(this.gameObject);
+    }
     public void Init(Vector2 direction, float shotspeed, List<ArrowSkillType> arrowSkills)
     {
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);
         rb.velocity = direction * shotspeed;
-
+        SoundManager.PlayClip(arrowSound);
         foreach (var skill in arrowSkills)
         {
             switch (skill)
@@ -66,6 +76,7 @@ public class ProjectileController : MonoBehaviour
             {
                 CritCalculator();
                 monster.TakeDamage((float)projectileDamage);
+                SoundManager.PlayClip(arrowHit);
                 projectileDamage = player.attackDamage;
             }
 
