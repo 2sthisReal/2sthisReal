@@ -1,12 +1,25 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
-public class SkillManager
+public class SkillManager : MonoBehaviour
 {
-    private readonly List<SkillData> selectedSkills = new();
+    private SkillDatabase skillDatabase;
+    private readonly List<SkillConfig> selectedSkills = new();
+    [SerializeField] private Player player;
+    [SerializeField] SkillConfig selectSkill;
 
-    public void AddSkill(SkillData skill)
+    private void Awake()
+    {
+        skillDatabase = GetComponentInChildren<SkillDatabase>();
+    }
+
+    public void Init()
+    {
+        player = GameObject.FindWithTag("Player").GetComponent<Player>();
+    }
+
+    public void AddSkill(SkillConfig skill)
     {
         if (!selectedSkills.Contains(skill))
         {
@@ -15,20 +28,48 @@ public class SkillManager
         }
     }
 
-    public List<SkillData> GetAll()
+    // ì„ íƒí•œ ìŠ¤í‚¬ ë¦¬ìŠ¤íŠ¸ ë°˜í™˜
+    public List<SkillConfig> GetAllSelectedSkills()
     {
-        return new List<SkillData>(selectedSkills);
-    }
-
-    public bool Has(string skillID)
-    {
-        return selectedSkills.Exists(skill => skill.skillID == skillID);
+        return new List<SkillConfig>(selectedSkills);
     }
 
     public void Clear()
     {
         selectedSkills.Clear();
         Debug.Log("[SkillManager] All selected skills cleared.");
+    }
+
+    /// <summary>
+    /// Get Random 3 Skills
+    /// </summary>
+    /// <returns></returns>
+    public List<SkillConfig> GetRandomSkills()
+    {
+        List<SkillConfig> skills = skillDatabase.GetSkills();
+        return skills.OrderBy(x => Random.value).Take(3).ToList();
+    }
+
+    // í…ŒìŠ¤íŠ¸ìš© ë©”ì„œë“œ
+    [ContextMenu("TestSkill")]
+    public void ApplySelectSkill()
+    {
+        SkillBase sb = Instantiate(selectSkill.skillBase);
+        sb.Init(selectSkill);
+        sb.ApplySkill(player);
+        Destroy(sb.gameObject);
+    }
+
+    // ì„ íƒí•œ ìŠ¤í‚¬ ì ìš©
+    public void ApplySelectSkill(SkillConfig skill)
+    {
+        SkillBase sb = Instantiate(skill.skillBase);
+        sb.Init(skill);
+        sb.ApplySkill(player);
+        Destroy(sb.gameObject);
+
+        // ì„ íƒí•œ ìŠ¤í‚¬ì— ì¶”ê°€
+        AddSkill(skill);
     }
 
     //public void ApplySelectedSkillsToPlayer(PlayerController player, List<PetController> pets)
@@ -55,5 +96,4 @@ public class SkillManager
     //    }
     //    Debug.Log("[GameManager] Selected skill effects applied.");
     //}
-    // ½ºÅ³ È¿°ú°¡ ¸¹¾ÆÁö¸é ÀÌ ºÎºĞ¸¸ È®ÀåÇÏ°Å³ª ºĞ¸®
 }

@@ -2,26 +2,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// MonsterSpawner�� ���͸� �ֱ������� ��ȯ�ϴ� ������Ʈ�Դϴ�.
+/// MonsterSpawner는 지정된 위치에 몬스터를 소환하는 컴포넌트입니다.
+/// 최대 몬스터 수 제한과 주기적 자동 소환을 지원합니다.
 /// </summary>
 public class MonsterSpawner : MonoBehaviour
 {
-    [Header("���� ����")]
-    [SerializeField] private float spawnRadius = 10f;
-    [SerializeField] private int maxMonsters = 5;
-    [SerializeField] private float spawnInterval = 5f;
-    [SerializeField] private Transform spawnPointParent;
-
-    [Header("���� ����")]
+    [Header("몬스터 설정")]
     [SerializeField] private List<string> monsterIdsToSpawn = new();
+    [SerializeField] private float spawnInterval = 5f;
+    [SerializeField] private int maxMonsters = 10;
 
-    private List<Transform> spawnPoints = new();
     private List<Monster> activeMonsters = new();
+    private List<Vector3> spawnPositions = new();
     private float nextSpawnTime;
 
     private void Start()
     {
-        InitializeSpawnPoints();
         nextSpawnTime = Time.time + spawnInterval;
     }
 
@@ -30,120 +26,34 @@ public class MonsterSpawner : MonoBehaviour
         /*
         activeMonsters.RemoveAll(monster => monster == null || !monster.isAlive);
 
-        if (activeMonsters.Count < maxMonsters && Time.time >= nextSpawnTime)
+        if (Time.time >= nextSpawnTime && activeMonsters.Count < maxMonsters && spawnPositions.Count > 0)
         {
-            SpawnMonster();
+            Vector3 randomPos = spawnPositions[Random.Range(0, spawnPositions.Count)];
+            SpawnMonsterInternal(randomPos);
             nextSpawnTime = Time.time + spawnInterval;
         }
         */
     }
 
-    private void InitializeSpawnPoints()
-    {
-        spawnPoints.Clear();
-
-        if (spawnPointParent != null)
-        {
-            foreach (Transform child in spawnPointParent)
-                spawnPoints.Add(child);
-        }
-
-        if (spawnPoints.Count == 0)
-            spawnPoints.Add(transform);
-    }
-
-    private void SpawnMonster()
-    {
-        if (monsterIdsToSpawn.Count == 0)
-        {
-            Debug.LogWarning("������ ���� ID�� �����ϴ�.");
-            return;
-        }
-
-        string monsterId = monsterIdsToSpawn[Random.Range(0, monsterIdsToSpawn.Count)];
-        MonsterData monsterData = MonsterManager.Instance.GetMonsterData(monsterId);
-
-        if (monsterData == null)
-        {
-            Debug.LogError($"MonsterData �� ã��: {monsterId}");
-            return;
-        }
-
-        Vector3 spawnPos = GetRandomSpawnPosition();
-        Debug.Log($"���� ���� �õ�: ID={monsterId}, ���={monsterData.prefabPath}, ��ġ={spawnPos}");
-
-        GameObject prefab = Resources.Load<GameObject>(monsterData.prefabPath);
-        if (prefab == null)
-        {
-            Debug.LogError($"������ �ε� ����: {monsterData.prefabPath}");
-            return;
-        }
-
-        GameObject monsterObj = Instantiate(prefab, spawnPos, Quaternion.identity);
-
-        if (monsterObj != null)
-        {
-            Transform mainSpriteTr = monsterObj.transform.Find("MainSprite");
-            Debug.Log(mainSpriteTr != null ? "MainSprite ã��" : "MainSprite �� ã��");
-
-            Monster monster = monsterObj.GetComponent<Monster>();
-            if (monster != null)
-            {
-                CheckAndFixSprites(monsterObj, monsterData);
-                monster.Initialize(monsterId);
-                activeMonsters.Add(monster);
-            }
-            else
-            {
-                Debug.LogError("Monster ������Ʈ�� ã�� ���߽��ϴ�.");
-            }
-        }
-    }
-
-    private void CheckAndFixSprites(GameObject monsterObj, MonsterData monsterData)
-    {
-        Transform mainSpriteTr = monsterObj.transform.Find("MainSprite");
-        if (mainSpriteTr != null)
-        {
-            Animator animator = mainSpriteTr.GetComponent<Animator>();
-            Debug.Log(animator != null
-                ? "Animator �����. SpriteRenderer�� Animator�� ������"
-                : "Animator ����. SpriteRenderer ���� ���� �ʿ��� �� ����");
-
-            SpriteRenderer mainRenderer = mainSpriteTr.GetComponent<SpriteRenderer>();
-            Debug.Log(mainRenderer != null
-                ? $"MainSprite�� SpriteRenderer ����. ���� sprite: {(mainRenderer.sprite != null ? mainRenderer.sprite.name : "null")}"
-                : "MainSprite�� SpriteRenderer ����");
-        }
-    }
-
-    private Vector3 GetRandomSpawnPosition()
-    {
-        Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)];
-        Vector2 offset = Random.insideUnitCircle * spawnRadius;
-        return spawnPoint.position + new Vector3(offset.x, offset.y, 0);
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-
-        if (spawnPointParent != null)
-        {
-            foreach (Transform child in spawnPointParent)
-                Gizmos.DrawWireSphere(child.position, spawnRadius);
-        }
-        else
-        {
-            Gizmos.DrawWireSphere(transform.position, spawnRadius);
-        }
-    }
-
+    /// <summary>
+    /// 외부 호출용: 지정된 위치에 몬스터를 스폰하고 스폰 위치 리스트에 추가
+    /// </summary>
     public void SpawnMonsterInStage(Vector3 spawnPos)
     {
+        if (!spawnPositions.Contains(spawnPos))
+            spawnPositions.Add(spawnPos);
+
+        SpawnMonsterInternal(spawnPos);
+    }
+
+    /// <summary>
+    /// 실제 몬스터 스폰 로직 (위치만 받음)
+    /// </summary>
+    private void SpawnMonsterInternal(Vector3 spawnPos)
+    {
         if (monsterIdsToSpawn.Count == 0)
         {
-            Debug.LogWarning("������ ���� ID�� �����ϴ�.");
+            Debug.LogWarning("스폰할 몬스터 ID가 없습니다.");
             return;
         }
 
@@ -152,14 +62,14 @@ public class MonsterSpawner : MonoBehaviour
 
         if (monsterData == null)
         {
-            Debug.LogError($"MonsterData �� ã��: {monsterId}");
+            Debug.LogError($"MonsterData를 찾을 수 없습니다: {monsterId}");
             return;
         }
 
         GameObject prefab = Resources.Load<GameObject>(monsterData.prefabPath);
         if (prefab == null)
         {
-            Debug.LogError($"������ �ε� ����: {monsterData.prefabPath}");
+            Debug.LogError($"프리팹 로드 실패: {monsterData.prefabPath}");
             return;
         }
 
@@ -167,19 +77,15 @@ public class MonsterSpawner : MonoBehaviour
 
         if (monsterObj != null)
         {
-            Transform mainSpriteTr = monsterObj.transform.Find("MainSprite");
-            Debug.Log(mainSpriteTr != null ? "MainSprite ã��" : "MainSprite �� ã��");
-
             Monster monster = monsterObj.GetComponent<Monster>();
             if (monster != null)
             {
-                CheckAndFixSprites(monsterObj, monsterData);
                 monster.Initialize(monsterId);
                 activeMonsters.Add(monster);
             }
             else
             {
-                Debug.LogError("Monster ������Ʈ�� ã�� ���߽��ϴ�.");
+                Debug.LogError("Monster 컴포넌트를 찾지 못했습니다.");
             }
         }
     }

@@ -10,8 +10,6 @@ public class Monster : BaseCharacter
 {
     [Header("추적 및 공격 설정")]
     public float detectionRange = 15f;           // 플레이어 탐지 범위
-    public GameObject projectilePrefab;          // 원거리 공격 시 사용할 발사체 프리팹
-    public Transform firePoint;                  // 발사체가 생성될 위치
 
     private Transform player;                    // 추적 대상 (플레이어)
     private MonsterData monsterData;             // 몬스터 능력치 및 공격 타입
@@ -62,14 +60,14 @@ public class Monster : BaseCharacter
             Vector2 dir = (player.position - transform.position).normalized;
             Move(dir);
 
-            // 원거리 공격인 경우에만 쿨타임 체크 및 공격
-            attackCooldown -= Time.deltaTime;
-            if (monsterData.attackPattern == AttackPattern.Ranged &&
-                distance <= attackRange &&
-                attackCooldown <= 0)
-            {
-                Attack();
-            }
+            //// 원거리 공격인 경우에만 쿨타임 체크 및 공격
+            //attackCooldown -= Time.deltaTime;
+            //if (monsterData.attackPattern == AttackPattern.Ranged &&
+            //    distance <= attackRange &&
+            //    attackCooldown <= 0)
+            //{
+            //    Attack();
+            //}
         }
         else
         {

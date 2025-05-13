@@ -18,14 +18,17 @@ namespace SWScene
         public override void Init(UIManager uiManager)
         {
             base.Init(uiManager);
+            this.gameObject.SetActive(false);
             breakButton.onClick.AddListener(
                 () =>
                 {
-                    GameManager.Instance.ChangeState(GameState.InGame);
+                    this.gameObject.SetActive(false);
+                    //GameManager.Instance.ChangeState(GameState.InGame);
                 });
             homeButton.onClick.AddListener(
                 () =>
                 {
+                    this.gameObject.SetActive(false);
                     GameManager.Instance.ChangeState(GameState.MainMenu);
                 });
             exitButton.onClick.AddListener(

@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     #region Stage Progress
     private int remainingEnemies;
     private StageManager stageManager;
+    private SkillManager skillManager;
     #endregion
 
     private void Awake()
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         stageManager = GetComponentInChildren<StageManager>();
+        skillManager = GetComponentInChildren<SkillManager>();
     }
 
     #region ���� ��ȯ
@@ -65,7 +67,10 @@ public class GameManager : MonoBehaviour
         }
 
         if(newState == GameState.InGame)
+        {
             InitStage();
+            skillManager.Init();
+        }
     }
     #endregion
 
@@ -88,7 +93,7 @@ public class GameManager : MonoBehaviour
         if(remainingEnemies <= 0)
         {
             Debug.Log("[GameManager] All enemies defeated. Stage Clear.");
-            ChangeState(GameState.StageClear);
+            //ChangeState(GameState.StageClear);
             stageManager.StageClear();
         }
     }

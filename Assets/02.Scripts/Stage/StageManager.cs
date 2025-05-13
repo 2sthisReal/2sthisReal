@@ -28,7 +28,6 @@ namespace Jang
             stagePresetManager = GetComponentInChildren<StagePresetManager>();
             monsterSpawner = GetComponentInChildren<MonsterSpawner>();
             stageDoor = FindObjectOfType<StageDoor>();
-            
 
             StartStage();
         }
@@ -71,10 +70,11 @@ namespace Jang
         void InitStage(StagePreset preset, Action onCompleted)
         {
             Destroy(stageMap);
-            stageMap = new GameObject("Stage");
+            GameObject map = new GameObject("Stage");
+            stageMap = map;
 
             // 기본 타일맵 생성
-            Instantiate(preset.baseTileMap, Vector3.zero, Quaternion.identity);
+            GameObject baseMap = Instantiate(preset.baseTileMap, stageMap.transform);
 
             // 오브젝트들 생성
             SpawnMonster(preset.monsterPoints);

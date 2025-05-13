@@ -38,16 +38,17 @@ public class ProjectileController : MonoBehaviour
 
             if (monster != null)
             {
-                // Ã¼·Â 5 °¨¼Ò
-                CritCalculator();
-                monster.currentHealth -= (float)projectileDamage;
-                projectileDamage = player.attackDamage;
+                //CritCalculator();
+                //monster.currentHealth -= (float)projectileDamage;
+                //projectileDamage = player.attackDamage;
                 
+                // Ã¼ï¿½ï¿½ 5 ï¿½ï¿½ï¿½ï¿½
+                monster.TakeDamage(5);
             }
 
             Destroy(this.gameObject);
         }
-        else
+        else if(collision.CompareTag("Wall"))
             Destroy(this.gameObject);
     }
 

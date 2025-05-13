@@ -110,5 +110,7 @@ public abstract class BaseCharacter : MonoBehaviour
 
         // Rigidbody �ùķ��̼� �� (�߷� � �� �̻� �� ����)
         rb.simulated = false;
+        GameManager.Instance.NotifyEnemyKilled();
+        Destroy(gameObject);
     }
 }

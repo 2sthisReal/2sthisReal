@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1638c4c20491b0c4a9600801867842d3, type: 3}
+  m_Name: OrbitSword
+  m_EditorClassIdentifier: 
+  skillIcon: {fileID: 0}
+  skillName: OrbitSword
+  skillType: 1
+  skillValue: 0
+  skillDescription: "\uCE7C\uC774 \uCE90\uB9AD\uD130\uC758 \uC8FC\uC704\uB97C \uD68C\uC804\uD558\uBA70
+    \uACF5\uACA9\uD569\uB2C8\uB2E4."
+  skillBase: {fileID: 7584128199707408145, guid: 7ae4300402a5f0d418dc54a1c13bb2bd, type: 3}

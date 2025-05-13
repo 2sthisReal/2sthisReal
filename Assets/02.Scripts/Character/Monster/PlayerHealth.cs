@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// PlayerHealth 클래스는 플레이어의 체력 관리 및 피격/사망 처리를 담당합니다.
 /// - 데미지를 받으면 체력이 감소
-/// - 체력이 0 이하로 떨어지면 사망 처리 (간단한 예제)
+/// - 체력이 0 이하로 떨어지면 사망 처리 ((테스트용)
 /// </summary>
 public class PlayerHealth : MonoBehaviour
 {
