@@ -25,7 +25,6 @@ namespace SWScene
             { "SkillSelectScene", GameState.SkillSelect }
         };
 
-
         private void Awake()
         {
             if (instance != null)
