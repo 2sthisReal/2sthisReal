@@ -83,9 +83,6 @@ public class ProjectileMonster : Monster
         {
             projectile.Initialize(directionVector, attackDamage);
         }
-
-        // 공격 애니메이션 트리거
-        animator.SetTrigger("Attack");
     }
 
     // 추가: 원거리 공격에 대한 Gizmo 시각화

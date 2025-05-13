@@ -9,8 +9,6 @@ public class MonsterSpawner : MonoBehaviour
 {
     [Header("몬스터 설정")]
     [SerializeField] private List<string> monsterIdsToSpawn = new();
-    [SerializeField] private float spawnInterval = 5f;
-    [SerializeField] private int maxMonsters = 10;
 
     private List<Monster> activeMonsters = new();
     private List<Vector3> spawnPositions = new();
@@ -18,7 +16,7 @@ public class MonsterSpawner : MonoBehaviour
 
     private void Start()
     {
-        nextSpawnTime = Time.time + spawnInterval;
+
     }
 
     private void Update()
