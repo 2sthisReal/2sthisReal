@@ -1,16 +1,27 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+
 
 public class ProjectileController : MonoBehaviour
 {
     // Start is called before the first frame update
     Transform pivot;
     Rigidbody2D rb;
+    public Player player;
+
+    private double projectileDamage;
+
+
+
+
     private void Awake()
     {
         pivot = transform.GetChild(0);
         rb = GetComponent<Rigidbody2D>();
+        player = GetComponent<Player>();
     }
     public void Init(Vector2 direction, float shotspeed)
     {
@@ -28,12 +39,23 @@ public class ProjectileController : MonoBehaviour
             if (monster != null)
             {
                 // 체력 5 감소
-                monster.currentHealth -= 5;
+                CritCalculator();
+                monster.currentHealth -= (float)projectileDamage;
+                projectileDamage = player.attackDamage;
+                
             }
 
             Destroy(this.gameObject);
         }
         else
             Destroy(this.gameObject);
+    }
+
+    private void CritCalculator()
+    {
+        float rand = UnityEngine.Random.Range(0f, 1f);
+        Debug.Log(rand);
+        if (rand < player.critRate)
+            projectileDamage = player.attackDamage * 1.5;
     }
 }
