@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8522056406983732102}
   - component: {fileID: 4082043686431648508}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Basic_Stage_TwoHole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 3354776037541502366}
   - component: {fileID: 3674744532423989575}
   - component: {fileID: 8480401878349024596}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -1051,7 +1051,7 @@ GameObject:
   - component: {fileID: 287766720955703648}
   - component: {fileID: 3285110183200075257}
   - component: {fileID: 4986251792076790517}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2756,7 +2756,7 @@ GameObject:
   - component: {fileID: 1034689533402036406}
   - component: {fileID: 6096258198169591190}
   - component: {fileID: 1703031610851992009}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Deco
   m_TagString: Untagged
   m_Icon: {fileID: 0}

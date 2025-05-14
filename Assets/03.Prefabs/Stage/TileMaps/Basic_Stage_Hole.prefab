@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6663418702137989505}
   - component: {fileID: 5745666379295253948}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Basic_Stage_Hole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 5997480435729651379}
   - component: {fileID: 333170368632870141}
   - component: {fileID: 3208270935953642582}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1765,7 +1765,7 @@ GameObject:
   - component: {fileID: 5253196943955928564}
   - component: {fileID: 601007006276596851}
   - component: {fileID: 4791461598757583817}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -2854,7 +2854,7 @@ GameObject:
   - component: {fileID: 6694556802140980398}
   - component: {fileID: 8586485282560610798}
   - component: {fileID: 598905565549105291}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Deco
   m_TagString: Untagged
   m_Icon: {fileID: 0}
