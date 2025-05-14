@@ -1,4 +1,5 @@
 using SWScene;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -28,6 +29,31 @@ public class Player : BaseCharacter
     public float invincibleTimer;
     public float critRate = 0.0f;
 
+    // Player Exp 
+    private float maxExp;
+    private float currentExp;
+    public float MaxExp
+    {
+        get => maxExp;
+
+        private set
+        {
+            maxExp = Mathf.Max(0, value);
+        }
+    }
+
+    public float CurrentExp
+    {
+        get => currentExp;
+
+        private set
+        {
+            currentExp = Mathf.Max(0, value);
+        }
+    }
+    public static Action<float, float> OnExpChanged;
+    public static Action<int> OnLevelChanged;
+
     Vector2 knockback = Vector2.zero;
     public Vector2 directionVector;
 
@@ -49,6 +75,9 @@ public class Player : BaseCharacter
         weaponAnimator = transform.Find("Weapons").GetComponent<Animator>();
         currentHealth = maxHealth;
 
+        // Init Exp
+        MaxExp = 100;
+        currentExp = 0;
     }
     private void FixedUpdate()
     {
@@ -195,7 +224,7 @@ public class Player : BaseCharacter
         invincible = true;
         invincibleTimer = 2.0f; //2�ʹ���
         StartCoroutine(BlinkAlpha(2.0f, 0.1f));
-        
+
         OnChangedHp?.Invoke(maxHealth, currentHealth);
     }
 
@@ -229,6 +258,34 @@ public class Player : BaseCharacter
         multipleShots = !multipleShots;
     }
 
+    public void GetExp(float exp)
+    {
+        CurrentExp += exp;
+
+        if (CurrentExp >= MaxExp)
+        {
+            LevelUp();
+        }
+
+        OnExpChanged?.Invoke(MaxExp, CurrentExp);
+    }
+
+    [ContextMenu("TestExpBar")]
+    public void ExpbarTest()
+    {
+        GetExp(50);
+    }
+
+    void LevelUp()
+    {
+        level++;
+
+        CurrentExp -= MaxExp;
+        MaxExp *= 1.5f;
+
+        OnLevelChanged?.Invoke(level);
+    }
+
 
 
 
@@ -246,7 +303,7 @@ public class Player : BaseCharacter
     public class PlayerData
     {
         public string characterName;   // ĳ������ �̸�
-     
+
     }
 
     PlayerData SaveData()
@@ -254,14 +311,14 @@ public class Player : BaseCharacter
         return new PlayerData
         {
             characterName = this.characterName,
-          
+
         };
     }
 
     void LoadData(PlayerData data)
     {
         this.characterName = data.characterName;
-        
+
     }
 
     void SaveJson()
