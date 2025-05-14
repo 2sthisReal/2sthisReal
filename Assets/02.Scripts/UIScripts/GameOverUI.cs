@@ -10,6 +10,8 @@ namespace SWScene
         [SerializeField] private Button restartButton;
         [SerializeField] private Button homeButton;
         [SerializeField] private Button exitButton;
+        [SerializeField] AudioClip loseClip;
+
         protected override GameState GetUIState()
         {
             return GameState.GameOver;
@@ -32,6 +34,11 @@ namespace SWScene
                 {
                     Application.Quit();
                 });
+        }
+
+        protected override void OnEnable()
+        {
+            SoundManager.PlayClip(loseClip);
         }
     }
 }

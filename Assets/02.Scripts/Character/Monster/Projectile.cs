@@ -1,52 +1,59 @@
 using UnityEngine;
 
 /// <summary>
-/// Projectile Å¬·¡½º´Â ¸ó½ºÅÍ(¶Ç´Â ÇÃ·¹ÀÌ¾î)ÀÇ ¹ß»çÃ¼¸¦ Á¦¾îÇÕ´Ï´Ù.
-/// - ÀÏÁ¤ ¼Óµµ·Î ¾ÕÀ¸·Î ÀÌµ¿
-/// - ÀÏÁ¤ ½Ã°£ ÈÄ ÀÚµ¿ »èÁ¦
-/// - ÇÃ·¹ÀÌ¾î¿¡ Ãæµ¹ ½Ã µ¥¹ÌÁö¸¦ ÀÔÈ÷°í »ç¶óÁü
+/// Projectile Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½Ç´ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½)ï¿½ï¿½ ï¿½ß»ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
+/// - ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
+/// - ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½
+/// - ï¿½Ã·ï¿½ï¿½Ì¾î¿¡ ï¿½æµ¹ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 /// </summary>
 public class Projectile : MonoBehaviour
 {
-    private Vector2 direction;     // ¹ß»ç ¹æÇâ
-    private float speed = 3f;     // ¹ß»çÃ¼ ÀÌµ¿ ¼Óµµ
-    private float damage;          // ¹ß»çÃ¼°¡ ÀÔÈú µ¥¹ÌÁö
-    private float rotationSpeed = 360f; // ÃÊ´ç È¸Àü °¢µµ
+    private Vector2 direction;     // ï¿½ß»ï¿½ ï¿½ï¿½ï¿½ï¿½
+    private float speed = 3f;     // ï¿½ß»ï¿½Ã¼ ï¿½Ìµï¿½ ï¿½Óµï¿½
+    private float damage;          // ï¿½ß»ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    private float rotationSpeed = 360f; // ï¿½Ê´ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] AudioClip shotClip;
+    [SerializeField] AudioClip hitClip;
 
     /// <summary>
-    /// ¹ß»çÃ¼ ÃÊ±âÈ­ ¸Þ¼­µå.
-    /// »ý¼º Á÷ÈÄ ¹æÇâ°ú µ¥¹ÌÁö¸¦ ¼³Á¤ÇØÁà¾ß ÇÕ´Ï´Ù.
+    /// ï¿½ß»ï¿½Ã¼ ï¿½Ê±ï¿½È­ ï¿½Þ¼ï¿½ï¿½ï¿½.
+    /// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´Ï´ï¿½.
     /// </summary>
-    /// <param name="dir">¹ß»ç ¹æÇâ (´ÜÀ§ º¤ÅÍ)</param>
-    /// <param name="dmg">µ¥¹ÌÁö</param>
+    /// <param name="dir">ï¿½ß»ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)</param>
+    /// <param name="dmg">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</param>
     public void Initialize(Vector2 dir, float dmg)
     {
         direction = dir;
         damage = dmg;
+
+        SoundManager.PlayClip(shotClip);
     }
 
     private void Update()
     {
-        // ÀÌµ¿
+        // ï¿½Ìµï¿½
         transform.Translate(direction * speed * Time.deltaTime, Space.World);
 
-        // ºù±Ûºù±Û È¸Àü
+        // ï¿½ï¿½ï¿½Ûºï¿½ï¿½ï¿½ È¸ï¿½ï¿½
         transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        Debug.Log($"[Projectile] Ãæµ¹ ¹ß»ý! name: {col.name}, tag: {col.tag}, layer: {LayerMask.LayerToName(col.gameObject.layer)}");
+        Debug.Log($"[Projectile] ï¿½æµ¹ ï¿½ß»ï¿½! name: {col.name}, tag: {col.tag}, layer: {LayerMask.LayerToName(col.gameObject.layer)}");
 
         if (col.CompareTag("Player"))
         {
-            Debug.Log("ÇÃ·¹ÀÌ¾î¿¡ ¸íÁß!");
+            SoundManager.PlayClip(hitClip);
+
+            Debug.Log("ï¿½Ã·ï¿½ï¿½Ì¾î¿¡ ï¿½ï¿½ï¿½ï¿½!");
             col.GetComponent<Player>()?.KnockbackPlayer(direction, 2f);
             col.GetComponent<Player>()?.TakeDamage(damage);
             Destroy(gameObject);
         }
         else if (col.CompareTag("Wall"))
         {
+            SoundManager.PlayClip(hitClip);
             Destroy(gameObject);
         }
     }

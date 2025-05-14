@@ -203,3 +203,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c32b7ba848897e4abb71c3a94561f81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shotClip: {fileID: 8300000, guid: ea9be09ef19a08e45b9fee87645bf14d, type: 3}
+  hitClip: {fileID: 8300000, guid: 5b0ba4e541981ab41a24bac7daea053a, type: 3}

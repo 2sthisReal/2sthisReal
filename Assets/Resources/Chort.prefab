@@ -132,6 +132,7 @@ MonoBehaviour:
   isAlive: 1
   isAttack: 0
   isMove: 0
+  hitClip: {fileID: 8300000, guid: 7e6ec941cb8c8cd4abed8b191faad8de, type: 3}
   detectionRange: 15
   attackCooldown: 0
   showDebugInfo: 1

@@ -49,7 +49,7 @@ public abstract class Monster : BaseCharacter
             maxHealth += 100;
             currentHealth = maxHealth;
             attackDamage += 10;
-            expReward += 10;
+            expReward += 30;
         }
     }
 

@@ -536,6 +536,7 @@ MonoBehaviour:
   isAlive: 1
   isAttack: 0
   isMove: 0
+  hitClip: {fileID: 8300000, guid: 840b65172ca32b24389b96a4f0d67fd0, type: 3}
   detectionRange: 15
   attackCooldown: 0.5
   shockwaveParticlePrefab: {fileID: 2498610341893388104, guid: 6dcae6f35ed9c1142b5eefc267f6a0a1, type: 3}

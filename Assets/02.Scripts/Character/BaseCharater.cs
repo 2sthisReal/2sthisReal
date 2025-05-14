@@ -35,6 +35,8 @@ public abstract class BaseCharacter : MonoBehaviour
     protected Rigidbody2D rb;            // ���� �̵���
 
     public Action<float, float> OnChangedHp;
+    [SerializeField] AudioClip hitClip;
+
     /// <summary>
     /// ������Ʈ�� �������� ü���� �ʱ�ȭ�մϴ�.
     /// �ڽ� Ŭ�������� Ȯ���� �� �ֵ��� virtual ó��.
@@ -83,6 +85,8 @@ public abstract class BaseCharacter : MonoBehaviour
     public virtual void TakeDamage(float damage)
     {
         if (!isAlive) return;   // �̹� �׾����� ����
+
+        SoundManager.PlayClip(hitClip);
 
         currentHealth -= damage;  // ü�� ����
 

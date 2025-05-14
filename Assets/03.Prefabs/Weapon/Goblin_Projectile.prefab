@@ -151,6 +151,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c32b7ba848897e4abb71c3a94561f81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shotClip: {fileID: 8300000, guid: c013757d2284739438b192e9fee4dbe2, type: 3}
+  hitClip: {fileID: 8300000, guid: 75f24f7c041e2c34c9f917338b5f7ab4, type: 3}
 --- !u!1 &8000882498824699980
 GameObject:
   m_ObjectHideFlags: 0
