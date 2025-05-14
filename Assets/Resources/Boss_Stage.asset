@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageID: 150
   baseTileMap: {fileID: 8391637364693465731, guid: f3b78d80a40343c448d2c49b175cd6da, type: 3}
-  monsterPoints: []
+  monsterPoints:
+  - {x: 5, y: 0}
   obstaclePoints:
   - {x: -3.5, y: 2.5}
   - {x: 4.5, y: 2.5}
