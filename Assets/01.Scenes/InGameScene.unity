@@ -385,7 +385,7 @@ MonoBehaviour:
   isMove: 0
   damageClip: {fileID: 8300000, guid: 54687bcdf02fc054584d588ffa5d2a57, type: 3}
   weaponPrefabs:
-  - {fileID: 1320653475934402969, guid: fb5990426a1e4c3458bc038db10676fd, type: 3}
+  - {fileID: 5255532462063962222, guid: fb5990426a1e4c3458bc038db10676fd, type: 3}
   shotSpeed: 5
   inRanged: 0
   invincible: 0

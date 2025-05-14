@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6625766530320348868}
   - component: {fileID: 266164545668956516}
   - component: {fileID: 4344208368541693861}
-  - component: {fileID: 1320653475934402969}
   - component: {fileID: 2762933465718885664}
+  - component: {fileID: 5255532462063962222}
   m_Layer: 0
   m_Name: Weapon_bow
   m_TagString: Untagged
@@ -108,23 +108,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1320653475934402969
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7589655985375547982}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebe2baa6c842bb44dab42c562879bbbd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attack: 0
-  numberOfShot: 0
-  arrowPrefabs: {fileID: 7774842186976022172, guid: 67792482167b0dc4288643688c1fa41e, type: 3}
-  multipleShots: 0
-  arrowSkills: 
 --- !u!114 &2762933465718885664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,6 +120,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82cdb44816f87d944ad0ebbb92cc2f21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arrowSound: {fileID: 0}
+  arrowHit: {fileID: 0}
   canPierce: 0
   canWallReflect: 0
   canMonsterBounce: 0
+--- !u!114 &5255532462063962222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7589655985375547982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebe2baa6c842bb44dab42c562879bbbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack: 15
+  numberOfShot: 0
+  arrowPrefabs: {fileID: 7774842186976022172, guid: 67792482167b0dc4288643688c1fa41e, type: 3}
+  multipleShots: 0
+  arrowSkills: 

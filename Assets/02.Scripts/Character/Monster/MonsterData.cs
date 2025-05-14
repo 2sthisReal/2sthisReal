@@ -37,10 +37,10 @@ public class MonsterData
 /// </summary>
 public enum MonsterType
 {
-    Normal,
-    Elite,
-    Boss,
-    Passive
+    Normal = 0,
+    Elite = 1,
+    Boss = 2,
+    Passive = 3
 }
 
 /// <summary>

@@ -7166,6 +7166,34 @@ PrefabInstance:
       propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2510888213805785804, guid: 3a31b564d36820245acef84abb38eb5a, type: 3}
+      propertyPath: bossMonsterIds.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2510888213805785804, guid: 3a31b564d36820245acef84abb38eb5a, type: 3}
+      propertyPath: normalMonsterIds.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2510888213805785804, guid: 3a31b564d36820245acef84abb38eb5a, type: 3}
+      propertyPath: bossMonsterIds.Array.data[0]
+      value: big_zombie
+      objectReference: {fileID: 0}
+    - target: {fileID: 2510888213805785804, guid: 3a31b564d36820245acef84abb38eb5a, type: 3}
+      propertyPath: monsterIdsToSpawn.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2510888213805785804, guid: 3a31b564d36820245acef84abb38eb5a, type: 3}
+      propertyPath: normalMonsterIds.Array.data[0]
+      value: goblin
+      objectReference: {fileID: 0}
+    - target: {fileID: 2510888213805785804, guid: 3a31b564d36820245acef84abb38eb5a, type: 3}
+      propertyPath: normalMonsterIds.Array.data[1]
+      value: chort
+      objectReference: {fileID: 0}
+    - target: {fileID: 2510888213805785804, guid: 3a31b564d36820245acef84abb38eb5a, type: 3}
+      propertyPath: monsterIdsToSpawn.Array.data[2]
+      value: big_zombie
+      objectReference: {fileID: 0}
     - target: {fileID: 3834841032419003750, guid: 3a31b564d36820245acef84abb38eb5a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
