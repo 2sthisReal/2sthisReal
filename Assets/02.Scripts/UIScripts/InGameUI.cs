@@ -20,6 +20,8 @@ namespace SWScene
 
         // InGameUI
         [SerializeField] private TextMeshProUGUI stageText;
+        [SerializeField] private TextMeshProUGUI levelText;
+        [SerializeField] private Slider levelSlider;
 
         protected override GameState GetUIState()
         {
@@ -88,6 +90,11 @@ namespace SWScene
         void UpdateStageText(int currentStage)
         {
             stageText.text = currentStage.ToString();
+        }
+
+        void UpdateLevelUI()
+        {
+            
         }
     }
 }
