@@ -99,12 +99,6 @@ namespace Jang
             gameManager.RegisterEnemies(1);
         }
 
-        // 스테이지 미리보기
-        public void PreviewStage(StagePreset preset)
-        {
-            InitStage(preset);
-        }
-
         // 스테이지 설정
         void InitStage(StagePreset preset)
         {
