@@ -9,7 +9,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     private Vector2 direction;     // 발사 방향
-    private float speed = 10f;     // 발사체 이동 속도
+    private float speed = 3f;     // 발사체 이동 속도
     private float damage;          // 발사체가 입힐 데미지
 
     /// <summary>
@@ -22,13 +22,16 @@ public class Projectile : MonoBehaviour
     {
         direction = dir;
         damage = dmg;
-        Destroy(gameObject, 5f);  // 5초 후 자동 삭제 (안 맞고도 사라지게)
     }
 
     private void Update()
     {
-        // 매 프레임마다 지정된 방향으로 이동
-        transform.Translate(direction * speed * Time.deltaTime);
+        // 방향대로 이동
+        transform.Translate(direction * speed * Time.deltaTime, Space.World);
+
+        // 이동 방향을 기준으로 회전 (자연스럽게 날아가는 느낌)
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, angle);
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -40,6 +43,10 @@ public class Projectile : MonoBehaviour
             col.GetComponent<PlayerHealth>()?.TakeDamage(damage);
 
             // 충돌 후 발사체 삭제
+            Destroy(gameObject);
+        }
+        else if (col.CompareTag("Wall"))
+        {
             Destroy(gameObject);
         }
     }

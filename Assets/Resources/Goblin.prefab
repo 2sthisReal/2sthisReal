@@ -148,9 +148,9 @@ GameObject:
   - component: {fileID: 2324630168985143838}
   - component: {fileID: 7055435807457725324}
   - component: {fileID: 8797597782696487220}
-  - component: {fileID: 2826699392035461630}
+  - component: {fileID: 5929062855634924781}
   m_Layer: 7
-  m_Name: GoblinArcher
+  m_Name: Goblin
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -245,7 +245,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
---- !u!114 &2826699392035461630
+--- !u!114 &5929062855634924781
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -254,7 +254,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7165314511928076218}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a630706a4541b8a42a44fa381bbc0485, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a835fe5dacd7254bac601da65de626d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   characterName: 
@@ -269,5 +269,6 @@ MonoBehaviour:
   isAttacking: 0
   isMoving: 0
   detectionRange: 15
-  projectilePrefab: {fileID: 8033368955554764388, guid: 4ece169f65838df4da8be056314b3f97, type: 3}
+  attackCooldown: 0
+  projectilePrefab: {fileID: 7774842186976022172, guid: 353512eb9f77b9147b10947a4a473104, type: 3}
   firePoint: {fileID: 396462015609976738}
