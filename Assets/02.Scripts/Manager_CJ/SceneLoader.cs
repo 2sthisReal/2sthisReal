@@ -52,8 +52,6 @@ public class SceneLoader : MonoBehaviour
 
     private IEnumerator LoadSceneAsync(string sceneName, Action onLoaded)
     {
-        // �ε� UI�� �ִٸ� ���⼭ Ȱ��ȭ
-        // ����)
         // ShowLoadingUI();
         // yield return SceneManager.LoadSceneAsync(sceneName);
         // HideLoadingUI();
