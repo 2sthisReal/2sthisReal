@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     #region Stage Progress
     private int remainingEnemies;
-    private StageManager stageManager;
+    public StageManager stageManager {get; private set;}
     public SkillManager skillManager { get; private set; } = new();
     #endregion
 

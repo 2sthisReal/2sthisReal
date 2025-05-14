@@ -1,20 +1,23 @@
 using UnityEngine;
 
 /// <summary>
-/// Monster Å¬·¡½º´Â BaseCharacter¸¦ »ó¼Ó¹Þ¾Æ ¸ó½ºÅÍÀÇ ±âº» Çàµ¿À» Á¤ÀÇÇÕ´Ï´Ù.
+/// Monster Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ BaseCharacterï¿½ï¿½ ï¿½ï¿½Ó¹Þ¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº» ï¿½àµ¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 /// </summary>
 public abstract class Monster : BaseCharacter
 {
-    [Header("ÃßÀû ¹× °ø°Ý ¼³Á¤")]
-    public float detectionRange = 15f;  // ÃßÀû ¹üÀ§
-    protected Transform player;        // ÇÃ·¹ÀÌ¾î Æ®·£½ºÆû (ÀÚ½Ä Å¬·¡½º¿¡¼­ »ç¿ë)
-    protected MonsterData monsterData; // ¸ó½ºÅÍ µ¥ÀÌÅÍ
+    [Header("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½")]
+    public float detectionRange = 15f;  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    protected Transform player;        // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½Ú½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½)
+    protected MonsterData monsterData; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public string monsterId { get; private set; }
-    public float attackCooldown;  // °ø°Ý Äð´Ù¿î Ãß°¡
+    public float attackCooldown;  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ù¿ï¿½ ï¿½ß°ï¿½
+    private int expReward;
+    private int currentStage;
 
-    public void Initialize(string monsterId)
+    public void Initialize(string monsterId, int currentStage)
     {
         this.monsterId = monsterId;
+        this.currentStage = currentStage;
     }
 
     protected virtual void Start()
@@ -23,16 +26,31 @@ public abstract class Monster : BaseCharacter
         monsterData = MonsterManager.Instance.GetMonsterData(monsterId);
         if (monsterData == null)
         {
-            Debug.LogError($"MonsterData¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù: {monsterId}");
+            Debug.LogError($"MonsterDataï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½: {monsterId}");
             return;
         }
         characterName = monsterData.monsterName;
+        
+        SetMonsterStatWithStage(currentStage);
+    }
+
+    void SetMonsterStatWithStage(int stage)
+    {
         maxHealth = monsterData.maxHealth;
         currentHealth = maxHealth;
         moveSpeed = monsterData.moveSpeed;
         attackDamage = monsterData.attackDamage;
         attackSpeed = monsterData.attackSpeed;
         attackRange = monsterData.attackRange;
+        expReward = monsterData.expReward;
+
+        for (int i = 0; i < stage; i++)
+        {
+            maxHealth += 100;
+            currentHealth = maxHealth;
+            attackDamage += 10;
+            expReward += 10;
+        }
     }
 
     protected virtual void Update()
@@ -58,23 +76,23 @@ public abstract class Monster : BaseCharacter
         }
     }
 
-    public abstract override void Attack();  // ÀÚ½Ä Å¬·¡½º¿¡¼­ °ø°Ý ¹æ½ÄÀ» Á¤ÀÇ
+    public abstract override void Attack();  // ï¿½Ú½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     protected override void Die()
     {
-        base.Die(); // Ã¼·Â 0 Ã³¸® µî ±âº» »ç¸Á Ã³¸®
+        base.Die(); // Ã¼ï¿½ï¿½ 0 Ã³ï¿½ï¿½ ï¿½ï¿½ ï¿½âº» ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 
-        // ÇÃ·¹ÀÌ¾î¿¡°Ô °æÇèÄ¡ Áö±Þ
+        // ï¿½Ã·ï¿½ï¿½Ì¾î¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
         if (player != null && monsterData != null)
         {
             Player playerScript = player.GetComponent<Player>();
             if (playerScript != null)
             {
                 playerScript.GetExp(monsterData.expReward);
-                Debug.Log($"{monsterData.monsterName} Ã³Ä¡ ¡æ EXP {monsterData.expReward} È¹µæ");
+                Debug.Log($"{monsterData.monsterName} Ã³Ä¡ ï¿½ï¿½ EXP {monsterData.expReward} È¹ï¿½ï¿½");
             }
         }
 
-        // ¸ó½ºÅÍ Á¦°Å
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         Destroy(gameObject);
     }
     protected virtual Vector2 GetMoveDirection()
@@ -86,7 +104,7 @@ public abstract class Monster : BaseCharacter
         RaycastHit2D hit = Physics2D.Raycast(transform.position, dirToPlayer, avoidDistance, wallLayer);
         if (hit.collider != null)
         {
-            // º®¿¡ ¸·ÇûÀ» ¶§ ¼öÁ÷ ¹æÇâÀ¸·Î È¸ÇÇ
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½
             return Vector2.Perpendicular(dirToPlayer).normalized;
         }
 

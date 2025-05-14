@@ -12,6 +12,7 @@ public class MonsterSpawner : MonoBehaviour
     [SerializeField] private List<string> bossMonsterIds = new();
     [SerializeField] private bool isBossStage = false;
 
+    public int CurrentStage { get; set; }
     private List<Monster> activeMonsters = new();
     private List<Vector3> spawnPositions = new();
 
@@ -90,7 +91,7 @@ public class MonsterSpawner : MonoBehaviour
             Monster monster = monsterObj.GetComponent<Monster>();
             if (monster != null)
             {
-                monster.Initialize(monsterId);
+                monster.Initialize(monsterId, CurrentStage);
                 activeMonsters.Add(monster);
             }
             else

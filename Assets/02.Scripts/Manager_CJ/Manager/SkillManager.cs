@@ -65,29 +65,4 @@ public class SkillManager : MonoBehaviour
             skillDatabase.RemoveActiveSkill(skill);
         }
     }
-
-    //public void ApplySelectedSkillsToPlayer(PlayerController player, List<PetController> pets)
-    //{
-    //    foreach(var skill in SelectedSkills)
-    //    {
-    //        if(skill.bonusProjectileCount > 0)
-    //        {
-    //            player.AddBonusProjectiles(skill.bonusProjectileCount);
-    //        }
-
-    //        if(skill.element != ElementType.None && skill.elementBonusDamage > 0)
-    //        {
-    //            player.SetElementalDamage(skill.element, skill.elementBonusDamage);
-    //        }
-
-    //        if(skill.skillID == "wingman")
-    //        {
-    //            foreach(var pet in pets)
-    //            {
-    //                pet.EnableProjectileBlocking();
-    //            }
-    //        }
-    //    }
-    //    Debug.Log("[GameManager] Selected skill effects applied.");
-    //}
 }

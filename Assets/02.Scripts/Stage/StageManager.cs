@@ -21,7 +21,7 @@ namespace Jang
         [SerializeField] GameObject[] itemPrefab;
         [SerializeField] GameObject stageMap;
         private bool isClear = false;
-        private int currentStage = 1;
+        public int CurrentStage { get; private set; }
         [SerializeField] StageDoor stageDoor;
 
         [SerializeField] int bossStage;
@@ -36,7 +36,9 @@ namespace Jang
             stageDoor = FindObjectOfType<StageDoor>();
             player = FindObjectOfType<Player>().transform;
 
-            currentStage = 1;
+            CurrentStage = 1;
+            monsterSpawner.CurrentStage = CurrentStage;
+            
             StartStage();
         }
 
@@ -47,13 +49,13 @@ namespace Jang
 
         private IEnumerator StartStageCorutine()
         {
-            if (currentStage == 1)
+            if (CurrentStage == 1)
                 fadeScreenController.SetBlackScreen();
             else
                 yield return fadeScreenController.FadeOut();
 
             // 스테이지 세팅
-            if (currentStage == bossStage)
+            if (CurrentStage == bossStage)
             {
                 stageDoor.gameObject.SetActive(false);
                 GenerateBossStage();
@@ -65,7 +67,7 @@ namespace Jang
             }
 
             player.position = startPos;
-            onStageStart?.Invoke(currentStage);
+            onStageStart?.Invoke(CurrentStage);
             yield return fadeScreenController.FadeIn();
         }
 
@@ -73,8 +75,10 @@ namespace Jang
         public void StageClear()
         {
             isClear = true;
-            currentStage++;
+            CurrentStage++;
             stageDoor.SetDoor(isClear);
+
+            monsterSpawner.CurrentStage = CurrentStage;
         }
 
         // 새로운 스테이지 생성
