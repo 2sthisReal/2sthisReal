@@ -25,6 +25,7 @@ namespace Jang
         private int currentStage = 1;
         [SerializeField] StageDoor stageDoor;
 
+        [SerializeField] int bossStage;
         public static event Action<int> onStageStart;
 
         // 스테이지 설정 세팅 및 스테이지 생성
@@ -53,7 +54,7 @@ namespace Jang
                 yield return fadeScreenController.FadeOut();
 
             // 스테이지 세팅
-            if (currentStage == 10)
+            if (currentStage == bossStage)
             {
                 stageDoor.gameObject.SetActive(false);
                 GenerateBossStage();
@@ -91,6 +92,7 @@ namespace Jang
 
         void GenerateBossStage()
         {
+            Camera.main.GetComponent<FollowCamera>().enabled = true;
             isClear = false;
             InitStage(bossStagePreset);
 

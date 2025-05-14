@@ -7210,6 +7210,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 5358875823883480936, guid: 3a31b564d36820245acef84abb38eb5a, type: 3}
+      propertyPath: bossStage
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7073314871383367969, guid: 3a31b564d36820245acef84abb38eb5a, type: 3}
       propertyPath: m_Name
       value: StageManager
