@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public event Action<GameState> OnGameStateChanged;
     [SerializeField] private UIManager uiManager;
 
-    public SkillManager Skills { get; private set; } = new();
+
     public EquipmentManager Equipment { get; private set; } = new();
     public PetManager Pets { get; private set; } = new();
 
@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
     #region Player
     public void ResetPlayerSession()
     {
-        Skills.Clear();
+        skillManager.Clear();
     }
     #endregion
 
