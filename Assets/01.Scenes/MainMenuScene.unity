@@ -10097,7 +10097,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Legend of Rtan
+  m_text: Legend of Knight
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1877c414ec3dc0043bce0f8e3b1d706b, type: 2}
   m_sharedMaterial: {fileID: 7151177577909730787, guid: 1877c414ec3dc0043bce0f8e3b1d706b, type: 2}
@@ -12065,7 +12065,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Armor
+  m_text: Accessory1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1877c414ec3dc0043bce0f8e3b1d706b, type: 2}
   m_sharedMaterial: {fileID: 7151177577909730787, guid: 1877c414ec3dc0043bce0f8e3b1d706b, type: 2}
@@ -13577,7 +13577,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1991924690
 RectTransform:
   m_ObjectHideFlags: 0
