@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MeleeMonster : Monster
 {
-    // µð¹ö±ëÀ» À§ÇÑ º¯¼ö Ãß°¡
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
     [SerializeField] private bool showDebugInfo = true;
     private bool isAttacking = false;
 
@@ -13,17 +13,17 @@ public class MeleeMonster : Monster
 
         float distance = Vector2.Distance(transform.position, player.position);
 
-        // ÇÃ·¹ÀÌ¾î ¹æÇâ
+        // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½
         Vector2 directionVector = (player.position - transform.position).normalized;
 
-        // ¾Ö´Ï¸ÞÀÌÅÍ »óÅÂ ÀüÈ¯ Ã³¸®
+        // ï¿½Ö´Ï¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ Ã³ï¿½ï¿½
         if (distance > attackRange && isAttacking)
         {
             isAttacking = false;
             animator.SetTrigger("IsMove"); 
         }
 
-        // ±âÁ¸ ¿òÁ÷ÀÓ Ã³¸®
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
         if (distance <= detectionRange && distance > attackRange)
         {
             Move(directionVector);
@@ -37,7 +37,7 @@ public class MeleeMonster : Monster
             Move(Vector2.zero);
         }
 
-        // °ø°Ý Ã³¸®
+        // ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
         attackCooldown -= Time.deltaTime;
         if (distance <= attackRange && attackCooldown <= 0f)
         {
@@ -49,11 +49,11 @@ public class MeleeMonster : Monster
 
     public override void Attack()
     {
-        if (isAttacking) return; // °ø°Ý ÁßÀÌ¸é Áßº¹ °ø°Ý ¹æÁö
+        if (isAttacking) return; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ßºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
         isAttacking = true;
 
-        Debug.Log($"{characterName}°¡ ±ÙÁ¢ °ø°ÝÀ» ½ÃÀÛÇÕ´Ï´Ù.");
+        Debug.Log($"{characterName}ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.");
 
         if (animator != null)
         {
@@ -80,31 +80,33 @@ public class MeleeMonster : Monster
             if (playerCharacter != null)
             {
                 playerCharacter.TakeDamage(attackDamage);
-                Debug.Log($"{characterName}°¡ {attackDamage} µ¥¹ÌÁö¸¦ Àû¿ëÇß½À´Ï´Ù.");
+                Debug.Log($"{characterName}ï¿½ï¿½ {attackDamage} ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.");
             }
             else
             {
-                Debug.LogError("BaseCharacter ÄÄÆ÷³ÍÆ®¾øÀ½!");
+                Debug.LogError("BaseCharacter ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½!");
             }
         }
+
+        animator.SetBool("IsAttack", false);
     }
 
-    // Ãæµ¹ °¨Áö¸¦ À§ÇÑ OnCollisionEnter2D Ãß°¡
+    // ï¿½æµ¹ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ OnCollisionEnter2D ï¿½ß°ï¿½
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             Attack();
-            Debug.Log($"{characterName}°¡ ÇÃ·¹ÀÌ¾î¿Í Ãæµ¹Çß½À´Ï´Ù!");
+            Debug.Log($"{characterName}ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ ï¿½æµ¹ï¿½ß½ï¿½ï¿½Ï´ï¿½!");
         }
     }
 
-    // Æ®¸®°Å Ãæµ¹ °¨Áö¸¦ À§ÇÑ OnTriggerEnter2D Ãß°¡
+    // Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ OnTriggerEnter2D ï¿½ß°ï¿½
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log($"{characterName}°¡ ÇÃ·¹ÀÌ¾î Æ®¸®°Å¿Í Ãæµ¹Çß½À´Ï´Ù!");
+            Debug.Log($"{characterName}ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ Æ®ï¿½ï¿½ï¿½Å¿ï¿½ ï¿½æµ¹ï¿½ß½ï¿½ï¿½Ï´ï¿½!");
         }
     }
 }
