@@ -1,104 +1,129 @@
+using System.Collections;
 using UnityEngine;
 
-public class BossMonster : Monster
+/// <summary>
+/// BossMonster는 다양한 패턴으로 공격하는 보스 몬스터입니다.
+/// - 순차적인 FSM 구조로 4가지 패턴을 실행합니다.
+/// </summary>
+public class BossMonster : MonoBehaviour
 {
-    [Header("보스 특수 능력")]
-    public float healThreshold = 0.2f;     // 체력 회복 임계점 (최대 체력의 %)
-    public float healAmount = 0.3f;        // 회복량 (최대 체력의 %)
-    public float specialAttackThreshold = 0.5f;  // 특수 공격 발동 임계점
+    public GameObject shockwaveParticlePrefab; // Inspector에서 할당
+    public GameObject straightProjectile;
+    public GameObject fanProjectile;
 
-    private bool hasHealed = false;    // 체력 회복 체크
-    private bool hasUsedSpecialAttack = false;  // 특수 공격 사용 여부
+    public Transform firePoint;
+    public float patternCooldown = 2f;
 
-    protected override void Update()
+    private Transform player;
+
+    private void Start()
     {
-        if (!isAlive || player == null) return;
+        player = GameObject.FindWithTag("Player").transform;
+        StartCoroutine(PatternRoutine());
+    }
 
-        float distance = Vector2.Distance(transform.position, player.position);
-
-        // 플레이어 추적
-        if (distance <= detectionRange && distance > attackRange)
+    private IEnumerator PatternRoutine()
+    {
+        while (true)
         {
-            Vector2 dir = (player.position - transform.position).normalized;
-            Move(dir);
+            yield return StraightShot();
+            yield return new WaitForSeconds(patternCooldown);
+
+            yield return FanShot();
+            yield return new WaitForSeconds(patternCooldown);
+
+            yield return DashAndShockwave();
+            yield return new WaitForSeconds(patternCooldown);
         }
-        else if (distance <= attackRange)
+    }
+
+    /// <summary>
+    /// 직선 투사체 1개를 플레이어 방향으로 발사
+    /// </summary>
+    private IEnumerator StraightShot()
+    {
+        Vector2 dir = (player.position - firePoint.position).normalized;
+        GameObject bullet = Instantiate(straightProjectile, firePoint.position, Quaternion.identity);
+        bullet.GetComponent<Projectile>().Initialize(dir, 10f); // 방향과 데미지 설정
+        yield return null;
+    }
+
+    /// <summary>
+    /// 부채꼴로 투사체 여러 개를 발사
+    /// </summary>
+    private IEnumerator FanShot()
+    {
+        int count = 5;
+        float angleStep = 15f;
+        float startAngle = -angleStep * (count - 1) / 2f;
+
+        for (int i = 0; i < count; i++)
         {
-            // 공격 범위 내에 들어오면 공격
-            Move(Vector2.zero);
-            attackCooldown -= Time.deltaTime;
-            if (attackCooldown <= 0)
+            float angle = startAngle + angleStep * i;
+            Vector2 dir = Quaternion.Euler(0, 0, angle) * Vector2.right;
+
+            GameObject bullet = Instantiate(fanProjectile, firePoint.position, Quaternion.identity);
+            bullet.GetComponent<Projectile>().Initialize(dir.normalized, 8f);
+        }
+
+        yield return null;
+    }
+
+
+    private IEnumerator DashAndShockwave()
+    {
+        float dashSpeed = 10f;
+        float dashDuration = 0.3f;
+        float shockwaveRadius = 2.5f;
+        float shockwaveDamage = 20f;
+
+        Vector2 dashDir = (player.position - transform.position).normalized;
+        float timer = 0f;
+
+        while (timer < dashDuration)
+        {
+            transform.Translate(dashDir * dashSpeed * Time.deltaTime, Space.World);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(0.2f);
+
+        // 카메라 흔들기
+        CameraShaker.Instance?.Shake(0.3f, 0.2f);
+
+        // 파티클 생성
+        if (shockwaveParticlePrefab != null)
+            Instantiate(shockwaveParticlePrefab, transform.position, Quaternion.identity);
+
+        // 충격파 데미지 처리
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, shockwaveRadius);
+        foreach (var hit in hits)
+        {
+            if (hit.CompareTag("Player"))
             {
-                Attack();
-                attackCooldown = 1f / attackSpeed;
+                Debug.Log("충격파 피격!");
+                hit.GetComponent<Player>()?.TakeDamage(shockwaveDamage);
             }
         }
-        else
-        {
-            Move(Vector2.zero);
-        }
 
-        // 특수 능력 발동 체크
-        CheckSpecialAbilities();
+        DebugDrawCircle(transform.position, shockwaveRadius, Color.red, 0.5f);
     }
 
-    private void CheckSpecialAbilities()
+    void DebugDrawCircle(Vector3 center, float radius, Color color, float duration)
     {
-        // 체력 회복 체크
-        if (!hasHealed && currentHealth <= maxHealth * healThreshold)
-        {
-            Heal();
-            hasHealed = true;
-        }
+        int segments = 32;
+        float angleStep = 360f / segments;
 
-        // 특수 공격 체크 (예: 체력이 50% 이하일 때)
-        if (!hasUsedSpecialAttack && currentHealth <= maxHealth * specialAttackThreshold)
+        Vector3 prev = center + new Vector3(radius, 0f, 0f);
+        for (int i = 1; i <= segments; i++)
         {
-            SpecialAttack();
-            hasUsedSpecialAttack = true;
+            float angle = angleStep * i * Mathf.Deg2Rad;
+            Vector3 next = center + new Vector3(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius, 0f);
+            Debug.DrawLine(prev, next, color, duration);
+            prev = next;
         }
     }
 
-    public override void Attack()
-    {
-        // 기본 공격 로직
-        Debug.Log($"{characterName}가 공격을 시작합니다.");
 
-        // 근접 공격 로직
-        if (Vector2.Distance(transform.position, player.position) <= attackRange)
-        {
-            animator.SetTrigger("Attack");
-            player.GetComponent<BaseCharacter>()?.TakeDamage(attackDamage);
-        }
-    }
-
-    private void Heal()
-    {
-        float healAmountValue = maxHealth * healAmount;
-        currentHealth = Mathf.Min(currentHealth + healAmountValue, maxHealth);
-
-        // 이펙트 및 로그
-        Debug.Log($"{characterName}가 체력을 회복했습니다. 현재 체력: {currentHealth}/{maxHealth}");
-
-        // 회복 이펙트나 애니메이션 추가 (예시)
-        animator.SetTrigger("Heal");
-    }
-
-    private void SpecialAttack()
-    {
-        Debug.Log($"{characterName}가 특수 공격을 사용합니다!");
-
-        // 특수 공격 로직 구현 (예: 광역 데미지, 소환 등)
-        animator.SetTrigger("SpecialAttack");
-
-        // 특수 공격 예시 (광역 데미지)
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, attackRange * 2);
-        foreach (Collider2D hitCollider in hitColliders)
-        {
-            if (hitCollider.CompareTag("Player"))
-            {
-                hitCollider.GetComponent<BaseCharacter>()?.TakeDamage(attackDamage * 2);
-            }
-        }
-    }
 }
