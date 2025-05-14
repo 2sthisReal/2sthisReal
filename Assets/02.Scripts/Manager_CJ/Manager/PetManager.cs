@@ -11,7 +11,6 @@ public class PetManager
         if (!selectedPets.Contains(pet))
         {
             selectedPets.Add(pet);
-            Debug.Log($"[PetManager] Pet added: {pet.petName}");
         }
     }
 
@@ -19,7 +18,6 @@ public class PetManager
     {
         if (selectedPets.Remove(pet))
         {
-            Debug.Log($"[PetManager] Pet removed: {pet.petName}");
         }
     }
 
@@ -31,7 +29,6 @@ public class PetManager
     public void Clear()
     {
         selectedPets.Clear();
-        Debug.Log("[PetManager] All selected pets cleared.");
     }
 
     public bool Has(string petID)

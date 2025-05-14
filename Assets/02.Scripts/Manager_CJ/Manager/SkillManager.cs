@@ -24,7 +24,6 @@ public class SkillManager : MonoBehaviour
         selectedSkills.Add(skill);
         ApplySelectSkill(skill);
 
-        Debug.Log($"[GameManager] Skill selected: {skill.skillName}");
 
     }
 
@@ -37,7 +36,6 @@ public class SkillManager : MonoBehaviour
     public void Clear()
     {
         selectedSkills.Clear();
-        Debug.Log("[SkillManager] All selected skills cleared.");
     }
 
     /// <summary>

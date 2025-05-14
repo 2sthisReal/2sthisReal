@@ -9,7 +9,6 @@ public class EquipmentManager
     public void Set(EquipmentSlot slot, EquipmentData equipment)
     {
         equippedSlots[slot] = equipment;
-        Debug.Log($"[EquipmentManager] Equipped {slot} : {equipment.equipmentName}");
     }
 
     public EquipmentData Get(EquipmentSlot slot)
