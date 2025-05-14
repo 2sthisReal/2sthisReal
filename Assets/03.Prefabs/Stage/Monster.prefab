@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 167151442003489007}
-  - component: {fileID: 6008455806118973835}
   - component: {fileID: -8630118756648843184}
   - component: {fileID: 308573020700176283}
   m_Layer: 0
@@ -35,30 +34,6 @@ Transform:
   - {fileID: 542110014792709816}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6008455806118973835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1561492691561167235}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a630706a4541b8a42a44fa381bbc0485, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterName: 
-  level: 1
-  maxHealth: 0
-  currentHealth: 0
-  moveSpeed: 0
-  attackDamage: 0
-  attackSpeed: 0
-  attackRange: 0
-  isAlive: 1
-  isAttacking: 0
-  isMoving: 0
-  detectionRange: 15
 --- !u!50 &-8630118756648843184
 Rigidbody2D:
   serializedVersion: 4

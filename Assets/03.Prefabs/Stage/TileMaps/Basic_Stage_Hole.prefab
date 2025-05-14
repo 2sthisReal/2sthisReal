@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 2513073736227048282}
   - component: {fileID: 5997480435729651379}
   - component: {fileID: 333170368632870141}
+  - component: {fileID: 3208270935953642582}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -1739,6 +1740,18 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
+--- !u!210 &3208270935953642582
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6512457347697185448}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &7609924993486852408
 GameObject:
   m_ObjectHideFlags: 0
@@ -1751,6 +1764,7 @@ GameObject:
   - component: {fileID: 2959527909052494264}
   - component: {fileID: 5253196943955928564}
   - component: {fileID: 601007006276596851}
+  - component: {fileID: 4791461598757583817}
   m_Layer: 0
   m_Name: Wall
   m_TagString: Wall
@@ -1786,7 +1800,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 4
-      m_TileSpriteIndex: 5
+      m_TileSpriteIndex: 16
       m_TileMatrixIndex: 0
       m_TileColorIndex: 1
       m_TileObjectToInstantiateIndex: 65535
@@ -2256,7 +2270,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 5
-      m_TileSpriteIndex: 1
+      m_TileSpriteIndex: 5
       m_TileMatrixIndex: 0
       m_TileColorIndex: 1
       m_TileObjectToInstantiateIndex: 65535
@@ -2613,8 +2627,8 @@ Tilemap:
   m_TileSpriteArray:
   - m_RefCount: 18
     m_Data: {fileID: 887863401, guid: 22e6b300172e7204182b0aacf6f00cd0, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 1357670144, guid: 22e6b300172e7204182b0aacf6f00cd0, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: -176775161, guid: 22e6b300172e7204182b0aacf6f00cd0, type: 3}
   - m_RefCount: 34
@@ -2622,7 +2636,7 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: 110849230, guid: 22e6b300172e7204182b0aacf6f00cd0, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: -1942551058, guid: 22e6b300172e7204182b0aacf6f00cd0, type: 3}
+    m_Data: {fileID: 1357670144, guid: 22e6b300172e7204182b0aacf6f00cd0, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -1659236021, guid: 22e6b300172e7204182b0aacf6f00cd0, type: 3}
   - m_RefCount: 4
@@ -2643,8 +2657,8 @@ Tilemap:
     m_Data: {fileID: -996033929, guid: 6553030c3b808a949b2b2acef3d971b2, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 2082032582, guid: 6553030c3b808a949b2b2acef3d971b2, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: -1942551058, guid: 22e6b300172e7204182b0aacf6f00cd0, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: -1527819434, guid: 7ed3066af46d90f4db76a2d399990df2, type: 3}
   m_TileMatrixArray:
@@ -2816,6 +2830,18 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
+--- !u!210 &4791461598757583817
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7609924993486852408}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 50
+  m_SortAtRoot: 0
 --- !u!1 &7809897595737623169
 GameObject:
   m_ObjectHideFlags: 0
@@ -2827,6 +2853,7 @@ GameObject:
   - component: {fileID: 2872467831727367778}
   - component: {fileID: 6694556802140980398}
   - component: {fileID: 8586485282560610798}
+  - component: {fileID: 598905565549105291}
   m_Layer: 0
   m_Name: Deco
   m_TagString: Untagged
@@ -3042,3 +3069,15 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
+--- !u!210 &598905565549105291
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7809897595737623169}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 100
+  m_SortAtRoot: 0
