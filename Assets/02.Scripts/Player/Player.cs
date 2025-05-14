@@ -21,7 +21,6 @@ public class Player : BaseCharacter
 
     public float shotSpeed;
 
-    public bool isMove;
     public bool inRanged;
     public bool invincible = false;
     private bool isKnockback = false;

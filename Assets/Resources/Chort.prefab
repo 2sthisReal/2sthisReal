@@ -43,7 +43,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 105267447787803760}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -128,10 +128,11 @@ MonoBehaviour:
   attackSpeed: 0
   attackRange: 0
   isAlive: 1
-  isAttacking: 0
-  isMoving: 0
+  isAttack: 0
+  isMove: 0
   detectionRange: 15
   attackCooldown: 0
+  showDebugInfo: 1
 --- !u!1 &5352734441002560562
 GameObject:
   m_ObjectHideFlags: 0

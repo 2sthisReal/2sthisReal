@@ -27,8 +27,8 @@ public abstract class BaseCharacter : MonoBehaviour
 
     [Header("����")]
     public bool isAlive = true;          // ���� ����
-    public bool isAttacking = false;     // ���� ���� ������ ����
-    public bool isMoving = false;        // ���� �̵� ������ ����
+    public bool isAttack = false;     // ���� ���� ������ ����
+    public bool isMove = false;        // ���� �̵� ������ ����
 
     // ������Ʈ ĳ��
     protected Animator animator;         // �ִϸ��̼� �����
@@ -60,8 +60,8 @@ public abstract class BaseCharacter : MonoBehaviour
         rb.MovePosition(rb.position + movement);  // ���� �̵�
 
         // �̵� ���� üũ�ؼ� �ִϸ��̼� �Ķ���� ����
-        isMoving = direction.magnitude > 0;
-        animator.SetBool("IsMoving", isMoving);
+        isMove = direction.magnitude > 0;
+        animator.SetBool("IsMove", isMove);
 
         // ���⿡ ���� ĳ���� �¿� ����
         if (direction.x != 0)
