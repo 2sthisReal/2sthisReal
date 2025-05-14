@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 namespace Jang
 {
     public class StageManager : MonoBehaviour
@@ -84,6 +83,9 @@ namespace Jang
             isClear = false;
             stageDoor.SetDoor(isClear);
 
+            // 일반 스테이지 설정
+            monsterSpawner.SetBossStage(false);
+
             currentPreset = stagePresetManager.GetRandomPreset();
             InitStage(currentPreset);
 
@@ -94,15 +96,24 @@ namespace Jang
         {
             Camera.main.GetComponent<FollowCamera>().enabled = true;
             isClear = false;
+
+            // 보스 스테이지 설정
+            monsterSpawner.SetBossStage(true);
+
             InitStage(bossStagePreset);
 
-            gameManager.RegisterEnemies(1);
+            gameManager.RegisterEnemies(1);  // 보스는 한 마리만 등록
         }
 
         // 스테이지 설정
         void InitStage(StagePreset preset)
         {
-            Destroy(stageMap);
+            // 기존 스테이지 맵 정리
+            if (stageMap != null)
+            {
+                Destroy(stageMap);
+            }
+
             GameObject map = new GameObject("Stage");
             stageMap = map;
 

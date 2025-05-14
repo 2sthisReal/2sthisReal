@@ -1,25 +1,34 @@
 using System.Collections;
 using UnityEngine;
 
-/// <summary>
-/// BossMonster는 다양한 패턴으로 공격하는 보스 몬스터입니다.
-/// - 순차적인 FSM 구조로 4가지 패턴을 실행합니다.
-/// </summary>
-public class BossMonster : MonoBehaviour
+public class BossMonster : Monster
 {
-    public GameObject shockwaveParticlePrefab; // Inspector에서 할당
+    // 기존 필드 유지
+    public GameObject shockwaveParticlePrefab;
     public GameObject straightProjectile;
     public GameObject fanProjectile;
-
     public Transform firePoint;
     public float patternCooldown = 2f;
 
-    private Transform player;
+    private Coroutine patternCoroutine;
 
-    private void Start()
+    protected override void Start()
     {
-        player = GameObject.FindWithTag("Player").transform;
-        StartCoroutine(PatternRoutine());
+        base.Start(); // Monster의 Start() 호출 (데이터 초기화 등)
+
+        if (player != null)
+            patternCoroutine = StartCoroutine(PatternRoutine());
+    }
+
+    protected override void Update()
+    {
+
+    }
+
+    public override void Attack()
+    {
+        // 보스는 Attack()을 직접 사용하지 않고 FSM 패턴으로 공격함
+        // 필요 시 발차기 패턴 같은 공통 공격을 넣을 수 있음
     }
 
     private IEnumerator PatternRoutine()
@@ -37,20 +46,14 @@ public class BossMonster : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 직선 투사체 1개를 플레이어 방향으로 발사
-    /// </summary>
     private IEnumerator StraightShot()
     {
         Vector2 dir = (player.position - firePoint.position).normalized;
         GameObject bullet = Instantiate(straightProjectile, firePoint.position, Quaternion.identity);
-        bullet.GetComponent<Projectile>().Initialize(dir, 10f); // 방향과 데미지 설정
+        bullet.GetComponent<Projectile>().Initialize(dir, 10f);
         yield return null;
     }
 
-    /// <summary>
-    /// 부채꼴로 투사체 여러 개를 발사
-    /// </summary>
     private IEnumerator FanShot()
     {
         int count = 5;
@@ -68,7 +71,6 @@ public class BossMonster : MonoBehaviour
 
         yield return null;
     }
-
 
     private IEnumerator DashAndShockwave()
     {
@@ -89,14 +91,11 @@ public class BossMonster : MonoBehaviour
 
         yield return new WaitForSeconds(0.2f);
 
-        // 카메라 흔들기
         CameraShaker.Instance?.Shake(0.3f, 0.2f);
 
-        // 파티클 생성
         if (shockwaveParticlePrefab != null)
             Instantiate(shockwaveParticlePrefab, transform.position, Quaternion.identity);
 
-        // 충격파 데미지 처리
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, shockwaveRadius);
         foreach (var hit in hits)
         {
@@ -110,7 +109,7 @@ public class BossMonster : MonoBehaviour
         DebugDrawCircle(transform.position, shockwaveRadius, Color.red, 0.5f);
     }
 
-    void DebugDrawCircle(Vector3 center, float radius, Color color, float duration)
+    private void DebugDrawCircle(Vector3 center, float radius, Color color, float duration)
     {
         int segments = 32;
         float angleStep = 360f / segments;
@@ -124,6 +123,4 @@ public class BossMonster : MonoBehaviour
             prev = next;
         }
     }
-
-
 }

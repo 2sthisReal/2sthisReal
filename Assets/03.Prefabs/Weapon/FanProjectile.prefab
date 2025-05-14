@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 3644789487180157814}
   - component: {fileID: 2896138823552556229}
   - component: {fileID: 8337805072344354986}
+  - component: {fileID: -7653249806888218603}
   m_Layer: 0
   m_Name: FanProjectile
   m_TagString: Untagged
@@ -190,3 +191,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-7653249806888218603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8634242765009965368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c32b7ba848897e4abb71c3a94561f81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

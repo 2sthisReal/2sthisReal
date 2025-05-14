@@ -539,11 +539,6 @@ Transform:
   - {fileID: 448754881}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &2040944549 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4635682562413490901, guid: 1fc3798c080354f44b18a8ed67143d13, type: 3}
-  m_PrefabInstance: {fileID: 9161979102331530741}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &676693625735560299
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1668,10 +1663,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4695914431652321058, guid: 1fc3798c080354f44b18a8ed67143d13, type: 3}
-      propertyPath: firePoint
-      value: 
-      objectReference: {fileID: 2040944549}
-    - target: {fileID: 4695914431652321058, guid: 1fc3798c080354f44b18a8ed67143d13, type: 3}
       propertyPath: fanProjectile
       value: 
       objectReference: {fileID: 5467697688688094435}
@@ -1679,10 +1670,6 @@ PrefabInstance:
       propertyPath: straightProjectile
       value: 
       objectReference: {fileID: 6059862258562123621}
-    - target: {fileID: 4695914431652321058, guid: 1fc3798c080354f44b18a8ed67143d13, type: 3}
-      propertyPath: shockwaveParticlePrefab
-      value: 
-      objectReference: {fileID: 2498610341893388104, guid: 6dcae6f35ed9c1142b5eefc267f6a0a1, type: 3}
     - target: {fileID: 9084551661998322311, guid: 1fc3798c080354f44b18a8ed67143d13, type: 3}
       propertyPath: m_Name
       value: Bigzombie
