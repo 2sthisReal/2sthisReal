@@ -17,7 +17,7 @@ public class PassiveSkill : SkillBase
 
             case PassiveType.MaxHp:
                 player.maxHealth += skill.skillValue;
-                player.currentHealth += skill.skillValue;
+                player.Heal(skill.skillValue);
                 break;
         }
     }

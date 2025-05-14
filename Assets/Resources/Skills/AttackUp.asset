@@ -15,6 +15,6 @@ MonoBehaviour:
   skillIcon: {fileID: 21300000, guid: 733dc21dbb41b7743883523bb602888f, type: 3}
   skillName: AttackUp
   skillType: 0
-  skillValue: 20
+  skillValue: 50
   skillDescription: "\uACF5\uACA9\uB825\uC774 \uC99D\uAC00\uD569\uB2C8\uB2E4."
   skillBase: {fileID: 2102957287823986993, guid: e94d63585d8fd5f45b84d99709518fac, type: 3}
