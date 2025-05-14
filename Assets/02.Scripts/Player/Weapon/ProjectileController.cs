@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 
 
@@ -13,7 +14,7 @@ public class ProjectileController : MonoBehaviour
     Player player;
     public AudioClip arrowSound;
     public AudioClip arrowHit;
-    float arrowSustain = 5f;
+    float arrowSustain = 3f;
 
 
     private double projectileDamage = 0;
