@@ -4,14 +4,11 @@ public class CameraShaker : MonoBehaviour
 {
     public static CameraShaker Instance;
 
-    private Vector3 originalPos;
 
     private void Awake()
     {
         if (Instance == null)
             Instance = this;
-
-        originalPos = transform.localPosition;
     }
 
     public void Shake(float duration, float magnitude)
@@ -28,12 +25,10 @@ public class CameraShaker : MonoBehaviour
             float x = Random.Range(-1f, 1f) * magnitude;
             float y = Random.Range(-1f, 1f) * magnitude;
 
-            transform.localPosition = originalPos + new Vector3(x, y, 0f);
+            transform.localPosition = transform.position + new Vector3(x, y, 0f);
 
             elapsed += Time.deltaTime;
             yield return null;
         }
-
-        transform.localPosition = originalPos;
     }
 }

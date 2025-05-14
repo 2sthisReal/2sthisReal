@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 876823612}
   - component: {fileID: 876823616}
   m_Layer: 0
-  m_Name: Player (1)
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -374,11 +374,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: hi
   level: 1
-  maxHealth: 100
-  currentHealth: 100
+  maxHealth: 300
+  currentHealth: 300
   moveSpeed: 3
-  attackDamage: 33
-  attackSpeed: 2
+  attackDamage: 50
+  attackSpeed: 1
   attackRange: 0
   isAlive: 1
   isAttack: 0

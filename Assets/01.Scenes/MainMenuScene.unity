@@ -3894,10 +3894,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseButton: {fileID: 1115047113}
-  tempGameOverButton: {fileID: 0}
-  tempVictoryButton: {fileID: 0}
-  tempStageClearButton: {fileID: 0}
-  tempSkillSelectButton: {fileID: 0}
   pauseUI: {fileID: 636877721}
   skillSelectUI: {fileID: 766248179}
   stageText: {fileID: 1153506023}
@@ -6575,7 +6571,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5358875823883480936, guid: 3a31b564d36820245acef84abb38eb5a, type: 3}
       propertyPath: bossStage
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7073314871383367969, guid: 3a31b564d36820245acef84abb38eb5a, type: 3}
       propertyPath: m_Name
@@ -12670,7 +12666,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1991924690
 RectTransform:
   m_ObjectHideFlags: 0
