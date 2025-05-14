@@ -10,10 +10,6 @@ namespace SWScene
     public class InGameUI : BaseUI
     {
         [SerializeField] private Button pauseButton;
-        [SerializeField] private Button tempGameOverButton;
-        [SerializeField] private Button tempVictoryButton;
-        [SerializeField] private Button tempStageClearButton;
-        [SerializeField] private Button tempSkillSelectButton;
         [SerializeField] private BaseUI pauseUI;
         [SerializeField] private BaseUI skillSelectUI;
 
@@ -34,6 +30,8 @@ namespace SWScene
             StageManager.onStageStart += UpdateStageText;
             Player.OnExpChanged += UpdateLevelBar;
             Player.OnLevelChanged += UpdateLevelText;
+
+            InitLevelUI();
         }
 
         protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -42,6 +40,9 @@ namespace SWScene
             {
                 pauseUI.gameObject.SetActive(false);
                 skillSelectUI.gameObject.SetActive(false);
+
+                
+
             }
         }
 
@@ -66,31 +67,7 @@ namespace SWScene
                     GameManager.Instance.PauseGame();
                     //GameManager.Instance.ChangeState(GameState.Pause); 
                 });
-            tempSkillSelectButton?.onClick.AddListener(
-                () =>
-                {
-                    pauseUI.gameObject.SetActive(false);
-                    skillSelectUI.gameObject.SetActive(true);
-                    GameManager.Instance.PauseGame();
-                    //GameManager.Instance.ChangeState(GameState.SkillSelect);
-                });
-            tempGameOverButton?.onClick.AddListener(
-                () =>
-                {
-                    GameManager.Instance.ChangeState(GameState.GameOver);
-                });
-            tempVictoryButton?.onClick.AddListener(
-                () =>
-                {
-                    GameManager.Instance.ChangeState(GameState.Victory);
-                });
-            tempStageClearButton?.onClick.AddListener(
-                () =>
-                {
-                    GameManager.Instance.ChangeState(GameState.StageClear);
-                });
         }
-
         void ShowSkillSelectUI()
         {
             pauseUI.gameObject.SetActive(false);
@@ -135,6 +112,12 @@ namespace SWScene
 
             stageUI.alpha = 0;
             stageUI.gameObject.SetActive(false);
+        }
+
+        private void InitLevelUI()
+        {
+            levelSlider.value = 0f;
+            levelText.text = "Lv.1";
         }
     }
 }

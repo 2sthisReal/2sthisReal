@@ -65,4 +65,9 @@ public class SkillManager : MonoBehaviour
             skillDatabase.RemoveActiveSkill(skill);
         }
     }
+    public void ResetSelectedSkills()
+    {
+        selectedSkills.Clear();
+    }
+
 }
