@@ -41,7 +41,7 @@ public class Projectile : MonoBehaviour
         if (col.CompareTag("Player"))
         {
             Debug.Log("플레이어에 명중!");
-            col.GetComponent<PlayerHealth>()?.TakeDamage(damage);
+            col.GetComponent<Player>()?.TakeDamage(damage);
             Destroy(gameObject);
         }
         else if (col.CompareTag("Wall"))
