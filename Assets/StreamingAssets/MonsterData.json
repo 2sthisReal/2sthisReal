@@ -31,6 +31,23 @@
             "dropRate": 0.6,
             "expReward": 35,
             "attackPattern": 0
+        },
+
+        {
+            "id": "big_zombie",
+            "monsterName": "BigZombie",
+            "level": 15,
+            "maxHealth": 800,
+            "attackDamage": 40,
+            "attackSpeed": 0.6,
+            "moveSpeed": 1.5,
+            "attackRange": 2.0,
+            "prefabPath": "BigZombie",
+            "type": 2,
+            "dropItems": [ "item_exp", "item_core" ],
+            "dropRate": 1.0,
+            "expReward": 150,
+            "attackPattern": 0
         }
     ]
 
