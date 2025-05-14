@@ -1,20 +1,37 @@
 {
     "monsters": [
         {
-            "id": "goblin_archer",
-            "monsterName": "���� �ü�",
+            "id": "goblin",
+            "monsterName": "goblin",
             "level": 5,
             "maxHealth": 100,
             "attackDamage": 15,
             "attackSpeed": 1.2,
             "moveSpeed": 2.5,
             "attackRange": 5.0,
-            "prefabPath": "GoblinArcher",
+            "prefabPath": "Goblin",
             "type": 0,
             "dropItems": [ "item_exp" ],
             "dropRate": 0.5,
             "expReward": 20,
             "attackPattern": 1
+        },
+        {
+            "id": "chort",
+            "monsterName": "chort",
+            "level": 8,
+            "maxHealth": 150,
+            "attackDamage": 25,
+            "attackSpeed": 0.8,
+            "moveSpeed": 1.8,
+            "attackRange": 1.5,
+            "prefabPath": "Chort",
+            "type": 0,
+            "dropItems": [ "item_exp" ],
+            "dropRate": 0.6,
+            "expReward": 35,
+            "attackPattern": 0
         }
     ]
+
 }
