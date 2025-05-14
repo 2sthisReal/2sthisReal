@@ -103,3 +103,29 @@ Unity 기반 로그라이크 액션 게임 프로젝트
 
 ---
 
+## 🎨 스킬 아이콘 출처 (CC BY 3.0)
+
+- **MultiShot**  
+  [Striking arrows icon](https://game-icons.net/1x1/lorc/striking-arrows.html) by **Lorc**, licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
+
+- **Reflection**  
+  [Divert icon](https://game-icons.net/1x1/lorc/divert.html) by **Lorc**, licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
+
+- **Pierce**  
+  [Pierced body icon](https://game-icons.net/1x1/lorc/pierced-body.html) by **Lorc**, licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
+
+- **AttackUp**  
+  [Crossed swords icon](https://game-icons.net/1x1/lorc/crossed-swords.html) by **Lorc**, licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
+
+- **AttackSpeed**  
+  [Sword brandish icon](https://game-icons.net/1x1/delapouite/sword-brandish.html) by **Delapouite**, licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
+
+- **MaxHealth**  
+  [Health increase icon](https://game-icons.net/1x1/sbed/health-increase.html) by **sbed**, licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
+
+- **MonsterBounce**  
+  [Tron arrow icon](https://game-icons.net/1x1/lorc/tron-arrow.html) by **Lorc**, licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
+
+- **OrbitSword**  
+  [Sword spin icon](https://game-icons.net/1x1/lorc/sword-spin.html) by **Lorc**, licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
+
