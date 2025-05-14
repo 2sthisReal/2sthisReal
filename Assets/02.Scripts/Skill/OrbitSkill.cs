@@ -6,11 +6,11 @@ public class OrbitSkill : SkillBase
     [SerializeField] float damageScale;
     protected override void ApplyActiveSkill(Player player)
     {
-        GameObject obj = Instantiate(orbitSword, player.transform);
-        
-        for(int i = 0; i < obj.transform.childCount; i++)
+        for(int i = 0; i < 2; i++)
         {
-            obj.transform.GetChild(i).GetComponent<OrbitingSword>().Init(player.transform, player, damageScale);
+            float angleOffset = (Mathf.PI * 2f / 2) * i;
+            GameObject sword = Instantiate(orbitSword);
+            sword.GetComponent<OrbitingSword>().Init(player.transform, player, damageScale, angleOffset);
         }
     }
 }

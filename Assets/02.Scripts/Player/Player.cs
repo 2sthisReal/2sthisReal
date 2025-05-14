@@ -289,7 +289,12 @@ public class Player : BaseCharacter
         OnLevelChanged?.Invoke(level);
     }
 
+    public void Heal(float value)
+    {
+        currentHealth += value;
 
+        OnChangedHp?.Invoke(maxHealth, currentHealth);
+    }
 
 
 
