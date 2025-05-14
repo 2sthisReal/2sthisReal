@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5654156271434391064}
   - component: {fileID: 8732102355305516111}
   - component: {fileID: 5907303863314241359}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Obstacle_Column
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8157110343288749822}
   - component: {fileID: 6973802497159692137}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MainSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

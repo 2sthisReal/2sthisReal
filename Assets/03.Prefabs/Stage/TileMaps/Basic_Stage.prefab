@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 852692047492984955}
   - component: {fileID: 3092399117757555110}
   - component: {fileID: 388116160864664291}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1718,7 +1718,7 @@ GameObject:
   - component: {fileID: 1330987141738857824}
   - component: {fileID: 5674437972846533438}
   - component: {fileID: 5700384658080032819}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -2497,7 +2497,7 @@ GameObject:
   - component: {fileID: 7727461912424302562}
   - component: {fileID: 7516509888306978512}
   - component: {fileID: 1184310087455840627}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Deco
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2804,7 +2804,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6267309815786347729}
   - component: {fileID: 5728423860251336722}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Basic_Stage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
