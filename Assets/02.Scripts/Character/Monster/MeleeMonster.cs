@@ -6,6 +6,7 @@ public class MeleeMonster : Monster
     // ������� ���� ���� �߰�
     [SerializeField] private bool showDebugInfo = true;
     private bool isAttacking = false;
+    private Vector2 directionVector;
 
     protected override void Update()
     {
@@ -14,7 +15,7 @@ public class MeleeMonster : Monster
         float distance = Vector2.Distance(transform.position, player.position);
 
         // �÷��̾� ����
-        Vector2 directionVector = (player.position - transform.position).normalized;
+        directionVector = (player.position - transform.position).normalized;
 
         // �ִϸ����� ���� ��ȯ ó��
         if (distance > attackRange && isAttacking)
@@ -76,10 +77,11 @@ public class MeleeMonster : Monster
 
         if (currentDistance <= attackRange)
         {
-            BaseCharacter playerCharacter = player.GetComponent<BaseCharacter>();
+            Player playerCharacter = player.GetComponent<Player>();
             if (playerCharacter != null)
             {
                 playerCharacter.TakeDamage(attackDamage);
+                playerCharacter.KnockbackPlayer(directionVector, 5f);
                 Debug.Log($"{characterName}�� {attackDamage} �������� �����߽��ϴ�.");
             }
             else

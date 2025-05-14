@@ -102,6 +102,9 @@ public class Player : BaseCharacter
 
     void Update()
     {
+        if(currentHealth>maxHealth)
+            currentHealth = maxHealth;
+
         monsterCounter.RemoveAll(monster => monster == null);
         Transform closest = TargetSet();
         if (closest == null)
@@ -140,7 +143,7 @@ public class Player : BaseCharacter
         {
             animator.SetTrigger("IsDamaged");
             TakeDamage(monster.attackDamage);
-            ApplyKnockback(collision.transform);
+            KnockbackPlayer(-(collision.transform.position - transform.position) , 4f);
         }
     }
 
@@ -228,11 +231,11 @@ public class Player : BaseCharacter
         OnChangedHp?.Invoke(maxHealth, currentHealth);
     }
 
-    public void ApplyKnockback(Transform other)
+    public void KnockbackPlayer(Vector2 vector, float force)
     {
         isKnockback = true;
         knockbackDuration = 0.125f;
-        knockback = -(other.position - transform.position).normalized * 4f;
+        knockback = vector.normalized * force;
         rb.velocity = knockback;
     }
 
