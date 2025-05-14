@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6045835225248334532}
   - component: {fileID: 852692047492984955}
   - component: {fileID: 3092399117757555110}
+  - component: {fileID: 388116160864664291}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -1692,6 +1693,18 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
+--- !u!210 &388116160864664291
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1796659455295075993}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &2641622433844534301
 GameObject:
   m_ObjectHideFlags: 0
@@ -1704,6 +1717,7 @@ GameObject:
   - component: {fileID: 5949094056397300414}
   - component: {fileID: 1330987141738857824}
   - component: {fileID: 5674437972846533438}
+  - component: {fileID: 5700384658080032819}
   m_Layer: 0
   m_Name: Wall
   m_TagString: Wall
@@ -2459,6 +2473,18 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
+--- !u!210 &5700384658080032819
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2641622433844534301}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 50
+  m_SortAtRoot: 0
 --- !u!1 &4738141482338259406
 GameObject:
   m_ObjectHideFlags: 0
@@ -2470,6 +2496,7 @@ GameObject:
   - component: {fileID: 4424393894039617271}
   - component: {fileID: 7727461912424302562}
   - component: {fileID: 7516509888306978512}
+  - component: {fileID: 1184310087455840627}
   m_Layer: 0
   m_Name: Deco
   m_TagString: Untagged
@@ -2755,6 +2782,18 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
+--- !u!210 &1184310087455840627
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4738141482338259406}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 100
+  m_SortAtRoot: 0
 --- !u!1 &6057081931880883335
 GameObject:
   m_ObjectHideFlags: 0
@@ -2788,7 +2827,6 @@ Transform:
   - {fileID: 6045835225248334532}
   - {fileID: 7626458943831181837}
   - {fileID: 4424393894039617271}
-  - {fileID: 4589826182472080}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!156049354 &5728423860251336722
@@ -2803,34 +2841,3 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
---- !u!1 &7175633857564635587
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4589826182472080}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4589826182472080
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7175633857564635587}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6267309815786347729}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

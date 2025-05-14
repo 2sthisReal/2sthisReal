@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using Jang;
 using TMPro;
 using UnityEngine;
@@ -20,6 +19,9 @@ namespace SWScene
 
         // InGameUI
         [SerializeField] private TextMeshProUGUI stageText;
+        [SerializeField] private CanvasGroup stageUI;
+        [SerializeField] private TextMeshProUGUI levelText;
+        [SerializeField] private Slider levelSlider;
 
         protected override GameState GetUIState()
         {
@@ -30,6 +32,8 @@ namespace SWScene
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
             StageManager.onStageStart += UpdateStageText;
+            Player.OnExpChanged += UpdateLevelBar;
+            Player.OnLevelChanged += UpdateLevelText;
         }
 
         protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -45,15 +49,17 @@ namespace SWScene
         {
             SceneManager.sceneLoaded -= OnSceneLoaded;
             StageManager.onStageStart -= UpdateStageText;
+            Player.OnExpChanged -= UpdateLevelBar;
+            Player.OnLevelChanged -= UpdateLevelText;
         }
 
         public override void Init(UIManager uiManager)
         {
             base.Init(uiManager);
             pauseUI.Init(uiManager);
-            skillSelectUI.Init(uiManager); 
+            skillSelectUI.Init(uiManager);
             pauseButton?.onClick.AddListener(
-                () => 
+                () =>
                 {
                     pauseUI.gameObject.SetActive(true);
                     skillSelectUI.gameObject.SetActive(false);
@@ -69,25 +75,66 @@ namespace SWScene
                     //GameManager.Instance.ChangeState(GameState.SkillSelect);
                 });
             tempGameOverButton?.onClick.AddListener(
-                () => 
-                { 
-                    GameManager.Instance.ChangeState(GameState.GameOver); 
+                () =>
+                {
+                    GameManager.Instance.ChangeState(GameState.GameOver);
                 });
             tempVictoryButton?.onClick.AddListener(
-                () => 
-                { 
-                    GameManager.Instance.ChangeState(GameState.Victory); 
+                () =>
+                {
+                    GameManager.Instance.ChangeState(GameState.Victory);
                 });
             tempStageClearButton?.onClick.AddListener(
-                () => 
-                { 
-                    GameManager.Instance.ChangeState(GameState.StageClear); 
+                () =>
+                {
+                    GameManager.Instance.ChangeState(GameState.StageClear);
                 });
+        }
+
+        void ShowSkillSelectUI()
+        {
+            pauseUI.gameObject.SetActive(false);
+            skillSelectUI.gameObject.SetActive(true);
+            GameManager.Instance.PauseGame();
         }
 
         void UpdateStageText(int currentStage)
         {
             stageText.text = currentStage.ToString();
+
+            StartCoroutine(ShowStageTextUI());
+        }
+
+        void UpdateLevelBar(float maxExp, float exp)
+        {
+            levelSlider.value = exp / maxExp;
+        }
+
+        void UpdateLevelText(int level)
+        {
+            levelText.text = $"Lv.{level}";
+
+            ShowSkillSelectUI();
+        }
+
+        IEnumerator ShowStageTextUI()
+        {
+            float fadeDuration = 0.5f;
+            float visibleDuration = 3f;
+
+            stageUI.alpha = 1;
+            stageUI.gameObject.SetActive(true);
+
+            yield return new WaitForSeconds(visibleDuration);
+
+            for (float t = 0; t < fadeDuration; t += Time.deltaTime)
+            {
+                stageUI.alpha = Mathf.Lerp(1, 0, t / fadeDuration);
+                yield return null;
+            }
+
+            stageUI.alpha = 0;
+            stageUI.gameObject.SetActive(false);
         }
     }
 }

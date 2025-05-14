@@ -1,4 +1,5 @@
 using SWScene;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -20,7 +21,6 @@ public class Player : BaseCharacter
 
     public float shotSpeed;
 
-    public bool isMove;
     public bool inRanged;
     public bool invincible = false;
     private bool isKnockback = false;
@@ -28,6 +28,31 @@ public class Player : BaseCharacter
     private float knockbackDuration = 0.0f;
     public float invincibleTimer;
     public float critRate = 0.0f;
+
+    // Player Exp 
+    private float maxExp;
+    private float currentExp;
+    public float MaxExp
+    {
+        get => maxExp;
+
+        private set
+        {
+            maxExp = Mathf.Max(0, value);
+        }
+    }
+
+    public float CurrentExp
+    {
+        get => currentExp;
+
+        private set
+        {
+            currentExp = Mathf.Max(0, value);
+        }
+    }
+    public static Action<float, float> OnExpChanged;
+    public static Action<int> OnLevelChanged;
 
     Vector2 knockback = Vector2.zero;
     public Vector2 directionVector;
@@ -50,6 +75,9 @@ public class Player : BaseCharacter
         weaponAnimator = transform.Find("Weapons").GetComponent<Animator>();
         currentHealth = maxHealth;
 
+        // Init Exp
+        MaxExp = 100;
+        currentExp = 0;
     }
     private void FixedUpdate()
     {
@@ -74,6 +102,9 @@ public class Player : BaseCharacter
 
     void Update()
     {
+        if(currentHealth>maxHealth)
+            currentHealth = maxHealth;
+
         monsterCounter.RemoveAll(monster => monster == null);
         Transform closest = TargetSet();
         if (closest == null)
@@ -112,7 +143,7 @@ public class Player : BaseCharacter
         {
             animator.SetTrigger("IsDamaged");
             TakeDamage(monster.attackDamage);
-            ApplyKnockback(collision.transform);
+            KnockbackPlayer(-(collision.transform.position - transform.position) , 4f);
         }
     }
 
@@ -196,15 +227,15 @@ public class Player : BaseCharacter
         invincible = true;
         invincibleTimer = 2.0f; //2�ʹ���
         StartCoroutine(BlinkAlpha(2.0f, 0.1f));
-        
+
         OnChangedHp?.Invoke(maxHealth, currentHealth);
     }
 
-    public void ApplyKnockback(Transform other)
+    public void KnockbackPlayer(Vector2 vector, float force)
     {
         isKnockback = true;
         knockbackDuration = 0.125f;
-        knockback = -(other.position - transform.position).normalized * 4f;
+        knockback = vector.normalized * force;
         rb.velocity = knockback;
     }
 
@@ -230,6 +261,34 @@ public class Player : BaseCharacter
         multipleShots = !multipleShots;
     }
 
+    public void GetExp(float exp)
+    {
+        CurrentExp += exp;
+
+        if (CurrentExp >= MaxExp)
+        {
+            LevelUp();
+        }
+
+        OnExpChanged?.Invoke(MaxExp, CurrentExp);
+    }
+
+    [ContextMenu("TestExpBar")]
+    public void ExpbarTest()
+    {
+        GetExp(50);
+    }
+
+    void LevelUp()
+    {
+        level++;
+
+        CurrentExp -= MaxExp;
+        MaxExp *= 1.5f;
+
+        OnLevelChanged?.Invoke(level);
+    }
+
 
 
 
@@ -247,7 +306,7 @@ public class Player : BaseCharacter
     public class PlayerData
     {
         public string characterName;   // ĳ������ �̸�
-     
+
     }
 
     PlayerData SaveData()
@@ -255,14 +314,14 @@ public class Player : BaseCharacter
         return new PlayerData
         {
             characterName = this.characterName,
-          
+
         };
     }
 
     void LoadData(PlayerData data)
     {
         this.characterName = data.characterName;
-        
+
     }
 
     void SaveJson()
