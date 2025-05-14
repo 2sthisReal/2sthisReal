@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +10,11 @@ namespace Jang
     {
         GameManager gameManager;
         [SerializeField] StagePreset currentPreset; // 현재 스테이지 프리셋
+        [SerializeField] StagePreset bossStagePreset;
         private StagePresetManager stagePresetManager; // 프리셋 랜덤으로 가져오기 위한 Manager
+        [SerializeField] FadeScreenController fadeScreenController;
+        [SerializeField] Transform player;
+        [SerializeField] Vector2 startPos;
 
         [Header("Object Prefabs")]
         [SerializeField] MonsterSpawner monsterSpawner;
@@ -19,7 +24,7 @@ namespace Jang
         private bool isClear = false;
         private int currentStage = 1;
         [SerializeField] StageDoor stageDoor;
-        
+
         public static event Action<int> onStageStart;
 
         // 스테이지 설정 세팅 및 스테이지 생성
@@ -29,6 +34,7 @@ namespace Jang
             stagePresetManager = GetComponentInChildren<StagePresetManager>();
             monsterSpawner = GetComponentInChildren<MonsterSpawner>();
             stageDoor = FindObjectOfType<StageDoor>();
+            player = FindObjectOfType<Player>().transform;
 
             currentStage = 1;
             StartStage();
@@ -36,10 +42,31 @@ namespace Jang
 
         public void StartStage()
         {
-            stageDoor.SetDoor(isClear);
-            GenerateNewStage();
+            StartCoroutine(StartStageCorutine());
+        }
 
+        private IEnumerator StartStageCorutine()
+        {
+            if (currentStage == 1)
+                fadeScreenController.SetBlackScreen();
+            else
+                yield return fadeScreenController.FadeOut();
+
+            // 스테이지 세팅
+            if (currentStage == 10)
+            {
+                stageDoor.gameObject.SetActive(false);
+                GenerateBossStage();
+            }
+            else
+            {
+                stageDoor.SetDoor(isClear);
+                GenerateNewStage();
+            }
+
+            player.position = startPos;
             onStageStart?.Invoke(currentStage);
+            yield return fadeScreenController.FadeIn();
         }
 
         [ContextMenu("StageClear")]
@@ -60,6 +87,14 @@ namespace Jang
             InitStage(currentPreset);
 
             gameManager.RegisterEnemies(currentPreset.monsterPoints.Count);
+        }
+
+        void GenerateBossStage()
+        {
+            isClear = false;
+            InitStage(bossStagePreset);
+
+            gameManager.RegisterEnemies(1);
         }
 
         // 스테이지 미리보기
@@ -97,11 +132,11 @@ namespace Jang
             }
         }
 
-        void SpawnMonster(List<Vector2>points)
+        void SpawnMonster(List<Vector2> points)
         {
-            if(points == null) return;
+            if (points == null) return;
 
-            foreach(var point in points)
+            foreach (var point in points)
             {
                 monsterSpawner.SpawnMonsterInStage(point);
             }

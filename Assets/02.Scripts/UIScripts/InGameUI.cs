@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using Jang;
 using TMPro;
 using UnityEngine;
@@ -20,6 +19,7 @@ namespace SWScene
 
         // InGameUI
         [SerializeField] private TextMeshProUGUI stageText;
+        [SerializeField] private CanvasGroup stageUI;
         [SerializeField] private TextMeshProUGUI levelText;
         [SerializeField] private Slider levelSlider;
 
@@ -101,6 +101,8 @@ namespace SWScene
         void UpdateStageText(int currentStage)
         {
             stageText.text = currentStage.ToString();
+
+            StartCoroutine(ShowStageTextUI());
         }
 
         void UpdateLevelBar(float maxExp, float exp)
@@ -113,6 +115,26 @@ namespace SWScene
             levelText.text = $"Lv.{level}";
 
             ShowSkillSelectUI();
+        }
+
+        IEnumerator ShowStageTextUI()
+        {
+            float fadeDuration = 0.5f;
+            float visibleDuration = 3f;
+
+            stageUI.alpha = 1;
+            stageUI.gameObject.SetActive(true);
+
+            yield return new WaitForSeconds(visibleDuration);
+
+            for (float t = 0; t < fadeDuration; t += Time.deltaTime)
+            {
+                stageUI.alpha = Mathf.Lerp(1, 0, t / fadeDuration);
+                yield return null;
+            }
+
+            stageUI.alpha = 0;
+            stageUI.gameObject.SetActive(false);
         }
     }
 }
