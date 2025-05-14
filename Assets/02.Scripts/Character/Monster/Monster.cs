@@ -57,4 +57,24 @@ public abstract class Monster : BaseCharacter
     }
 
     public abstract override void Attack();  // 자식 클래스에서 공격 방식을 정의
+    protected override void Die()
+    {
+        base.Die(); // 체력 0 처리 등 기본 사망 처리
+
+        // 플레이어에게 경험치 지급
+        if (player != null && monsterData != null)
+        {
+            Player playerScript = player.GetComponent<Player>();
+            if (playerScript != null)
+            {
+                playerScript.GetExp(monsterData.expReward);
+                Debug.Log($"{monsterData.monsterName} 처치 → EXP {monsterData.expReward} 획득");
+            }
+        }
+
+        // 몬스터 제거
+        Destroy(gameObject);
+    }
+
+
 }
