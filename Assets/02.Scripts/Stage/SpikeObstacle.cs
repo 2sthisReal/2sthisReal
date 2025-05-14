@@ -5,9 +5,8 @@ public class SpikeObstacle : MonoBehaviour
     [SerializeField] int damage = 5;
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.TryGetComponent(out Player player))
         {
-            Player player = other.GetComponent<Player>();
             player.TakeDamage(damage);
         }
     }

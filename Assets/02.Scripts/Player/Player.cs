@@ -142,8 +142,8 @@ public class Player : BaseCharacter
         if (collision.collider.CompareTag("Enemy"))
         {
             animator.SetTrigger("IsDamaged");
+            KnockbackPlayer(-(collision.transform.position - transform.position), 4f);
             TakeDamage(monster.attackDamage);
-            KnockbackPlayer(-(collision.transform.position - transform.position) , 4f);
         }
     }
 
@@ -217,7 +217,7 @@ public class Player : BaseCharacter
 
         currentHealth -= damage;
         SoundManager.PlayClip(damageClip);
-        if (currentHealth < 0)
+        if (currentHealth <= 0)
         {
             //GameOver();
             //SaveJson();
@@ -233,6 +233,8 @@ public class Player : BaseCharacter
 
     public void KnockbackPlayer(Vector2 vector, float force)
     {
+        if (invincible)
+            return;
         isKnockback = true;
         knockbackDuration = 0.125f;
         knockback = vector.normalized * force;
@@ -289,7 +291,12 @@ public class Player : BaseCharacter
         OnLevelChanged?.Invoke(level);
     }
 
+    public void Heal(float value)
+    {
+        currentHealth += value;
 
+        OnChangedHp?.Invoke(maxHealth, currentHealth);
+    }
 
 
 

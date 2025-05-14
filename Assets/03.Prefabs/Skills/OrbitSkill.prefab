@@ -45,5 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skill: {fileID: 0}
-  orbitSword: {fileID: 4300346981564477611, guid: 1882c44332fefab4a9489cd928c5a176, type: 3}
+  orbitSword: {fileID: 7541123822512052763, guid: 0364fa8ecf5da23498b0c5f4221f69e2, type: 3}
   damageScale: 1.5

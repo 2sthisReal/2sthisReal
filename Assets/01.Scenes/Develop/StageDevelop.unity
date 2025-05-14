@@ -148,7 +148,7 @@ Transform:
   m_GameObject: {fileID: 24910013}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.95, y: 3.95, z: 0}
+  m_LocalPosition: {x: 0.5, y: 3.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -499,7 +499,7 @@ Transform:
   m_GameObject: {fileID: 1298921293}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.4, y: 3.9, z: 0}
+  m_LocalPosition: {x: -1.5, y: 3.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -573,7 +573,7 @@ MonoBehaviour:
   itemPrefabs:
   - {fileID: 6951062557767858214, guid: 699ebc1a232004f4ea08244df863d847, type: 3}
   - {fileID: 383019405079115151, guid: 58b14a3f9c9ef814d9740d4832f4b0d3, type: 3}
-  stageID: 151
+  stageID: 152
   baseTileMap: {fileID: 8391637364693465731, guid: f3b78d80a40343c448d2c49b175cd6da, type: 3}
   monsterPoint: {fileID: 131240737}
   obstaclePoint: {fileID: 361833880}

@@ -1,26 +1,34 @@
 using System.Collections;
 using UnityEngine;
 
-/// <summary>
-/// BossMonster´Â ´Ù¾çÇÑ ÆÐÅÏÀ¸·Î °ø°ÝÇÏ´Â º¸½º ¸ó½ºÅÍÀÔ´Ï´Ù.
-/// - ¼øÂ÷ÀûÀÎ FSM ±¸Á¶·Î 4°¡Áö ÆÐÅÏÀ» ½ÇÇàÇÕ´Ï´Ù.
-/// </summary>
-public class BossMonster : MonoBehaviour
+public class BossMonster : Monster
 {
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½ ï¿½ï¿½ï¿½ï¿½
+    public GameObject shockwaveParticlePrefab;
     public GameObject straightProjectile;
     public GameObject fanProjectile;
-    public GameObject spiralProjectile;
-    public GameObject laserBeamPrefab;
-
     public Transform firePoint;
     public float patternCooldown = 2f;
 
-    private Transform player;
+    private Coroutine patternCoroutine;
 
-    private void Start()
+    protected override void Start()
     {
-        player = GameObject.FindWithTag("Player").transform;
-        StartCoroutine(PatternRoutine());
+        base.Start(); // Monsterï¿½ï¿½ Start() È£ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½ï¿½)
+
+        if (player != null)
+            patternCoroutine = StartCoroutine(PatternRoutine());
+    }
+
+    protected override void Update()
+    {
+
+    }
+
+    public override void Attack()
+    {
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Attack()ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ FSM ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        // ï¿½Ê¿ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
     private IEnumerator PatternRoutine()
@@ -33,28 +41,19 @@ public class BossMonster : MonoBehaviour
             yield return FanShot();
             yield return new WaitForSeconds(patternCooldown);
 
-            yield return SpiralShot();
-            yield return new WaitForSeconds(patternCooldown);
-
-            yield return RotatingLaser();
+            yield return DashAndShockwave();
             yield return new WaitForSeconds(patternCooldown);
         }
     }
 
-    /// <summary>
-    /// Á÷¼± Åõ»çÃ¼ 1°³¸¦ ÇÃ·¹ÀÌ¾î ¹æÇâÀ¸·Î ¹ß»ç
-    /// </summary>
     private IEnumerator StraightShot()
     {
         Vector2 dir = (player.position - firePoint.position).normalized;
         GameObject bullet = Instantiate(straightProjectile, firePoint.position, Quaternion.identity);
-        bullet.GetComponent<Rigidbody2D>().velocity = dir * 5f;
+        bullet.GetComponent<Projectile>().Initialize(dir, 10f);
         yield return null;
     }
 
-    /// <summary>
-    /// ºÎÃ¤²Ã·Î Åõ»çÃ¼ ¿©·¯ °³¸¦ ¹ß»ç
-    /// </summary>
     private IEnumerator FanShot()
     {
         int count = 5;
@@ -65,54 +64,70 @@ public class BossMonster : MonoBehaviour
         {
             float angle = startAngle + angleStep * i;
             Vector2 dir = Quaternion.Euler(0, 0, angle) * Vector2.right;
+
             GameObject bullet = Instantiate(fanProjectile, firePoint.position, Quaternion.identity);
-            bullet.GetComponent<Rigidbody2D>().velocity = dir * 5f;
+            bullet.GetComponent<Projectile>().Initialize(dir.normalized, 8f);
         }
 
         yield return null;
     }
 
-    /// <summary>
-    /// ÀÏÁ¤ ½Ã°£µ¿¾È È¸ÀüÇÏ¸ç Åõ»çÃ¼¸¦ ³ª¼±ÇüÀ¸·Î ÆÛ¶ß¸²
-    /// </summary>
-    private IEnumerator SpiralShot()
+    private IEnumerator DashAndShockwave()
     {
-        int totalShots = 30;
-        float delay = 0.05f;
-        float angle = 0f;
+        float dashSpeed = 10f;
+        float dashDuration = 0.3f;
+        float shockwaveRadius = 2.5f;
+        float shockwaveDamage = 20f;
 
-        for (int i = 0; i < totalShots; i++)
-        {
-            float rad = angle * Mathf.Deg2Rad;
-            Vector2 dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
-            GameObject bullet = Instantiate(spiralProjectile, firePoint.position, Quaternion.identity);
-            bullet.GetComponent<Rigidbody2D>().velocity = dir * 4f;
-
-            angle += 12f; // È¸Àü °¢µµ Áõ°¡ (½ºÆÄÀÌ·² È¿°ú)
-            yield return new WaitForSeconds(delay);
-        }
-    }
-
-    /// <summary>
-    /// ·¹ÀÌÀú¸¦ »ý¼ºÇÏ°í È¸Àü½ÃÅ°´Â ÆÐÅÏ (¾Ö´Ï¸ÞÀÌ¼Ç¿ë)
-    /// </summary>
-    private IEnumerator RotatingLaser()
-    {
-        // ·¹ÀÌÀú¸¦ »ý¼ºÇÏ°í È¸Àü ½ÃÀÛ
-        GameObject laser = Instantiate(laserBeamPrefab, firePoint.position, Quaternion.identity);
-        laser.transform.parent = transform; // º¸½º ±âÁØ È¸Àü
-
-        float duration = 3f;
-        float rotationSpeed = 90f; // ÃÊ´ç È¸Àü °¢µµ
-
+        Vector2 dashDir = (player.position - transform.position).normalized;
         float timer = 0f;
-        while (timer < duration)
+
+        while (timer < dashDuration)
         {
-            transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime); // º¸½º ÀÚÃ¼ È¸Àü
+            transform.Translate(dashDir * dashSpeed * Time.deltaTime, Space.World);
             timer += Time.deltaTime;
             yield return null;
         }
 
-        Destroy(laser);
+        yield return new WaitForSeconds(0.2f);
+
+        CameraShaker.Instance?.Shake(0.3f, 0.2f);
+
+        if (shockwaveParticlePrefab != null)
+            Instantiate(shockwaveParticlePrefab, transform.position, Quaternion.identity);
+
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, shockwaveRadius);
+        foreach (var hit in hits)
+        {
+            if (hit.CompareTag("Player"))
+            {
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç°ï¿½!");
+                hit.GetComponent<Player>()?.TakeDamage(shockwaveDamage);
+            }
+        }
+
+        DebugDrawCircle(transform.position, shockwaveRadius, Color.red, 0.5f);
+    }
+
+    private void DebugDrawCircle(Vector3 center, float radius, Color color, float duration)
+    {
+        int segments = 32;
+        float angleStep = 360f / segments;
+
+        Vector3 prev = center + new Vector3(radius, 0f, 0f);
+        for (int i = 1; i <= segments; i++)
+        {
+            float angle = angleStep * i * Mathf.Deg2Rad;
+            Vector3 next = center + new Vector3(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius, 0f);
+            Debug.DrawLine(prev, next, color, duration);
+            prev = next;
+        }
+    }
+
+    protected override void Die()
+    {
+        base.Die();
+
+        GameManager.Instance.ChangeState(GameState.Victory);
     }
 }
