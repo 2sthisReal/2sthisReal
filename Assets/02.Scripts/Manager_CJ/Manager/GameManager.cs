@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
         skillManager = GetComponentInChildren<SkillManager>();
     }
 
-    #region ���� ��ȯ
+    #region Change & Set Game State
     public void ChangeState(GameState newState)
     {
         if (CurrentState == newState) return;
@@ -76,30 +76,27 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    #region ����
-    // �������� ���� �� �� �� ������ָ� �˴ϴ�. (Stage��)
+    #region Enemy Management
     public void RegisterEnemies(int count)
     {
         remainingEnemies = count;
-        Debug.Log($"[GameManager] Registered {count} enemies");
     }
 
-    // NotifyEnemyKilled()�� Die()���� ȣ�����ָ� �˴ϴ�. (Monster��)
     public void NotifyEnemyKilled()
     {
         if (CurrentState != GameState.InGame) return;
 
         remainingEnemies = Mathf.Max(remainingEnemies - 1, 0);
-        Debug.Log($"[GameManager] Enemy killed. Remaining: {remainingEnemies}");
 
         if(remainingEnemies <= 0)
         {
-            Debug.Log("[GameManager] All enemies defeated. Stage Clear.");
             //ChangeState(GameState.StageClear);
             stageManager.StageClear();
         }
     }
+    #endregion
 
+    #region Move Next Stage
     [ContextMenu("MoveToNextStage")]
     public void MoveToNextStage()
     {
@@ -107,12 +104,14 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    #region Player
     public void ResetPlayerSession()
     {
         Skills.Clear();
-        Debug.Log("[GameManager] Player session data has been reset");
     }
+    #endregion
 
+    #region Pause System
     public void PauseGame()
     {
         if (isPaused) return;
@@ -136,4 +135,5 @@ public class GameManager : MonoBehaviour
         else
             PauseGame();
     }
+    #endregion
 }
