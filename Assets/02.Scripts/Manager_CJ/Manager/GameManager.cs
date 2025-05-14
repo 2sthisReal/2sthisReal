@@ -13,8 +13,8 @@ public class GameManager : MonoBehaviour
     public event Action<GameState> OnGameStateChanged;
     [SerializeField] private UIManager uiManager;
 
-
     public EquipmentManager Equipment { get; private set; } = new();
+    public SkillManager skillManager { get; private set; } = new();
     public PetManager Pets { get; private set; } = new();
 
     private bool isPaused = false;
@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour
     #region Stage Progress
     private int remainingEnemies;
     private StageManager stageManager;
-    public SkillManager skillManager { get; private set; } = new();
     #endregion
 
     private void Awake()
