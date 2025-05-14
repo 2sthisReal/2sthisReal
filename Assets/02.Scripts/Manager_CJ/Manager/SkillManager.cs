@@ -66,6 +66,11 @@ public class SkillManager : MonoBehaviour
         }
     }
 
+    public void ResetSelectedSkills()
+    {
+        selectedSkills.Clear();
+    }
+
     //public void ApplySelectedSkillsToPlayer(PlayerController player, List<PetController> pets)
     //{
     //    foreach(var skill in SelectedSkills)

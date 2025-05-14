@@ -110,6 +110,7 @@ public class GameManager : MonoBehaviour
     public void ResetPlayerSession()
     {
         Skills.Clear();
+        skillManager.ResetSelectedSkills();
         Debug.Log("[GameManager] Player session data has been reset");
     }
 
