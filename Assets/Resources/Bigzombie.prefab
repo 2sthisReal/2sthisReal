@@ -276,6 +276,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8799509889887782572}
   - component: {fileID: 2413895456085568333}
+  - component: {fileID: 5094440319063999023}
   m_Layer: 0
   m_Name: MainSprite
   m_TagString: Untagged
@@ -350,6 +351,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &5094440319063999023
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6394871366561540154}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6925554845534187397
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,6 +415,7 @@ GameObject:
   - component: {fileID: 7088191998698567338}
   - component: {fileID: 3372241512097982638}
   - component: {fileID: 4695914431652321058}
+  - component: {fileID: 5930882598307022091}
   m_Layer: 0
   m_Name: Bigzombie
   m_TagString: Enemy
@@ -444,7 +467,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &3372241512097982638
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -477,7 +500,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.39}
+  m_Offset: {x: 0, y: -0.5489887}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -488,7 +511,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.6, y: 2.24}
+  m_Size: {x: 1.6, y: 1.9220226}
   m_EdgeRadius: 0
 --- !u!114 &4695914431652321058
 MonoBehaviour:
@@ -520,3 +543,17 @@ MonoBehaviour:
   fanProjectile: {fileID: 8634242765009965368, guid: c36a54ad9f4d3f64086fadb6d9e23d16, type: 3}
   firePoint: {fileID: 4635682562413490901}
   patternCooldown: 2
+--- !u!114 &5930882598307022091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9084551661998322311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f27896523e33b224da30946d2c29ba90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpbar: {fileID: 2405035479303297512}
+  character: {fileID: 4695914431652321058}

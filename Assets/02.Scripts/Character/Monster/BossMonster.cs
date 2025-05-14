@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BossMonster : Monster
 {
-    // ±âÁ¸ ÇÊµå À¯Áö
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½ ï¿½ï¿½ï¿½ï¿½
     public GameObject shockwaveParticlePrefab;
     public GameObject straightProjectile;
     public GameObject fanProjectile;
@@ -14,7 +14,7 @@ public class BossMonster : Monster
 
     protected override void Start()
     {
-        base.Start(); // MonsterÀÇ Start() È£Ãâ (µ¥ÀÌÅÍ ÃÊ±âÈ­ µî)
+        base.Start(); // Monsterï¿½ï¿½ Start() È£ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½ï¿½)
 
         if (player != null)
             patternCoroutine = StartCoroutine(PatternRoutine());
@@ -27,8 +27,8 @@ public class BossMonster : Monster
 
     public override void Attack()
     {
-        // º¸½º´Â Attack()À» Á÷Á¢ »ç¿ëÇÏÁö ¾Ê°í FSM ÆÐÅÏÀ¸·Î °ø°ÝÇÔ
-        // ÇÊ¿ä ½Ã ¹ßÂ÷±â ÆÐÅÏ °°Àº °øÅë °ø°ÝÀ» ³ÖÀ» ¼ö ÀÖÀ½
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Attack()ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ FSM ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        // ï¿½Ê¿ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
     private IEnumerator PatternRoutine()
@@ -101,7 +101,7 @@ public class BossMonster : Monster
         {
             if (hit.CompareTag("Player"))
             {
-                Debug.Log("Ãæ°ÝÆÄ ÇÇ°Ý!");
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç°ï¿½!");
                 hit.GetComponent<Player>()?.TakeDamage(shockwaveDamage);
             }
         }
@@ -122,5 +122,12 @@ public class BossMonster : Monster
             Debug.DrawLine(prev, next, color, duration);
             prev = next;
         }
+    }
+
+    protected override void Die()
+    {
+        base.Die();
+
+        GameManager.Instance.ChangeState(GameState.Victory);
     }
 }
