@@ -1,104 +1,118 @@
+using System.Collections;
 using UnityEngine;
 
-public class BossMonster : Monster
+/// <summary>
+/// BossMonster는 다양한 패턴으로 공격하는 보스 몬스터입니다.
+/// - 순차적인 FSM 구조로 4가지 패턴을 실행합니다.
+/// </summary>
+public class BossMonster : MonoBehaviour
 {
-    [Header("보스 특수 능력")]
-    public float healThreshold = 0.2f;     // 체력 회복 임계점 (최대 체력의 %)
-    public float healAmount = 0.3f;        // 회복량 (최대 체력의 %)
-    public float specialAttackThreshold = 0.5f;  // 특수 공격 발동 임계점
+    public GameObject straightProjectile;
+    public GameObject fanProjectile;
+    public GameObject spiralProjectile;
+    public GameObject laserBeamPrefab;
 
-    private bool hasHealed = false;    // 체력 회복 체크
-    private bool hasUsedSpecialAttack = false;  // 특수 공격 사용 여부
+    public Transform firePoint;
+    public float patternCooldown = 2f;
 
-    protected override void Update()
+    private Transform player;
+
+    private void Start()
     {
-        if (!isAlive || player == null) return;
-
-        float distance = Vector2.Distance(transform.position, player.position);
-
-        // 플레이어 추적
-        if (distance <= detectionRange && distance > attackRange)
-        {
-            Vector2 dir = (player.position - transform.position).normalized;
-            Move(dir);
-        }
-        else if (distance <= attackRange)
-        {
-            // 공격 범위 내에 들어오면 공격
-            Move(Vector2.zero);
-            attackCooldown -= Time.deltaTime;
-            if (attackCooldown <= 0)
-            {
-                Attack();
-                attackCooldown = 1f / attackSpeed;
-            }
-        }
-        else
-        {
-            Move(Vector2.zero);
-        }
-
-        // 특수 능력 발동 체크
-        CheckSpecialAbilities();
+        player = GameObject.FindWithTag("Player").transform;
+        StartCoroutine(PatternRoutine());
     }
 
-    private void CheckSpecialAbilities()
+    private IEnumerator PatternRoutine()
     {
-        // 체력 회복 체크
-        if (!hasHealed && currentHealth <= maxHealth * healThreshold)
+        while (true)
         {
-            Heal();
-            hasHealed = true;
-        }
+            yield return StraightShot();
+            yield return new WaitForSeconds(patternCooldown);
 
-        // 특수 공격 체크 (예: 체력이 50% 이하일 때)
-        if (!hasUsedSpecialAttack && currentHealth <= maxHealth * specialAttackThreshold)
-        {
-            SpecialAttack();
-            hasUsedSpecialAttack = true;
+            yield return FanShot();
+            yield return new WaitForSeconds(patternCooldown);
+
+            yield return SpiralShot();
+            yield return new WaitForSeconds(patternCooldown);
+
+            yield return RotatingLaser();
+            yield return new WaitForSeconds(patternCooldown);
         }
     }
 
-    public override void Attack()
+    /// <summary>
+    /// 직선 투사체 1개를 플레이어 방향으로 발사
+    /// </summary>
+    private IEnumerator StraightShot()
     {
-        // 기본 공격 로직
-        Debug.Log($"{characterName}가 공격을 시작합니다.");
+        Vector2 dir = (player.position - firePoint.position).normalized;
+        GameObject bullet = Instantiate(straightProjectile, firePoint.position, Quaternion.identity);
+        bullet.GetComponent<Rigidbody2D>().velocity = dir * 5f;
+        yield return null;
+    }
 
-        // 근접 공격 로직
-        if (Vector2.Distance(transform.position, player.position) <= attackRange)
+    /// <summary>
+    /// 부채꼴로 투사체 여러 개를 발사
+    /// </summary>
+    private IEnumerator FanShot()
+    {
+        int count = 5;
+        float angleStep = 15f;
+        float startAngle = -angleStep * (count - 1) / 2f;
+
+        for (int i = 0; i < count; i++)
         {
-            animator.SetTrigger("Attack");
-            player.GetComponent<BaseCharacter>()?.TakeDamage(attackDamage);
+            float angle = startAngle + angleStep * i;
+            Vector2 dir = Quaternion.Euler(0, 0, angle) * Vector2.right;
+            GameObject bullet = Instantiate(fanProjectile, firePoint.position, Quaternion.identity);
+            bullet.GetComponent<Rigidbody2D>().velocity = dir * 5f;
+        }
+
+        yield return null;
+    }
+
+    /// <summary>
+    /// 일정 시간동안 회전하며 투사체를 나선형으로 퍼뜨림
+    /// </summary>
+    private IEnumerator SpiralShot()
+    {
+        int totalShots = 30;
+        float delay = 0.05f;
+        float angle = 0f;
+
+        for (int i = 0; i < totalShots; i++)
+        {
+            float rad = angle * Mathf.Deg2Rad;
+            Vector2 dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
+            GameObject bullet = Instantiate(spiralProjectile, firePoint.position, Quaternion.identity);
+            bullet.GetComponent<Rigidbody2D>().velocity = dir * 4f;
+
+            angle += 12f; // 회전 각도 증가 (스파이럴 효과)
+            yield return new WaitForSeconds(delay);
         }
     }
 
-    private void Heal()
+    /// <summary>
+    /// 레이저를 생성하고 회전시키는 패턴 (애니메이션용)
+    /// </summary>
+    private IEnumerator RotatingLaser()
     {
-        float healAmountValue = maxHealth * healAmount;
-        currentHealth = Mathf.Min(currentHealth + healAmountValue, maxHealth);
+        // 레이저를 생성하고 회전 시작
+        GameObject laser = Instantiate(laserBeamPrefab, firePoint.position, Quaternion.identity);
+        laser.transform.parent = transform; // 보스 기준 회전
 
-        // 이펙트 및 로그
-        Debug.Log($"{characterName}가 체력을 회복했습니다. 현재 체력: {currentHealth}/{maxHealth}");
+        float duration = 3f;
+        float rotationSpeed = 90f; // 초당 회전 각도
 
-        // 회복 이펙트나 애니메이션 추가 (예시)
-        animator.SetTrigger("Heal");
-    }
-
-    private void SpecialAttack()
-    {
-        Debug.Log($"{characterName}가 특수 공격을 사용합니다!");
-
-        // 특수 공격 로직 구현 (예: 광역 데미지, 소환 등)
-        animator.SetTrigger("SpecialAttack");
-
-        // 특수 공격 예시 (광역 데미지)
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, attackRange * 2);
-        foreach (Collider2D hitCollider in hitColliders)
+        float timer = 0f;
+        while (timer < duration)
         {
-            if (hitCollider.CompareTag("Player"))
-            {
-                hitCollider.GetComponent<BaseCharacter>()?.TakeDamage(attackDamage * 2);
-            }
+            transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime); // 보스 자체 회전
+            timer += Time.deltaTime;
+            yield return null;
         }
+
+        Destroy(laser);
     }
 }
