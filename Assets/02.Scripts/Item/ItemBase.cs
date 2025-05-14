@@ -9,13 +9,13 @@ public abstract class ItemBase : MonoBehaviour
 
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.TryGetComponent(out Player player))
         {
-            UseItem(other.GetComponent<BaseCharacter>());
+            UseItem(player);
         }
     }
 
-    virtual protected void UseItem(BaseCharacter player)
+    virtual protected void UseItem(Player player)
     {
         if (hasDuration)
             StartCoroutine(UseItemCoroutine(player));
@@ -29,9 +29,9 @@ public abstract class ItemBase : MonoBehaviour
         
     }
 
-    abstract protected void ApplyStat(BaseCharacter player, float value);
+    abstract protected void ApplyStat(Player player, float value);
 
-    virtual protected IEnumerator UseItemCoroutine(BaseCharacter player)
+    virtual protected IEnumerator UseItemCoroutine(Player player)
     {
         GetComponentInChildren<SpriteRenderer>().enabled = false;
         GetComponent<Collider2D>().enabled = false;

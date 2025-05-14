@@ -6,7 +6,13 @@ namespace Jang
 {
     public class StagePresetTool : MonoBehaviour
     {
-        [SerializeField] public StageManager stageManager;
+        [Header("Preview Settings")]
+        GameObject preview;
+        [SerializeField] GameObject[] monsterPrefabs;
+        [SerializeField] GameObject[] obstaclePrefabs;
+        [SerializeField] GameObject[] itemPrefabs;
+
+        [Header("Editor Settings")]
         public int stageID = 101;
         public GameObject baseTileMap;
         [SerializeField] Transform monsterPoint;
@@ -23,9 +29,7 @@ namespace Jang
         {
             if (drawGizmos)
             {
-                monsterPoints = monsterPoint.GetComponentsInChildren<Transform>().Where(t => t != monsterPoint).ToList();
-                obstaclePoints = obstaclePoint.GetComponentsInChildren<Transform>().Where(t => t != obstaclePoint).ToList();
-                itemPoints = itemPoint.GetComponentsInChildren<Transform>().Where(t => t != itemPoint).ToList();
+                GetPoints();
 
                 // 몬스터 위치 표시
                 Gizmos.color = Color.red;
@@ -48,6 +52,38 @@ namespace Jang
             foreach (var point in points)
             {
                 Gizmos.DrawCube(point.position, Vector3.one);
+            }
+        }
+
+        void GetPoints()
+        {
+            monsterPoints = monsterPoint.GetComponentsInChildren<Transform>().Where(t => t != monsterPoint).ToList();
+            obstaclePoints = obstaclePoint.GetComponentsInChildren<Transform>().Where(t => t != obstaclePoint).ToList();
+            itemPoints = itemPoint.GetComponentsInChildren<Transform>().Where(t => t != itemPoint).ToList();
+        }
+
+        public void PreviewStage()
+        {
+            if(preview != null) Destroy(preview);
+            
+            preview = new GameObject("Preview");
+
+            Instantiate(baseTileMap, preview.transform);
+
+            SpawnObjects(monsterPoints, monsterPrefabs);
+            SpawnObjects(obstaclePoints, obstaclePrefabs);
+            SpawnObjects(itemPoints, itemPrefabs);
+        }
+
+        void SpawnObjects(List<Transform> points, GameObject[] prefabs)
+        {
+            if (points == null || prefabs == null) return;
+
+            foreach (var point in points)
+            {
+                int random = UnityEngine.Random.Range(0, prefabs.Length);
+                GameObject obj = Instantiate(prefabs[random], point.position, Quaternion.identity);
+                obj.transform.SetParent(preview.transform);
             }
         }
     }

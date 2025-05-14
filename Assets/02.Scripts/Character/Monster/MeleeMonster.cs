@@ -68,6 +68,11 @@ public class MeleeMonster : Monster
         }
     }
 
+    protected override void Die()
+    {
+        base.Die();
+    }
+
     private IEnumerator DelayedMeleeDamage()
     {
         yield return new WaitForSeconds(0.3f);
@@ -80,8 +85,8 @@ public class MeleeMonster : Monster
             Player playerCharacter = player.GetComponent<Player>();
             if (playerCharacter != null)
             {
-                playerCharacter.TakeDamage(attackDamage);
                 playerCharacter.KnockbackPlayer(directionVector, 5f);
+                playerCharacter.TakeDamage(attackDamage);
                 Debug.Log($"{characterName}�� {attackDamage} �������� �����߽��ϴ�.");
             }
             else

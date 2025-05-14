@@ -9,6 +9,8 @@ namespace SWScene
     {
         [SerializeField] private Button restartButton;
         [SerializeField] private Button homeButton;
+        [SerializeField] AudioClip winClip;
+
         protected override GameState GetUIState()
         {
             return GameState.Victory;
@@ -27,6 +29,11 @@ namespace SWScene
                 {
                     GameManager.Instance.ChangeState(GameState.MainMenu);
                 });
+        }
+
+        protected override void OnEnable()
+        {
+            SoundManager.PlayClip(winClip);
         }
     }
 }

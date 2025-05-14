@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9121044751895414608}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 5157348256569657415}
   - component: {fileID: 4854584697376386988}
   - component: {fileID: 1174391560977348121}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4019,7 +4019,7 @@ GameObject:
   - component: {fileID: 5150480847795960039}
   - component: {fileID: 8268971069587440174}
   - component: {fileID: 7649839835052818158}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -5252,7 +5252,7 @@ GameObject:
   - component: {fileID: 545281241969468565}
   - component: {fileID: 7190906829710510914}
   - component: {fileID: 1377838241671478510}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Deco
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5847,7 +5847,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3276502059602338954}
   - component: {fileID: 2624163629313144326}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Boss_Stage
   m_TagString: Untagged
   m_Icon: {fileID: 0}

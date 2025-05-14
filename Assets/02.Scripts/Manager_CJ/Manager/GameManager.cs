@@ -22,7 +22,8 @@ public class GameManager : MonoBehaviour
 
     #region Stage Progress
     private int remainingEnemies;
-    private StageManager stageManager;
+
+    public StageManager stageManager {get; private set;}
     #endregion
 
     private void Awake()
@@ -107,6 +108,7 @@ public class GameManager : MonoBehaviour
     public void ResetPlayerSession()
     {
         skillManager.Clear();
+        skillManager.ResetSelectedSkills();
     }
     #endregion
 

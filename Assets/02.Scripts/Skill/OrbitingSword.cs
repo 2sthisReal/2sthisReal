@@ -12,11 +12,12 @@ public class OrbitingSword : MonoBehaviour
 
     float currentAngle;
 
-    public void Init(Transform center, Player player, float damageScale)
+    public void Init(Transform center, Player player, float damageScale, float angleOffset)
     {
         this.center = center;
         this.player = player;
         this.damageScale = damageScale;
+        this.angleOffset = angleOffset;
     }
 
     void Update()
@@ -41,9 +42,9 @@ public class OrbitingSword : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Enemy"))
+        if(collision.TryGetComponent(out Monster monster))
         {
-            collision.GetComponent<BaseCharacter>().TakeDamage(damageScale * player.attackDamage);
+            monster.TakeDamage(damageScale * player.attackDamage);
             SoundManager.PlayClip(swordHit);
         }
     }

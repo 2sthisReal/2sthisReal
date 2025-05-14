@@ -21,12 +21,6 @@ EditorBuildSettings:
     path: Assets/01.Scenes/PreparingScene.unity
     guid: 4311d34f3bf839e479ee5b957574a30a
   - enabled: 1
-    path: Assets/01.Scenes/StageClearScene.unity
-    guid: 03ee780865a8a654bbc5e4e8e7507801
-  - enabled: 1
     path: Assets/01.Scenes/VictoryScene.unity
     guid: 15a4db5a4a43e944aa33f417a82fbebd
-  - enabled: 1
-    path: Assets/01.Scenes/SkillSelectScene.unity
-    guid: 796f398ee6d20904e97e84eea28eed8f
   m_configObjects: {}

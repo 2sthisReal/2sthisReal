@@ -117,7 +117,7 @@ namespace Jang
                 return;
             }
 
-            tool.stageManager.PreviewStage(preset);
+            tool.PreviewStage();
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 
 
@@ -13,7 +14,7 @@ public class ProjectileController : MonoBehaviour
     Player player;
     public AudioClip arrowSound;
     public AudioClip arrowHit;
-    float arrowSustain = 5f;
+    float arrowSustain = 3f;
 
 
     private double projectileDamage = 0;
@@ -71,12 +72,12 @@ public class ProjectileController : MonoBehaviour
         if (collision.CompareTag("Enemy"))
         {
             Monster monster = collision.gameObject.GetComponent<Monster>();
+            SoundManager.PlayClip(arrowHit);
 
             if (monster != null)
             {
                 CritCalculator();
                 monster.TakeDamage((float)projectileDamage);
-                SoundManager.PlayClip(arrowHit);
                 projectileDamage = player.attackDamage;
             }
 
@@ -103,6 +104,7 @@ public class ProjectileController : MonoBehaviour
         }
         else if (collision.CompareTag("Wall"))
         {
+            SoundManager.PlayClip(arrowHit);
             // 벽 반사가 존재한다면 벽 반사
             if (canWallReflect)
             {
