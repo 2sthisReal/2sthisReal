@@ -7,10 +7,9 @@ using UnityEngine;
 /// </summary>
 public class BossMonster : MonoBehaviour
 {
+    public GameObject shockwaveParticlePrefab; // Inspector에서 할당
     public GameObject straightProjectile;
     public GameObject fanProjectile;
-    public GameObject spiralProjectile;
-    public GameObject laserBeamPrefab;
 
     public Transform firePoint;
     public float patternCooldown = 2f;
@@ -33,10 +32,7 @@ public class BossMonster : MonoBehaviour
             yield return FanShot();
             yield return new WaitForSeconds(patternCooldown);
 
-            yield return SpiralShot();
-            yield return new WaitForSeconds(patternCooldown);
-
-            yield return RotatingLaser();
+            yield return DashAndShockwave();
             yield return new WaitForSeconds(patternCooldown);
         }
     }
@@ -48,7 +44,7 @@ public class BossMonster : MonoBehaviour
     {
         Vector2 dir = (player.position - firePoint.position).normalized;
         GameObject bullet = Instantiate(straightProjectile, firePoint.position, Quaternion.identity);
-        bullet.GetComponent<Rigidbody2D>().velocity = dir * 5f;
+        bullet.GetComponent<Projectile>().Initialize(dir, 10f); // 방향과 데미지 설정
         yield return null;
     }
 
@@ -65,54 +61,69 @@ public class BossMonster : MonoBehaviour
         {
             float angle = startAngle + angleStep * i;
             Vector2 dir = Quaternion.Euler(0, 0, angle) * Vector2.right;
+
             GameObject bullet = Instantiate(fanProjectile, firePoint.position, Quaternion.identity);
-            bullet.GetComponent<Rigidbody2D>().velocity = dir * 5f;
+            bullet.GetComponent<Projectile>().Initialize(dir.normalized, 8f);
         }
 
         yield return null;
     }
 
-    /// <summary>
-    /// 일정 시간동안 회전하며 투사체를 나선형으로 퍼뜨림
-    /// </summary>
-    private IEnumerator SpiralShot()
+
+    private IEnumerator DashAndShockwave()
     {
-        int totalShots = 30;
-        float delay = 0.05f;
-        float angle = 0f;
+        float dashSpeed = 10f;
+        float dashDuration = 0.3f;
+        float shockwaveRadius = 2.5f;
+        float shockwaveDamage = 20f;
 
-        for (int i = 0; i < totalShots; i++)
-        {
-            float rad = angle * Mathf.Deg2Rad;
-            Vector2 dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
-            GameObject bullet = Instantiate(spiralProjectile, firePoint.position, Quaternion.identity);
-            bullet.GetComponent<Rigidbody2D>().velocity = dir * 4f;
-
-            angle += 12f; // 회전 각도 증가 (스파이럴 효과)
-            yield return new WaitForSeconds(delay);
-        }
-    }
-
-    /// <summary>
-    /// 레이저를 생성하고 회전시키는 패턴 (애니메이션용)
-    /// </summary>
-    private IEnumerator RotatingLaser()
-    {
-        // 레이저를 생성하고 회전 시작
-        GameObject laser = Instantiate(laserBeamPrefab, firePoint.position, Quaternion.identity);
-        laser.transform.parent = transform; // 보스 기준 회전
-
-        float duration = 3f;
-        float rotationSpeed = 90f; // 초당 회전 각도
-
+        Vector2 dashDir = (player.position - transform.position).normalized;
         float timer = 0f;
-        while (timer < duration)
+
+        while (timer < dashDuration)
         {
-            transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime); // 보스 자체 회전
+            transform.Translate(dashDir * dashSpeed * Time.deltaTime, Space.World);
             timer += Time.deltaTime;
             yield return null;
         }
 
-        Destroy(laser);
+        yield return new WaitForSeconds(0.2f);
+
+        // 카메라 흔들기
+        CameraShaker.Instance?.Shake(0.3f, 0.2f);
+
+        // 파티클 생성
+        if (shockwaveParticlePrefab != null)
+            Instantiate(shockwaveParticlePrefab, transform.position, Quaternion.identity);
+
+        // 충격파 데미지 처리
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, shockwaveRadius);
+        foreach (var hit in hits)
+        {
+            if (hit.CompareTag("Player"))
+            {
+                Debug.Log("충격파 피격!");
+                hit.GetComponent<Player>()?.TakeDamage(shockwaveDamage);
+            }
+        }
+
+        DebugDrawCircle(transform.position, shockwaveRadius, Color.red, 0.5f);
     }
+
+    void DebugDrawCircle(Vector3 center, float radius, Color color, float duration)
+    {
+        int segments = 32;
+        float angleStep = 360f / segments;
+
+        Vector3 prev = center + new Vector3(radius, 0f, 0f);
+        for (int i = 1; i <= segments; i++)
+        {
+            float angle = angleStep * i * Mathf.Deg2Rad;
+            Vector3 next = center + new Vector3(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius, 0f);
+            Debug.DrawLine(prev, next, color, duration);
+            prev = next;
+        }
+    }
+
+
 }
