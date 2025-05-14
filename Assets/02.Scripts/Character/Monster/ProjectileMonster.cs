@@ -97,4 +97,8 @@ public class ProjectileMonster : Monster
             Gizmos.DrawWireSphere(transform.position, detectionRange);
         }
     }
+    protected override void Die()
+    {
+        base.Die();
+    }
 }

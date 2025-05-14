@@ -35,12 +35,15 @@ public class BossMonster : Monster
     {
         while (true)
         {
+            FacePlayer();
             yield return StraightShot();
             yield return new WaitForSeconds(patternCooldown);
 
+            FacePlayer();
             yield return FanShot();
             yield return new WaitForSeconds(patternCooldown);
 
+            FacePlayer();
             yield return DashAndShockwave();
             yield return new WaitForSeconds(patternCooldown);
         }
@@ -49,7 +52,7 @@ public class BossMonster : Monster
     private IEnumerator StraightShot()
     {
         Vector2 dir = (player.position - firePoint.position).normalized;
-        GameObject bullet = Instantiate(straightProjectile, firePoint.position, Quaternion.identity);
+        GameObject bullet = Instantiate(straightProjectile, firePoint.position, Quaternion.FromToRotation(Vector3.right, dir));
         bullet.GetComponent<Projectile>().Initialize(dir, 10f);
         yield return null;
     }
@@ -60,13 +63,16 @@ public class BossMonster : Monster
         float angleStep = 15f;
         float startAngle = -angleStep * (count - 1) / 2f;
 
+        Vector2 baseDir = (player.position - firePoint.position).normalized;
+        float baseAngle = Mathf.Atan2(baseDir.y, baseDir.x) * Mathf.Rad2Deg;
+
         for (int i = 0; i < count; i++)
         {
-            float angle = startAngle + angleStep * i;
-            Vector2 dir = Quaternion.Euler(0, 0, angle) * Vector2.right;
+            float angle = baseAngle + startAngle + angleStep * i;
+            Vector2 dir = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad)).normalized;
 
-            GameObject bullet = Instantiate(fanProjectile, firePoint.position, Quaternion.identity);
-            bullet.GetComponent<Projectile>().Initialize(dir.normalized, 8f);
+            GameObject bullet = Instantiate(fanProjectile, firePoint.position, Quaternion.FromToRotation(Vector3.right, dir));
+            bullet.GetComponent<Projectile>().Initialize(dir, 8f);
         }
 
         yield return null;
@@ -129,5 +135,15 @@ public class BossMonster : Monster
         base.Die();
 
         GameManager.Instance.ChangeState(GameState.Victory);
+    }
+    private void FacePlayer()
+    {
+        Vector3 scale = transform.localScale;
+        if (player.position.x < transform.position.x)
+            scale.x = -Mathf.Abs(scale.x); // 왼쪽
+        else
+            scale.x = Mathf.Abs(scale.x); // 오른쪽
+
+        transform.localScale = scale;
     }
 }

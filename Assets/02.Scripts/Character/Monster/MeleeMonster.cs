@@ -68,6 +68,11 @@ public class MeleeMonster : Monster
         }
     }
 
+    protected override void Die()
+    {
+        base.Die();
+    }
+
     private IEnumerator DelayedMeleeDamage()
     {
         yield return new WaitForSeconds(0.3f);
