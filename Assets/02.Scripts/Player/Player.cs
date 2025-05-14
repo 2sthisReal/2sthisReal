@@ -144,7 +144,6 @@ public class Player : BaseCharacter
             animator.SetTrigger("IsDamaged");
             TakeDamage(monster.attackDamage);
             KnockbackPlayer(-(collision.transform.position - transform.position) , 4f);
-            ApplyKnockback(collision.transform);
         }
     }
 
@@ -230,14 +229,6 @@ public class Player : BaseCharacter
         StartCoroutine(BlinkAlpha(2.0f, 0.1f));
 
         OnChangedHp?.Invoke(maxHealth, currentHealth);
-    }
-
-    public void ApplyKnockback(Transform other)
-    {
-        isKnockback = true;
-        knockbackDuration = 0.125f;
-        knockback = -(other.position - transform.position).normalized * 4f;
-        rb.velocity = knockback;
     }
 
     public void KnockbackPlayer(Vector2 vector, float force)
