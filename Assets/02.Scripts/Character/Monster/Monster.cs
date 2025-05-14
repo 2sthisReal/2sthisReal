@@ -38,21 +38,23 @@ public abstract class Monster : BaseCharacter
     protected virtual void Update()
     {
         if (!isAlive || player == null) return;
-        // 추적 범위 안에 들어왔을 때 기본적인 행동 처리 (자식 클래스에서 필요 없을 시 오버라이드)
+
         float distance = Vector2.Distance(transform.position, player.position);
         if (distance <= detectionRange)
         {
-            Vector2 dir = (player.position - transform.position).normalized;
-            Move(dir);  // 이동
+            Vector2 moveDir = GetMoveDirection();
+
+            Move(moveDir);
+
             if (attackCooldown <= 0)
             {
                 Attack();
-                attackCooldown = 1f / attackSpeed;  // 공격 쿨다운
+                attackCooldown = 1f / attackSpeed;
             }
         }
         else
         {
-            Move(Vector2.zero);  // 플레이어가 범위 밖에 있으면 이동 안 함
+            Move(Vector2.zero);
         }
     }
 
@@ -75,6 +77,22 @@ public abstract class Monster : BaseCharacter
         // 몬스터 제거
         Destroy(gameObject);
     }
+    protected virtual Vector2 GetMoveDirection()
+    {
+        Vector2 dirToPlayer = (player.position - transform.position).normalized;
+        float avoidDistance = 0.5f;
+        LayerMask wallLayer = LayerMask.GetMask("Wall");
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, dirToPlayer, avoidDistance, wallLayer);
+        if (hit.collider != null)
+        {
+            // 벽에 막혔을 때 수직 방향으로 회피
+            return Vector2.Perpendicular(dirToPlayer).normalized;
+        }
+
+        return dirToPlayer;
+    }
+
 
 
 }
