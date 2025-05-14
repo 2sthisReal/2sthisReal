@@ -4582,7 +4582,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &630470407
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10097,7 +10097,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Legend of Rtan
+  m_text: Legend of Knight
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1877c414ec3dc0043bce0f8e3b1d706b, type: 2}
   m_sharedMaterial: {fileID: 7151177577909730787, guid: 1877c414ec3dc0043bce0f8e3b1d706b, type: 2}
@@ -10130,7 +10130,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
   m_fontSizeMax: 0
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
