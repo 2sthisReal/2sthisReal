@@ -107,7 +107,7 @@ namespace Jang
             stageMap = map;
 
             // 기본 타일맵 생성
-            GameObject baseMap = Instantiate(preset.baseTileMap, stageMap.transform);
+            Instantiate(preset.baseTileMap, stageMap.transform);
 
             // 오브젝트들 생성
             SpawnMonster(preset.monsterPoints);
