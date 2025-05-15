@@ -1,0 +1,54 @@
+{
+    "monsters": [
+        {
+            "id": "goblin",
+            "monsterName": "goblin",
+            "level": 5,
+            "maxHealth": 100,
+            "attackDamage": 15,
+            "attackSpeed": 1.2,
+            "moveSpeed": 2.5,
+            "attackRange": 5.0,
+            "prefabPath": "Goblin",
+            "type": 0,
+            "dropItems": [ "item_exp" ],
+            "dropRate": 0.5,
+            "expReward": 30,
+            "attackPattern": 1
+        },
+        {
+            "id": "chort",
+            "monsterName": "chort",
+            "level": 8,
+            "maxHealth": 150,
+            "attackDamage": 25,
+            "attackSpeed": 0.8,
+            "moveSpeed": 2,
+            "attackRange": 1.5,
+            "prefabPath": "Chort",
+            "type": 0,
+            "dropItems": [ "item_exp" ],
+            "dropRate": 0.6,
+            "expReward": 50,
+            "attackPattern": 0
+        },
+
+        {
+            "id": "big_zombie",
+            "monsterName": "BigZombie",
+            "level": 15,
+            "maxHealth": 5000,
+            "attackDamage": 40,
+            "attackSpeed": 0.6,
+            "moveSpeed": 1.5,
+            "attackRange": 2.0,
+            "prefabPath": "BigZombie",
+            "type": 2,
+            "dropItems": [ "item_exp", "item_core" ],
+            "dropRate": 1.0,
+            "expReward": 0,
+            "attackPattern": 0
+        }
+    ]
+
+}

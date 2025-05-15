@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1638c4c20491b0c4a9600801867842d3, type: 3}
+  m_Name: Pierce
+  m_EditorClassIdentifier: 
+  skillIcon: {fileID: 21300000, guid: ac5bd02cf81985c499b11e63dae5a4b6, type: 3}
+  skillName: Pierce
+  skillType: 1
+  skillValue: 0
+  skillDescription: "\uD654\uC0B4\uC774 \uBAAC\uC2A4\uD130\uB97C \uAD00\uD1B5\uD569\uB2C8\uB2E4."
+  skillBase: {fileID: 3265385365178549893, guid: a3032ce39522ed843995e490d4ae68df, type: 3}

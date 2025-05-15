@@ -1,0 +1,10 @@
+[
+    {
+        "equipmentID": "leather_armor",
+        "equipmentName": "Leather Armor",
+        "equipmentType": 1,
+        "bonusAttack": 0,
+        "bonusHealth": 25,
+        "iconPath": "Sprites/Icons/Armor"
+    }
+]
